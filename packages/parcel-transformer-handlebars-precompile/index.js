@@ -6,7 +6,7 @@ module.exports = new Transformer({
         const source = await asset.getCode();
         const precompiled = Handlebars.precompile(source);
         const js = `
-                import Handlebars from 'handlebars';
+                import Handlebars from 'handlebars/runtime';
                 const templateFunction = Handlebars.template(${precompiled});
                 export default templateFunction;
                 `;

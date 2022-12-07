@@ -1,4 +1,4 @@
-import Handlebars from 'handlebars';
+import Handlebars from 'handlebars/runtime';
 import * as Components from './components';
 import * as Pages from './pages';
 
