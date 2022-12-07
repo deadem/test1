@@ -1,0 +1,10 @@
+{
+  "name": "Middle-Frontend chat",
+  "version": "1.0.0",
+  "description": "Chat",
+  "engines": {
+    "node": ">=12"
+  },
+  "dependencies": {
+  }
+}
