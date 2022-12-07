@@ -1,0 +1,9 @@
+{
+  "name": "parcel-transformer-handlebars-precompile",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "ISC",
+  "engines": {
+    "parcel": "2.x"
+  }
+}
