@@ -1,3 +1,10 @@
-<div class="login-page">
-  {{> Input }}
-</div>
+<form class="login-page">
+  <div class="login-page__content">
+    {{> PageTitle title="Вход" }}
+    {{> InputField title="Логин" }}
+    {{> InputField title="Пароль" type="password" }}
+  </div>
+  <div class="login-page__footer">
+    {{> Button title="Авторизоваться" }}
+  </div>
+</form>

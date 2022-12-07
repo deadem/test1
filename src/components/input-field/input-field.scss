@@ -1,0 +1,13 @@
+.input-field {
+  margin-top: 30px;
+
+  &__title {
+    font-size: 13px;
+    line-height: 15px;
+    color: #999;
+  }
+
+  &__element {
+    border-bottom: 1px solid #3369f3;
+  }
+}

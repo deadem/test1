@@ -7,6 +7,5 @@ Object.entries(Components).forEach(([ name, component ]) => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  const root = document.getElementById('root');
-  root.innerHTML = Pages.LoginPage();
+  document.body.innerHTML = Pages.LoginPage();
 });

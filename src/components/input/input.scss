@@ -1,6 +1,15 @@
 .input {
+  height: 26px;
+
   &__element {
+    border: none;
     width: 100%;
-    border: 1px solid red;
+    height: 100%;
+    box-sizing: border-box;
+    font: inherit;
+
+    &:focus-visible {
+      outline: none;
+    }
   }
 }
