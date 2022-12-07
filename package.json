@@ -9,7 +9,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "parcel src/index.html --port 3000 --no-cache",
-    "build": "parcel build src/index.html --no-cache"
+    "build": "parcel build src/index.html --no-cache",
+    "start": "npm run build && node ./server.js"
   },
   "devDependencies": {
     "@anikin/parcel-transformer-handlebars-precompile": "^1.0.1",
