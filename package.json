@@ -1,10 +1,15 @@
 {
-  "name": "Middle-Frontend chat",
+  "name": "middle-frontend-chat",
   "version": "1.0.0",
-  "description": "Chat",
+  "description": "Middle-Frontend Chat",
+  "license": "ISC",
   "engines": {
     "node": ">=12"
   },
+  "devDependencies": {
+    "parcel": "^2.8.0"
+  },
   "dependencies": {
+    "express": "^4.18.2"
   }
 }
