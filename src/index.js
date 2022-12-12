@@ -3,6 +3,7 @@ import * as Components from './components';
 import * as Pages from './pages';
 
 const pages = {
+  'chat': Pages.ChatPage,
   'login': Pages.LoginPage,
   'registration': Pages.RegistrationPage,
 };

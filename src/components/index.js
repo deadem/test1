@@ -1,4 +1,7 @@
 export { Button } from './button';
+export { ChatHeader } from './chat-header';
+export { ChatList } from './chat-list';
+export { ChatMessage } from './chat-message';
 export { Dialog } from './dialog';
 export { Input } from './input';
 export { InputField } from './input-field';
