@@ -1,11 +1,13 @@
-<form class="login-page">
-  <div class="login-page__content">
-    {{> PageTitle title="Вход" }}
-    {{> InputField title="Логин" name="login" }}
-    {{> InputField title="Пароль" name="password" type="password" }}
-  </div>
-  <div class="login-page__footer">
-    {{> Button title="Авторизоваться" }}
-    {{> Link text="Нет аккаунта?" }}
-  </div>
-</form>
+{{#> Dialog }}
+  <form class="login-page">
+    <div class="login-page__content">
+      {{> PageTitle title="Вход" }}
+      {{> InputField title="Логин" name="login" }}
+      {{> InputField title="Пароль" name="password" type="password" }}
+    </div>
+    <div class="login-page__footer">
+      {{> Button title="Авторизоваться" }}
+      {{> Link text="Нет аккаунта?" page="registration" }}
+    </div>
+  </form>
+{{/ Dialog }}

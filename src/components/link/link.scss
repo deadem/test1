@@ -10,4 +10,8 @@
   cursor: pointer;
   font-size: 11px;
   line-height: 11px;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
