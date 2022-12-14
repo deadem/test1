@@ -14,4 +14,6 @@ export { Input } from './input';
 export { InputField } from './input-field';
 export { Link } from './link';
 export { PageTitle } from './page-title';
+export { ProfileField } from './profile-field';
+export { ProfileContent } from './profile-content';
 export { Search } from './search';

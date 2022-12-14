@@ -1,0 +1,11 @@
+.profile-content {
+  width: 510px;
+
+  &__field {
+    $this: &;
+
+    + #{$this} {
+      border-top: 1px solid #EAEAEA;
+    }
+  }
+}
