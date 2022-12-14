@@ -1,6 +1,15 @@
 <div class="chat-page">
   {{#> ChatList className="chat-page__list" }}
     Профиль
+    {{> ChatItem name="Андрей" message="Изображение" date="10:49" unread="2" }}
+    {{> ChatItem name="Киноклуб" message="Стикер" date="12:33" }}
+    {{> ChatItem name="Илья" message="У меня для вас особенный выпуск новостей!..." date="Пн" unread="4" }}
+    {{> ChatItem name="Вадим" current="1" message="Круто!" date="Пт" }}
+    {{> ChatItem name="тет-а-теты" message="И Human Interface Guidelines и Material Design рекомендуют..." date="Ср" }}
+    {{> ChatItem name="1, 2, 3" message="Миллионы россиян ежедневно проводят десятки часов свое..." date="Пн" }}
+    {{> ChatItem name="Design Destroyer" message="В 2008 году художник Jon Rafman начал собирать..." date="Ср" }}
+    {{> ChatItem name="Day." message="Так увлёкся работой по курсу, что совсем забыл его анонсир..." date="1 Мая 2020" }}
+    {{> ChatItem name="Стас Рогозин" message="Можно или сегодня или завтра вечером." date="12 Апр 2020" }}
   {{/ ChatList }}
 
   {{> ChatHeader className="chat-page__header" name="Вадим" }}

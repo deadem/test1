@@ -1,5 +1,6 @@
 export { Button } from './button';
 export { ChatHeader } from './chat-header';
+export { ChatItem } from './chat-item';
 export { ChatList } from './chat-list';
 export { ChatMessage } from './chat-message';
 export { Dialog } from './dialog';
