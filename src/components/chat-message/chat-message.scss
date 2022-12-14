@@ -1,3 +1,26 @@
 .chat-message {
+  $this: &;
+  background: #F8F8F8;
+  max-width: 400px;
+  padding: 11px;
+  border-radius: 0 12px 12px 12px;
+  position: relative;
 
+  + #{$this} {
+    margin-top: 10px;
+  }
+
+  &__text {
+    padding: 0;
+    margin: 10px 0 0;
+  }
+
+  &__time {
+    font-size: 9px;
+    line-height: 9px;
+    color: #999999;
+    position: absolute;
+    right: 11px;
+    bottom: 11px;
+  }
 }

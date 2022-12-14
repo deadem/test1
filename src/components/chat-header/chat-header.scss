@@ -1,3 +1,16 @@
 .chat-header {
+  display: flex;
+  align-items: center;
 
+  &__avatar {
+    height: 34px;
+    width: 34px;
+    background: #EFEFEF;
+    border-radius: 50%;
+  }
+
+  &__name {
+    padding-left: 10px;
+    font-weight: 600;
+  }
 }
