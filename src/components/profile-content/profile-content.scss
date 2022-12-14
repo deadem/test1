@@ -1,6 +1,22 @@
 .profile-content {
   width: 510px;
 
+  &__avatar {
+    margin: 0 auto;
+    height: 130px;
+    width: 130px;
+    background: #EFEFEF;
+    border-radius: 50%;
+  }
+
+  &__name {
+    margin: 20px 0 60px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 600;
+  }
+
   &__field {
     $this: &;
 
