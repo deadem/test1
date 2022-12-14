@@ -1,0 +1,14 @@
+.chat-list-header {
+  height: 100px;
+  padding: 20px 10px 14px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: end;
+
+  &__profile {
+    cursor: pointer;
+    color: #999999;
+  }
+}
