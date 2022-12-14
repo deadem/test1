@@ -1,6 +1,7 @@
 .chat-message-image {
   display: inline-block;
   position: relative;
+  align-self: flex-start;
 
   &__image {
     border: 1px solid #EAEAEA;

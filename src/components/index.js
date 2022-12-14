@@ -8,6 +8,7 @@ export { ChatList } from './chat-list';
 export { ChatListHeader } from './chat-list-header';
 export { ChatMessage } from './chat-message';
 export { ChatMessageImage } from './chat-message-image';
+export { ChatMessageMy } from './chat-message-my';
 export { Dialog } from './dialog';
 export { Input } from './input';
 export { InputField } from './input-field';

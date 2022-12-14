@@ -10,7 +10,7 @@
     width: 100%;
     display: grid;
     grid-template:
-      "l l l" 1px
+    "l l l" 1px
       "a n n" 13px
       "a m u" 1fr
       / 47px 1fr 50px;
@@ -18,9 +18,11 @@
     gap: 0 10px;
     padding: 12px 10px;
     box-sizing: border-box;
+    cursor: pointer;
 
     &--current {
       background: #E4EDFD;
+      cursor: default;
     }
   }
 

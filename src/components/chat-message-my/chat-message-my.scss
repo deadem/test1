@@ -1,10 +1,11 @@
-.chat-message {
-  background: #F8F8F8;
+.chat-message-my {
+  background: #E4EDFD;
   max-width: 400px;
   padding: 11px;
-  border-radius: 0 12px 12px 12px;
+  border-radius: 12px 12px 0 12px;
   position: relative;
-  align-self: flex-start;
+  display: inline-block;
+  align-self: flex-end;
 
   &__text {
     padding: 0;
@@ -12,10 +13,15 @@
     color: #1E1E1E;
   }
 
+  &__text-end {
+    display: inline-block;
+    width: 28px;
+  }
+
   &__time {
     font-size: 9px;
     line-height: 9px;
-    color: #999999;
+    color: #3369F3;
     position: absolute;
     right: 11px;
     bottom: 11px;

@@ -15,3 +15,9 @@ Handlebars.registerHelper('chat-content-image', () => {
     import.meta.url
   );
 });
+
+Handlebars.registerHelper('chat-content-text-my', () => {
+    return [
+      "Круто!",
+      ];
+  });
