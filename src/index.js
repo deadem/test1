@@ -4,6 +4,7 @@ import * as Pages from './pages';
 
 const pages = {
   'chat': Pages.ChatPage,
+  'error': Pages.ErrorPage,
   'login': Pages.LoginPage,
   'profile': Pages.ProfilePage,
   'registration': Pages.RegistrationPage,

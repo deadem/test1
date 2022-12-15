@@ -1,7 +1,7 @@
 .chat-message {
   background: #F8F8F8;
   max-width: 400px;
-  padding: 11px;
+  padding: 0 11px 11px;
   border-radius: 0 12px 12px 12px;
   position: relative;
   align-self: flex-start;
@@ -10,6 +10,12 @@
     padding: 0;
     margin: 10px 0 0;
     color: #1E1E1E;
+  }
+
+  &__text-end {
+    // распорка для отодвигания времени сообщения от текста
+    display: inline-block;
+    width: 28px;
   }
 
   &__time {

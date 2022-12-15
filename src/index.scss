@@ -18,3 +18,11 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+a {
+  color: #3369F3;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}

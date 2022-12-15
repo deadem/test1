@@ -1,6 +1,6 @@
 <div class="chat-message{{#if className}} {{className}}{{/if}}">
   {{#each text}}
-    <p class="chat-message__text">{{this}}</p>
+    <p class="chat-message__text">{{{this}}}<span class="chat-message__text-end"></span></p>
   {{/each}}
   <div class="chat-message__time">{{time}}</div>
 </div>

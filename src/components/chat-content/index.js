@@ -9,6 +9,12 @@ Handlebars.registerHelper('chat-content-text', () => {
     ];
 });
 
+Handlebars.registerHelper('chat-content-text-error', () => {
+  return [
+    "<a href page='error'>Ссылка на страницу с ошибкой</a>"
+  ];
+});
+
 Handlebars.registerHelper('chat-content-image', () => {
   return new URL(
     '../../assets/chat-message-image.png',
