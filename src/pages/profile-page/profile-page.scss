@@ -21,10 +21,30 @@
     cursor: pointer;
   }
 
-  &__content {
+  &__center {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  &__splitter {
+    height: 60px;
+  }
+
+  &__footer {
+    height: 110px;
+  }
+
+  &__field {
+    $this: &;
+
+    + #{$this} {
+      border-top: 1px solid #EAEAEA;
+    }
+  }
+
+  &__button-save {
+    width: 280px;
   }
 }

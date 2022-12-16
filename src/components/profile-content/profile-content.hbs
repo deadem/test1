@@ -1,14 +1,10 @@
 <div class="profile-content">
   <div class="profile-content__avatar"></div>
-  <div class="profile-content__name">Иван</div>
+  <div class="profile-content__name{{#if edit}} profile-content__name--hidden{{/if}}">Иван</div>
   {{> ProfileField className="profile-content__field" name="Почта" value="pochta@yandex.ru"}}
   {{> ProfileField className="profile-content__field" name="Логин" value="ivanivanov"}}
   {{> ProfileField className="profile-content__field" name="Имя" value="Иван"}}
   {{> ProfileField className="profile-content__field" name="Фамилия" value="Иванов"}}
   {{> ProfileField className="profile-content__field" name="Имя в чате" value="Иван"}}
   {{> ProfileField className="profile-content__field" name="Телефон" value="+7 (909) 967 30 30"}}
-  <div class="profile-content__splitter"></div>
-  {{> ProfileLink className="profile-content__field" name="Изменить данные" page="profile"}}
-  {{> ProfileLink className="profile-content__field" name="Изменить пароль" page="profile"}}
-  {{> ProfileLink className="profile-content__field" name="Выйти" page="login" color="red"}}
 </div>

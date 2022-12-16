@@ -3,11 +3,12 @@ import * as Components from './components';
 import * as Pages from './pages';
 
 const pages = {
-  'chat': Pages.ChatPage,
-  'error': Pages.ErrorPage,
-  'login': Pages.LoginPage,
-  'profile': Pages.ProfilePage,
-  'registration': Pages.RegistrationPage,
+  'chat': [ Pages.ChatPage ],
+  'error': [ Pages.ErrorPage ],
+  'login': [ Pages.LoginPage ],
+  'profile': [ Pages.ProfilePage ],
+  'profile-edit': [ Pages.ProfilePage, { edit: true } ],
+  'registration': [ Pages.RegistrationPage ],
 };
 
 Object.entries(Components).forEach(([ name, component ]) => {
@@ -15,7 +16,8 @@ Object.entries(Components).forEach(([ name, component ]) => {
 });
 
 function Navigate(page) {
-  document.body.innerHTML = pages[page]();
+  const template = pages[page];
+  document.body.innerHTML = template[0](template[1]);
 }
 
 document.addEventListener('DOMContentLoaded', () => Navigate('login'));
