@@ -12,5 +12,9 @@
     &:focus-visible {
       outline: none;
     }
+
+    &--align-right {
+      text-align: right;
+    }
   }
 }
