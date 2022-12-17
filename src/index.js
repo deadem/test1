@@ -8,6 +8,7 @@ const pages = {
   'login': [ Pages.LoginPage ],
   'profile': [ Pages.ProfilePage ],
   'profile-edit': [ Pages.ProfilePage, { edit: true } ],
+  'profile-edit-password': [ Pages.ProfilePage, { edit: true, password: true } ],
   'registration': [ Pages.RegistrationPage ],
 };
 
