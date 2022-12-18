@@ -14,6 +14,7 @@ export { DialogModal } from './dialog-modal';
 export { Input } from './input';
 export { InputField } from './input-field';
 export { Link } from './link';
+export { Menu } from './menu';
 export { PageTitle } from './page-title';
 export { ProfileContent } from './profile-content';
 export { ProfileField } from './profile-field';

@@ -1,0 +1,8 @@
+<div class="menu{{#if className}} {{className}}{{/if}}">
+  {{#each menu}}
+    <div class="menu__item" page="{{this.page}}">
+      <div class="menu__item-icon"></div>
+      {{this.text}}
+    </div>
+  {{/each}}
+</div>
