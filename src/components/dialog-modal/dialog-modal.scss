@@ -4,6 +4,7 @@
     inset: 0;
     background: #000;
     opacity: 0.4;
+    z-index: 1;
   }
 
   &__main {
@@ -12,6 +13,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1;
   }
 
   &__content {

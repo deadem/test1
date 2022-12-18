@@ -21,3 +21,4 @@ export { ProfileField } from './profile-field';
 export { ProfileLink } from './profile-link';
 export { Search } from './search';
 export { UploadFile } from './upload-file';
+export { UserAdd } from './user-add';

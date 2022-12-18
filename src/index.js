@@ -5,6 +5,7 @@ import * as Pages from './pages';
 const pages = {
   'chat': [ Pages.ChatPage ],
   'chat-menu-user': [ Pages.ChatPage, { menu: true } ],
+  'chat-user-add': [ Pages.ChatPage, { useradd: true } ],
   'error': [ Pages.ErrorPage ],
   'login': [ Pages.LoginPage ],
   'profile': [ Pages.ProfilePage ],
