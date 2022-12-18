@@ -7,6 +7,7 @@ const pages = {
   'error': [ Pages.ErrorPage ],
   'login': [ Pages.LoginPage ],
   'profile': [ Pages.ProfilePage ],
+  'profile-avatar-upload': [ Pages.ProfilePage, { upload: true } ],
   'profile-edit': [ Pages.ProfilePage, { edit: true } ],
   'profile-edit-password': [ Pages.ProfilePage, { edit: true, password: true } ],
   'registration': [ Pages.RegistrationPage ],

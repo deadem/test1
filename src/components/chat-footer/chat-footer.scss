@@ -12,10 +12,6 @@
     height: 32px;
     box-sizing: border-box;
     flex: 1;
-
-    &:focus-visible {
-      outline: none;
-    }
   }
 
   &__button {

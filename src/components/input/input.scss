@@ -9,10 +9,6 @@
     box-sizing: border-box;
     font: inherit;
 
-    &:focus-visible {
-      outline: none;
-    }
-
     &--align-right {
       text-align: right;
     }

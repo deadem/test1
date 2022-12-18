@@ -1,5 +1,6 @@
 <div class="profile-content">
-  <div class="profile-content__avatar"></div>
+  <div class="profile-content__avatar" page="profile-avatar-upload"></div>
+  {{#if upload}}{{> UploadFile }}{{/if}}
   <div class="profile-content__name{{#if edit}} profile-content__name--hidden{{/if}}">Иван</div>
   {{#if password}}
     {{> ProfileField className="profile-content__field" name="Старый пароль" value="1234567" type="password" align-right=true}}
