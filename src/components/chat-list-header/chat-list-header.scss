@@ -10,5 +10,16 @@
   &__profile {
     cursor: pointer;
     color: #999999;
+    display: flex;
+    align-items: center;
+  }
+
+  &__profile-icon {
+    width: 12px;
+    height: 12px;
+    background-image: url(../../assets/arrow_right_simple.svg);
+    background-size: 12px  12px;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 }
