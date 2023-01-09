@@ -20,8 +20,8 @@ Object.entries(Components).forEach(([ name, component ]) => {
 });
 
 function navigate(page) {
-  const template = pages[page];
-  document.body.innerHTML = template[0](template[1]);
+  const [ render, args ] = pages[page];
+  document.body.innerHTML = render(args);
 }
 
 document.addEventListener('DOMContentLoaded', () => navigate('login'));
