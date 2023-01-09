@@ -19,17 +19,17 @@ Object.entries(Components).forEach(([ name, component ]) => {
   Handlebars.registerPartial(name, component);
 });
 
-function Navigate(page) {
+function navigate(page) {
   const template = pages[page];
   document.body.innerHTML = template[0](template[1]);
 }
 
-document.addEventListener('DOMContentLoaded', () => Navigate('login'));
+document.addEventListener('DOMContentLoaded', () => navigate('login'));
 
 document.addEventListener('click', e => {
   const page = e.target.getAttribute('page');
   if (page) {
-    Navigate(page);
+    navigate(page);
 
     e.preventDefault();
     e.stopImmediatePropagation();
