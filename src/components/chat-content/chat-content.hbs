@@ -1,7 +1,7 @@
 <div class="chat-content{{#if className}} {{ className }}{{/if}}">
-  {{> ChatDay name="19 июня" }}
-  {{> ChatMessage time="11:56" className="chat-content__message" text=(chat-content "message") }}
-  {{> ChatMessageImage time="11:56" className="chat-content__message" image=(chat-content "image")}}
-  {{> ChatMessageMy time="12:00" className="chat-content__message" text=(chat-content "my-message") }}
-  {{> ChatMessage time="11:56" className="chat-content__message" text=(chat-content "error") }}
+  {{> ChatDay name=(chat-content "date") }}
+  {{> ChatMessage className="chat-content__message" message=(chat-content "message") }}
+  {{> ChatMessageImage className="chat-content__message" message=(chat-content "image-message")}}
+  {{> ChatMessageMy className="chat-content__message" message=(chat-content "my-message") }}
+  {{> ChatMessage className="chat-content__message" message=(chat-content "error-message") }}
 </div>
