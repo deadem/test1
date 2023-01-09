@@ -3,7 +3,7 @@
   <div class="chat-item__block{{#if current}} chat-item__block--current{{/if}}">
     <div class="chat-item__avatar">{{ avatar }}</div>
     <div class="chat-item__name">{{ name }}
-      <div class="chat-item__date">{{ date }}</div>
+      <time class="chat-item__date" datetime="{{ date.datetime }}">{{ date.text }}</time>
     </div>
     <div class="chat-item__message">{{ message }}</div>
     {{#if unread}}<div class="chat-item__unread">{{ unread }}</div>{{/if}}

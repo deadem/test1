@@ -2,5 +2,5 @@
   {{#each message.text}}
     <p class="chat-message__text">{{{this}}}<span class="chat-message__text-end"></span></p>
   {{/each}}
-  <div class="chat-message__time">{{message.time}}</div>
+  <time class="chat-message__time" datetime="{{ message.time }}">{{message.time}}</time>
 </div>
