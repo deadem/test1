@@ -1,7 +1,7 @@
 <div class="profile-field{{#if className}} {{className}}{{/if}}">
-  <div class="profile-field__name">{{name}}</div>
+  <div class="profile-field__name">{{title}}</div>
   {{#if edit}}
-    {{> Input value=value}}
+    {{> Input value=value name=name}}
   {{else}}
     <div class="profile-field__value">{{value}}</div>
   {{/if}}
