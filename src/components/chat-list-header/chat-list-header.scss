@@ -1,3 +1,5 @@
+@import '../../assets/variables';
+
 .chat-list-header {
   height: 100px;
   padding: 20px 10px 14px;
@@ -9,7 +11,7 @@
 
   &__profile {
     cursor: pointer;
-    color: #999999;
+    color: $text-light-color;
     display: flex;
     align-items: center;
   }

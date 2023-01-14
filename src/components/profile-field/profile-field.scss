@@ -1,3 +1,5 @@
+@import '../../assets/variables';
+
 .profile-field {
   display: flex;
   width: 100%;
@@ -6,10 +8,10 @@
   justify-content: space-between;
 
   &__name {
-    color: #1E1E1E;
+    color: $title-color;
   }
 
   &__value {
-    color: #999999;
+    color: $text-light-color;
   }
 }

@@ -1,5 +1,7 @@
+@import '../../assets/variables';
+
 .chat-message-my {
-  background: #E4EDFD;
+  background: $chat-message-my-bgcolor;
   max-width: 400px;
   padding: 11px;
   border-radius: 12px 12px 0 12px;
@@ -10,7 +12,7 @@
   &__text {
     padding: 0;
     margin: 10px 0 0;
-    color: #1E1E1E;
+    color: $chat-message-my-color;
   }
 
   &__text-end {
@@ -19,9 +21,8 @@
   }
 
   &__time {
-    font-size: 9px;
-    line-height: 9px;
-    color: #3369F3;
+    font: $font-nano;
+    color: $chat-message-my-time-color;
     position: absolute;
     right: 11px;
     bottom: 11px;

@@ -5,7 +5,7 @@
     <div class="chat-item__name">{{ name }}
       <time class="chat-item__date" datetime="{{ date.datetime }}">{{ date.text }}</time>
     </div>
-    <div class="chat-item__message">{{ message }}</div>
+    <div class="chat-item__message"><span class="chat-item__message-text">{{ message }}</span></div>
     {{#if unread}}<div class="chat-item__unread">{{ unread }}</div>{{/if}}
   </div>
 </div>

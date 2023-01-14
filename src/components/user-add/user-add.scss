@@ -1,3 +1,5 @@
+@import '../../assets/variables';
+
 .user-add {
   width: 280px;
   display: flex;
@@ -5,8 +7,8 @@
   align-items: center;
 
   &__title {
-    font-size: 15px;
-    line-height: 20px;
+    font: $dialog-modal-title;
+    color: $title-color;
   }
 
   &__input {

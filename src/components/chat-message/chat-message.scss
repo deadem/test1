@@ -1,17 +1,18 @@
+@import '../../assets/variables';
+
 .chat-message {
-  background: #F8F8F8;
+  background: $chat-message-bgcolor;
   max-width: 400px;
   padding: 0 11px 11px;
   border-radius: 0 12px 12px 12px;
   position: relative;
   align-self: flex-start;
-  font-size: 12px;
-  line-height: 15px;
+  font: $chat-message-font;
 
   &__text {
     padding: 0;
     margin: 10px 0 0;
-    color: #1E1E1E;
+    color: $chat-message-color;
   }
 
   &__text-end {
@@ -21,9 +22,8 @@
   }
 
   &__time {
-    font-size: 9px;
-    line-height: 9px;
-    color: #999999;
+    font: $font-nano;
+    color: $text-light-color;
     position: absolute;
     right: 11px;
     bottom: 11px;

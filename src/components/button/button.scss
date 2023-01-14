@@ -1,12 +1,12 @@
+@import '../../assets/variables';
+
 .button {
   height: 40px;
   width: 100%;
   text-align: center;
-  background-color: #3369f3;
   border-radius: 8px;
-  color: #fff;
+  background-color: $button-bgcolor;
+  color: $button-color;
   border: 0;
   cursor: pointer;
-  font-size: 13px;
-  line-height: 13px;
 }

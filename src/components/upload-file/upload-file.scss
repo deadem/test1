@@ -1,3 +1,5 @@
+@import '../../assets/variables';
+
 .upload-file {
   width: 280px;
   display: flex;
@@ -5,8 +7,8 @@
   align-items: center;
 
   &__title {
-    font-size: 15px;
-    line-height: 20px;
+    font: $dialog-modal-title;
+    color: $title-color;
   }
 
   &__link {
@@ -20,18 +22,17 @@
     cursor: pointer;
     position: absolute;
     // подставим снизу плашки с текстом контрол выбора файла
-    font-size: 100px;
+    font-size: 100px; // заведомо бОльший размер, чтобы в область видимости не попал текст
     direction: rtl;
   }
 
   &__link-text {
     pointer-events: none;
     display: inline-block;
-    background: #FFF;
+    background: $text-bgcolor;
     position: relative;
     text-decoration-line: underline;
-    color: #3369F3;
-    font-size: 12px;
-    line-height: 16px;
+    color: $link-color;
+    font: $font-small;
   }
 }

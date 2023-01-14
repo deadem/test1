@@ -1,15 +1,16 @@
+@import '../../assets/variables';
+
 .link {
+  font: $font-small;
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 40px;
   width: 100%;
   text-align: center;
-  color: #3369f3;
+  color: $link-color;
   text-decoration: none;
   cursor: pointer;
-  font-size: 11px;
-  line-height: 11px;
 
   &:hover {
     text-decoration: underline;

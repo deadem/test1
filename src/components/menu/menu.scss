@@ -1,6 +1,8 @@
+@import '../../assets/variables';
+
 .menu {
-  background: #FFFFFF;
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+  background: $menu-bgcolor;
+  box-shadow: $menu-shadow;
   border-radius: 12px;
   padding: 15px;
 
@@ -8,8 +10,7 @@
     $this: &;
     display: flex;
     align-items: center;
-    font-size: 12px;
-    line-height: 14px;
+    font: $menu-font;
     cursor: pointer;
 
     & + #{$this} {
@@ -27,6 +28,6 @@
   &__item-icon-image {
     width: 22px;
     height: 22px;
-    color: #3369F3;
+    color: $button-bgcolor;
   }
 }

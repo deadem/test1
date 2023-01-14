@@ -1,3 +1,5 @@
+@import '../../assets/variables';
+
 .profile-link {
   display: flex;
   width: 100%;
@@ -6,11 +8,11 @@
   justify-content: space-between;
 
   &__name {
-    color: #3369F3;
+    color: $link-color;
     text-decoration: none;
 
     &--red {
-      color: #FF0000;
+      color: $text-red;
     }
   }
 }

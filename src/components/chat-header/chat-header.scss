@@ -1,3 +1,5 @@
+@import '../../assets/variables';
+
 .chat-header {
   position: relative;
   display: flex;
@@ -6,13 +8,13 @@
   &__avatar {
     height: 34px;
     width: 34px;
-    background: #EFEFEF;
+    background: $gray-light-color;
     border-radius: 50%;
   }
 
   &__name {
     padding-left: 10px;
-    font-weight: 600;
+    font-weight: $font-weight-semibold;
   }
 
   &__menu-button {
@@ -21,9 +23,9 @@
     justify-content: center;
     width: 25px;
     height: 25px;
-    background: #F5F5F5;
-    color: #3369F3;
-    font-weight: 600;
+    background: $menu-button-bgcolor;
+    color: $menu-button-color;
+    font-weight: $font-weight-semibold;
     border-radius: 50%;
     margin-left: auto;
     cursor: pointer;

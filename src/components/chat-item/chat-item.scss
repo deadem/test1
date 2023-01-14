@@ -1,8 +1,11 @@
+@import '../../assets/variables';
+
 .chat-item {
   &__line {
     height: 1px;
-    background: #EAEAEA;
+    background: $divider-line-color;
     margin: 2px 0;
+    padding: 0 10px;
   }
 
   &__block {
@@ -10,7 +13,6 @@
     width: 100%;
     display: grid;
     grid-template:
-      "l l l" 1px
       "a n n" 13px
       "a m u" 1fr
       / 47px 1fr 50px;
@@ -21,21 +23,14 @@
     cursor: pointer;
 
     &--current {
-      background: #E4EDFD;
+      background: $chat-list-current-bgcolor;
       cursor: default;
     }
   }
 
-  &__line {
-    grid-area: l;
-    padding: 0 10px;
-    background: #EAEAEA;;
-
-  }
-
   &__avatar {
     grid-area: a;
-    background: #EFEFEF;
+    background: $gray-light-color;
     height: 47px;
     width: 47px;
     border-radius: 50%;
@@ -43,34 +38,36 @@
 
   &__name {
     grid-area: n;
-    font-size: 13px;
-    line-height: 13px;
-    font-weight: 600;
+    font-weight: $font-weight-semibold;
   }
 
   &__date {
     float: right;
-    font-size: 9px;
+    font: $font-nano;
   }
 
   &__message {
     grid-area: m;
-    font-size: 12px;
-    line-height: 12px;
-    margin-top: 4px;
-    max-height: 12px * 2 + 1px;
-    overflow: hidden;
   }
 
+  &__message-text {
+    font: $font-small;
+    margin-top: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   &__unread {
     grid-area: u;
     margin-top: 14px;
     height: 20px;
     width: 20px;
-    font-size: 11px;
-    background: #3369F3;
-    color: #fff;
+    font: $font-micro;
+    background: $button-bgcolor;
+    color: $button-color;
     place-self: end;
     border-radius: 50%;
     display: flex;

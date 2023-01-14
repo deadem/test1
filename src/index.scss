@@ -1,4 +1,5 @@
 @import './assets/fonts';
+@import './assets/variables';
 
 html, body {
   // Развернём html и body на всю высоту экрана
@@ -8,23 +9,25 @@ html, body {
 }
 
 body {
-  font-family: "Inter", "Segoe UI","Arial";
-  font-size: 13px;
-  line-height: 13px;
-  font-weight: 500;
-  background-color: #fff;
-  color: #000;
+  font: $font-regular;
+  background-color: $text-bgcolor;
+  color: $text-color;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 a {
-  color: #3369F3;
+  color: $link-color;
   text-decoration: none;
   &:hover {
     text-decoration: underline;
   }
+}
+
+button {
+  font-size: inherit;
+  line-height: inherit;
 }
 
 *:focus-visible {

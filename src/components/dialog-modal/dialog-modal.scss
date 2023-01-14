@@ -1,9 +1,10 @@
+@import '../../assets/variables';
+
 .dialog-modal {
   &__overlay {
     position: absolute;
     inset: 0;
-    background: #000;
-    opacity: 0.4;
+    background: $dialog-modal-overlay-bgcolor;
     z-index: 1;
   }
 
@@ -18,9 +19,9 @@
 
   &__content {
     position: relative;
-    background: #FFF;
+    background: $text-bgcolor;
     padding: 40px 30px;
-    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+    box-shadow: $dialog-modal-content-shadow;
     border-radius: 12px;
   }
 }
