@@ -1,3 +1,5 @@
+@import '../../assets/variables';
+
 .chat-page {
   height: 100%;
   width: 100%;
@@ -10,13 +12,13 @@
 
   &__list {
     grid-area: a;
-    border-right: 1px solid #EAEAEA;
+    border-right: 1px solid $divider-line-color;
   }
 
   &__header {
     grid-area: b;
     margin: 0 20px;
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid $divider-line-color;
   }
 
   &__content {
@@ -26,6 +28,6 @@
   &__footer {
     grid-area: d;
     margin: 0 20px;
-    border-top: 1px solid #EAEAEA;
+    border-top: 1px solid $divider-line-color;
   }
 }

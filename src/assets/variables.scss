@@ -3,6 +3,7 @@ $font-body: Inter,"Segoe UI","Roboto","Helvetica Neue",sans-sans;
 $font-weight-regular: 500;
 $font-weight-semibold: 600;
 
+$font-large: #{$font-weight-regular} 40px/40px #{$font-body};
 $font-big: #{$font-weight-regular} 20px/20px #{$font-body};
 $font-title: #{$font-weight-semibold} 16px/16px #{$font-body};
 $font-regular: #{$font-weight-regular} 13px/13px #{$font-body};

@@ -1,14 +1,14 @@
+@import '../../assets/variables';
+
 .error-page {
   &__code {
-    font-size: 40px;
-    line-height: 40px;
+    font: $font-large;
     text-align: center;
   }
 
   &__title {
     margin: 20px 0 70px;
-    font-size: 20px;
-    line-height: 20px;
+    font: $font-big;
     text-align: center;
   }
 
