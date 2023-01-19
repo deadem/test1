@@ -1,7 +1,0 @@
-{
-  "extends": "@parcel/config-default",
-  "transformers": {
-    "*.hbs": ["parcel-transformer-handlebars-precompile"],
-    "*.scss": ["@parcel/transformer-sass"]
-  }
-}
