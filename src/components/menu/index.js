@@ -1,2 +1,2 @@
 import './menu.scss';
-export { default as Menu } from './menu.hbs';
+export { default as Menu } from './menu.hbs?raw';

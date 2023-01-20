@@ -16,13 +16,15 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "parcel src/index.html --port 3000 --no-cache",
-    "build": "rimraf ./dist/* && parcel build src/index.html --no-cache",
+    "dev": "vite --port 3000 --host",
+    "build": "rimraf ./dist/* && vite build",
     "start": "npm run build && node ./server.js"
   },
   "devDependencies": {
     "handlebars": "^4.7.7",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "sass": "^1.57.1",
+    "vite": "^4.0.4"
   },
   "dependencies": {
     "express": "^4.18.2"

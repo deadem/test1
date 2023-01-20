@@ -1,8 +1,8 @@
-import Handlebars from 'handlebars/runtime';
+import Handlebars from 'handlebars';
 import './chat-header.scss';
 import plus from '../../assets/plus_icon.svg';
 import cross from '../../assets/cross_icon.svg';
-export { default as ChatHeader } from './chat-header.hbs';
+export { default as ChatHeader } from './chat-header.hbs?raw';
 
 Handlebars.registerHelper('chat-header-menu', () => {
   return [

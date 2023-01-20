@@ -1,2 +1,2 @@
 import './profile-content.scss';
-export { default as ProfileContent } from './profile-content.hbs';
+export { default as ProfileContent } from './profile-content.hbs?raw';

@@ -1,6 +1,6 @@
-import Handlebars from 'handlebars/runtime';
+import Handlebars from 'handlebars';
 import './chat-page.scss';
-export { default as ChatPage } from './chat-page.hbs';
+export { default as ChatPage } from './chat-page.hbs?raw';
 
 Handlebars.registerHelper('chat-page-list', () => {
   return [

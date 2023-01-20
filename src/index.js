@@ -1,4 +1,4 @@
-import Handlebars from 'handlebars/runtime';
+import Handlebars from 'handlebars';
 import * as Components from './components';
 import * as Pages from './pages';
 
@@ -20,8 +20,8 @@ Object.entries(Components).forEach(([ name, component ]) => {
 });
 
 function navigate(page) {
-  const [ render, args ] = pages[page];
-  document.body.innerHTML = render(args);
+  const [ source, args ] = pages[page];
+  document.body.innerHTML = Handlebars.compile(source)(args);
 }
 
 document.addEventListener('DOMContentLoaded', () => navigate('login'));

@@ -1,2 +1,2 @@
 import './dialog.scss';
-export { default as Dialog } from './dialog.hbs';
+export { default as Dialog } from './dialog.hbs?raw';
