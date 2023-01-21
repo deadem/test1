@@ -15,11 +15,13 @@ const pages = {
   'registration': [ Pages.RegistrationPage ],
 };
 
-Object.entries(Components).forEach(([ name, component ]) => {
+type PageName = keyof typeof pages;
+
+Object.entries(Components as Record<string, string>).forEach(([ name, component ]) => {
   Handlebars.registerPartial(name, component);
 });
 
-function navigate(page) {
+function navigate(page: PageName) {
   const [ source, args ] = pages[page];
   document.body.innerHTML = Handlebars.compile(source)(args);
 }
@@ -27,7 +29,7 @@ function navigate(page) {
 document.addEventListener('DOMContentLoaded', () => navigate('login'));
 
 document.addEventListener('click', e => {
-  const page = e.target.getAttribute('page');
+  const page = (e.target as HTMLElement)?.getAttribute('page') as PageName;
   if (page) {
     navigate(page);
 
