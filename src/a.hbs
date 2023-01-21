@@ -2,6 +2,11 @@
   {{{ B name=name color='red' }}}
   {{#B name=(append name '???') color='green' }}
     <div>line 2</div>
-    {{{ C super='line2' name=name }}}
+    {{{ C super='line 2' name=name }}}
   {{/B}}
+  <div>
+    {{#C super='line 3 context' name='c - name' }}
+      {{{ B name=(append 'line3' name) color='blue' }}}
+    {{/C}}
+  </div>
 </div>
