@@ -15,6 +15,7 @@
     "sourceType": "module"
   },
   "rules": {
+    "quotes": ["error", "single" ],
     "@typescript-eslint/no-unused-vars": ["error", { "destructuredArrayIgnorePattern": "^_" }]
   }
 }

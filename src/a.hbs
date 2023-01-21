@@ -1,4 +1,7 @@
 <div>
   {{{ B name=name color='red' }}}
-  {{{ B name=(append name '???') color='green' }}}
+  {{#B name=(append name '???') color='green' }}
+    <div>line 2</div>
+    {{{ C super='line2' name=name }}}
+  {{/B}}
 </div>

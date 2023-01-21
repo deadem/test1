@@ -6,6 +6,7 @@ import { registerComponent, registerHelpers } from './handlebars';
 import { default as AComponent } from './a.hbs?raw';
 import { default as BComponent } from './b.hbs?raw';
 import { default as CComponent } from './c.hbs?raw';
+import { Block } from './utils/Block';
 
 const pages = {
   'chat': [ Pages.ChatPage ],
@@ -45,73 +46,6 @@ document.addEventListener('click', e => {
   }
 });
 
-abstract class Block {
-  public id = ++Block.currentIdCounter;
-
-  protected abstract template: string;
-  protected props: Record<string, unknown> = {};
-
-  private static currentIdCounter = 0;
-  private children: Record<string, Block> = {}; // как таковой не нужен, храним только для того, чтобы было у кого вызывать unmount
-  private element: Element | null = null;
-
-  constructor(props: Record<string, unknown>) {
-    this.props = props;
-  }
-
-  public setProps(props: Record<string, unknown>) {
-    this.props = props;
-    this.render();
-  }
-
-  protected compile() {
-    const context = { ...this.props };
-    const html = Handlebars.compile(this.template)(context);
-    this.children = context.children as Record<string, Block> || {};
-    const temp = document.createElement('template');
-    temp.innerHTML = html;
-
-    Object.values(this.children).forEach((component) => {
-      const stub = temp.content.querySelector(`[data-id="${component.id}"]`);
-
-      if (!stub) {
-        return;
-      }
-
-      if (component.element) {
-        component.element.append(...Array.from(stub.childNodes));
-        stub.replaceWith(component.element);
-      }
-    });
-
-    return temp.content;
-  }
-
-  render() {
-    const fragment = this.compile();
-    if (!fragment.firstElementChild || fragment.firstElementChild?.nextElementSibling) {
-      console.error(fragment);
-      throw Error('Only one root supported');
-    }
-
-    if (this.element) {
-      this.element.replaceWith(fragment);
-    } else {
-      this.element = fragment.firstElementChild;
-    }
-  }
-
-  content(): HTMLElement {
-    if (!this.element) {
-      this.render();
-    }
-    if (this.constructor.name == 'A') {
-      console.log('content', this.element);
-    }
-    return this.element as HTMLElement;
-  }
-}
-
 class A extends Block {
   public template = AComponent;
 }
@@ -136,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.body.innerHTML = '';
   document.body.append(content.content());
 
-  alert(1);
   setTimeout(() => {
     content.setProps({ name: 'waaazzaaa' });
   }, 1000);
