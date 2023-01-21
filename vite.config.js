@@ -6,10 +6,10 @@ export default defineConfig({
     checker({
       typescript: true,
       eslint: {
-        lintCommand: 'eslint "src/**/*.{js,ts}"',
+        lintCommand: `eslint --cache --cache-location=${__dirname}/.cache/ "src/**/*.{js,ts}"`,
       },
       stylelint: {
-        lintCommand: 'stylelint src/**/*.{css,scss}',
+        lintCommand: `stylelint --cache --cache-location=${__dirname}/.cache/stylelint-cache src/**/*.{css,scss}`,
       },
     })
   ],
