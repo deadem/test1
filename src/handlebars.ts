@@ -5,16 +5,15 @@ export interface BlockComponent {
   content(): Element;
 }
 
-export function compile(template: string, context: Record<string, unknown>) {
-  const data = { ...context, __children: [] as Array<{ component: Block, embed(node: DocumentFragment): void }> };
+export function compile(template: string, context: object) {
+  const data = { ...context, __children: [] as Array<{ component: Block<object>, embed(node: DocumentFragment): void }> };
   const html = Handlebars.compile(template)(data);
   return { html, children: data.__children };
 }
 
 let uniqueId = 0; // Идентификатор текущего компонента. Используется во время рендеринга для подстановки дочерних компонентов.
 
-// NB: Не поддерживается перерендер компонентов с детьми, вида {{#A ...}}...{{/A}}
-export function registerComponent<T extends BlockComponent>(Component: { new (...args: Record<string, unknown>[]): T }) {
+export function registerComponent<T extends BlockComponent, P extends object>(Component: { new (props: P): T }) {
   Handlebars.registerHelper(Component.name,
     function (this: unknown, { hash, data, fn }: HelperOptions) {
       const component = new Component(hash);
@@ -24,7 +23,7 @@ export function registerComponent<T extends BlockComponent>(Component: { new (..
         // Ищем среди детей плейсхолдеры для размещения компонентов и заменяем заглушки на реальные компоненты
         const placeholder = node.querySelector(`[${dataAttribute}]`);
         if (!placeholder) {
-          throw new Error(`Can't find data-id for component ${component.constructor.name}`);
+          throw new Error(`Can't find data-id for component ${Component.name}`);
         }
 
         const element = component.content();
@@ -32,6 +31,7 @@ export function registerComponent<T extends BlockComponent>(Component: { new (..
         placeholder.replaceWith(element);
       }});
 
+      // NB: Не поддерживается перерендер компонентов с детьми, вида {{#A ...}} ... {{/A}}
       const contents = fn ? fn(this) : '';
       return `<div ${dataAttribute}>${contents}</div>`;
     },

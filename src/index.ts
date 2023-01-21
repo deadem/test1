@@ -46,15 +46,19 @@ document.addEventListener('click', e => {
   }
 });
 
-class A extends Block {
+interface Props {
+  name: string;
+}
+
+class A extends Block<Props> {
   public template = AComponent;
 }
 
-class B extends Block {
+class B extends Block<object> {
   public template = BComponent;
 }
 
-class C extends Block {
+class C extends Block<object> {
   public template = CComponent;
 }
 

@@ -1,17 +1,17 @@
 import { compile } from '../handlebars';
 
-export abstract class Block {
+export abstract class Block<Props extends object> {
   protected abstract template: string; // Handlebars-шаблон текущего компонента.
-  protected props: Record<string, unknown> = {}; // Свойства компонента. Будут переданы в шаблон во время рендеринга
+  protected props = {} as Props; // Свойства компонента. Будут переданы в шаблон во время рендеринга
 
-  private children: Block[] = []; // как таковой не нужен, храним только для того, чтобы было у кого вызывать unmount
+  private children: Block<object>[] = []; // как таковой не нужен, храним только для того, чтобы было у кого вызывать unmount
   private element: Element | null = null; // Элемент в DOM, в который отрендерен этот компонент
 
-  constructor(props: Record<string, unknown>) {
+  constructor(props: Props) {
     this.props = props;
   }
 
-  public setProps(props: Record<string, unknown>) {
+  public setProps(props: Props) {
     this.props = props;
     this.render();
   }
