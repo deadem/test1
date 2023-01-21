@@ -19,3 +19,9 @@ https://step-1-demo.onrender.com/
 - Страница профиля (cсылка на профиль в шапке чата)
 - Изменить данные в профиле
 - Изменить пароль в профиле
+
+## Использованы
+
+[Vite](https://vitejs.dev/)
+[Handlebars](https://handlebarsjs.com/)
+[sass/scss](https://sass-lang.com/)
