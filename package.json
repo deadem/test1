@@ -18,13 +18,17 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite --port 3000 --host",
     "build": "rimraf ./dist/* && vite build",
-    "start": "npm run build && node ./server.js"
+    "start": "npm run build && node ./server.js",
+    "eslint": "eslint \"src/**/*.[jt]s\"",
+    "lint": "npm run eslint"
   },
   "devDependencies": {
+    "eslint": "^8.32.0",
     "handlebars": "^4.7.7",
     "rimraf": "^3.0.2",
     "sass": "^1.57.1",
-    "vite": "^4.0.4"
+    "vite": "^4.0.4",
+    "vite-plugin-eslint": "^1.8.1"
   },
   "dependencies": {
     "express": "^4.18.2"

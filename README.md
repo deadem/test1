@@ -25,3 +25,4 @@ https://step-1-demo.onrender.com/
 [Vite](https://vitejs.dev/)
 [Handlebars](https://handlebarsjs.com/)
 [sass/scss](https://sass-lang.com/)
+[eslint](https://eslint.org/)
