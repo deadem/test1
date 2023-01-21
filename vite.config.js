@@ -12,7 +12,10 @@ export default defineConfig({
   build: {
     outDir: resolve(__dirname, 'dist'),
   },
-  plugins: [eslint(), stylelint({
-    cacheLocation: resolve(__dirname, '.cache', 'stylelint-cache')
-  })],
+  plugins: [
+    eslint(),
+    stylelint({
+      cacheLocation: resolve(__dirname, '.cache', 'stylelint-cache'),
+    })
+  ],
 });

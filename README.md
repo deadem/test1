@@ -26,3 +26,4 @@ https://step-1-demo.onrender.com/
 [Handlebars](https://handlebarsjs.com/)
 [sass/scss](https://sass-lang.com/)
 [eslint](https://eslint.org/)
+[stylelint](https://stylelint.io/)
