@@ -6,5 +6,6 @@ interface Props {
 }
 
 export class RegistrationPage extends Block<Props> {
+  static componentName = 'RegistrationPage';
   protected template = template;
 }

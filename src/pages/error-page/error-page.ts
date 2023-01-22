@@ -6,5 +6,6 @@ interface Props {
 }
 
 export class ErrorPage extends Block<Props> {
+  static componentName = 'ErrorPage';
   protected template = template;
 }

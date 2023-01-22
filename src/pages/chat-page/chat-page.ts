@@ -6,6 +6,7 @@ interface Props {
 }
 
 export class ChatPage extends Block<Props> {
+  static componentName = 'ChatPage';
   protected template = template;
 
   constructor() {
