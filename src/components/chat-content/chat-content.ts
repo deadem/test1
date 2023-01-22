@@ -1,3 +1,14 @@
+import './chat-content.scss';
+import { default as template } from './chat-content.hbs?raw';
+import { Block } from '../../utils/Block';
+
+interface Props {
+}
+
+export class ChatContent extends Block<Props> {
+  protected template = template;
+}
+
 export const message = {
   date: {
     text: '19 июня',
