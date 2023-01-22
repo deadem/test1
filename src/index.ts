@@ -9,7 +9,7 @@ const pages = {
   // 'chat-user-add': [ Pages.ChatPage, { useradd: true } ],
   'error': [ Pages.ErrorPage ],
   'login': [ Pages.LoginPage ],
-  // 'profile': [ Pages.ProfilePage ],
+  'profile': [ Pages.ProfilePage ],
   // 'profile-avatar-upload': [ Pages.ProfilePage, { upload: true } ],
   // 'profile-edit': [ Pages.ProfilePage, { edit: true } ],
   // 'profile-edit-password': [ Pages.ProfilePage, { edit: true, password: true } ],
@@ -34,4 +34,4 @@ function navigate(page: PageName) {
   document.body.append(content.content());
 }
 
-document.addEventListener('DOMContentLoaded', () => navigate('registration'));
+document.addEventListener('DOMContentLoaded', () => navigate('profile'));
