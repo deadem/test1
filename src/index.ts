@@ -32,4 +32,4 @@ function navigate(page: keyof typeof pages) {
   document.body.append(content.content());
 }
 
-document.addEventListener('DOMContentLoaded', () => navigate('chat'));
+document.addEventListener('DOMContentLoaded', () => navigate('login'));

@@ -8,4 +8,13 @@ interface Props {
 export class LoginPage extends Block<Props> {
   static componentName = 'LoginPage';
   protected template = template;
+
+  private onSubmit(e: Event) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  protected override componentDidMount() {
+    this.ref('form').addEventListener('submit', this.onSubmit);
+  }
 }
