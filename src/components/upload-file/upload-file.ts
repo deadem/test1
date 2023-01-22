@@ -6,5 +6,6 @@ interface Props {
 }
 
 export class UploadFile extends Block<Props> {
+  static componentName = 'UploadFile';
   protected template = template;
 }

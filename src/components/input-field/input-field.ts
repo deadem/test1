@@ -6,5 +6,6 @@ interface Props {
 }
 
 export class InputField extends Block<Props> {
+  static componentName = 'InputField';
   protected template = template;
 }

@@ -6,5 +6,6 @@ interface Props {
 }
 
 export class Link extends Block<Props> {
+  static componentName = 'Link';
   protected template = template;
 }

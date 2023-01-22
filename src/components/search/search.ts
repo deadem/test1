@@ -6,5 +6,6 @@ interface Props {
 }
 
 export class Search extends Block<Props> {
+  static componentName = 'Search';
   protected template = template;
 }

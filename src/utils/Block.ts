@@ -1,4 +1,4 @@
-import { compile } from '../handlebars';
+import { compile } from './handlebars';
 
 export abstract class Block<Props extends object> {
   protected abstract template: string; // Handlebars-шаблон текущего компонента.
@@ -38,7 +38,7 @@ export abstract class Block<Props extends object> {
 
   protected compile() {
     const { html, children } = compile(this.template, this.props);
-    this.children = children.map(child => child.component);
+    this.children = children.map(child => child.component as Block<object>);
 
     const templateElement = document.createElement('template');
     templateElement.innerHTML = html;

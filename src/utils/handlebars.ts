@@ -1,23 +1,25 @@
 import Handlebars, { HelperOptions } from 'handlebars';
-import { Block } from './utils/Block';
 
 interface BlockComponent<T> {
   new (props: unknown): T;
   content(): Element;
 }
 
+type StaticMethods = {
+  componentName: string;
+};
+
 export function compile(template: string, context: object) {
   // Ожидаем, что родитель после создания вызовет у каждого children метод embed для встраивания сгенерированнной разметки в реальный DOM
-  const data = { ...context, __children: [] as Array<{ component: Block<object>, embed(node: DocumentFragment): void }> };
+  const data = { ...context, __children: [] as Array<{ component: unknown, embed(node: DocumentFragment): void }> };
   const html = Handlebars.compile(template)(data);
   return { html, children: data.__children };
 }
 
 let uniqueId = 0; // Идентификатор текущего компонента. Используется во время рендеринга для подстановки дочерних компонентов.
 
-export function registerComponent<T extends BlockComponent<T>, P extends object>(Component: { new (props: P): InstanceType<T> }) {
-  Handlebars.registerHelper(Component.name,
-    function (this: unknown, { hash, data, fn }: HelperOptions) {
+export function registerComponent<T extends BlockComponent<T>, P extends object>(Component: { new (props: P): InstanceType<T> } & StaticMethods) {
+  Handlebars.registerHelper(Component.componentName, function (this: unknown, { hash, data, fn }: HelperOptions) {
       const component = new Component(hash);
       const dataAttribute = `data-component-hbs-id="${++uniqueId}"`;
 
@@ -25,7 +27,7 @@ export function registerComponent<T extends BlockComponent<T>, P extends object>
         // Ищем среди детей плейсхолдеры для размещения компонентов и заменяем заглушки на реальные компоненты
         const placeholder = node.querySelector(`[${dataAttribute}]`);
         if (!placeholder) {
-          throw new Error(`Can't find data-id for component ${Component.name}`);
+          throw new Error(`Can't find data-id for component ${Component.componentName}`);
         }
 
         const element = component.content();

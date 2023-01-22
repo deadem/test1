@@ -6,5 +6,6 @@ interface Props {
 }
 
 export class ProfileField extends Block<Props> {
+  static componentName = 'ProfileField';
   protected template = template;
 }

@@ -6,5 +6,6 @@ interface Props {
 }
 
 export class Menu extends Block<Props> {
+  static componentName = 'Menu';
   protected template = template;
 }
