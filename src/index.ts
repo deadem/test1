@@ -4,10 +4,10 @@ import * as Pages from './pages';
 import * as Partials from './partials';
 
 const pages = {
-  'chat': [ Pages.ChatPage ],
+  // 'chat': [ Pages.ChatPage ],
   // 'chat-menu-user': [ Pages.ChatPage, { menu: true } ],
   // 'chat-user-add': [ Pages.ChatPage, { useradd: true } ],
-  // 'error': [ Pages.ErrorPage ],
+  'error': [ Pages.ErrorPage ],
   'login': [ Pages.LoginPage ],
   // 'profile': [ Pages.ProfilePage ],
   // 'profile-avatar-upload': [ Pages.ProfilePage, { upload: true } ],
@@ -34,4 +34,4 @@ function navigate(page: PageName) {
   document.body.append(content.content());
 }
 
-document.addEventListener('DOMContentLoaded', () => navigate('login'));
+document.addEventListener('DOMContentLoaded', () => navigate('error'));
