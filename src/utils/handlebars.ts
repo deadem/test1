@@ -11,9 +11,13 @@ type StaticMethods = {
 
 export function compile(template: string, context: object) {
   // Ожидаем, что родитель после создания вызовет у каждого children метод embed для встраивания сгенерированнной разметки в реальный DOM
-  const data = { ...context, __children: [] as Array<{ component: unknown, embed(node: DocumentFragment): void }> };
+  const data = {
+    ...context,
+    __children: [] as Array<{ component: unknown, embed(node: DocumentFragment): void }>,
+    __refs: {} as Record<string, unknown>
+  };
   const html = Handlebars.compile(template)(data);
-  return { html, children: data.__children };
+  return { html, children: data.__children, refs: data.__refs };
 }
 
 let uniqueId = 0; // Идентификатор текущего компонента. Используется во время рендеринга для подстановки дочерних компонентов.
@@ -22,6 +26,11 @@ export function registerComponent<T extends BlockComponent<T>, P extends object>
   Handlebars.registerHelper(Component.componentName, function (this: unknown, { hash, data, fn }: HelperOptions) {
       const component = new Component(hash);
       const dataAttribute = `data-component-hbs-id="${++uniqueId}"`;
+
+      if ('ref' in hash) {
+        // если в свойствах компонента кто-то хочет получить на него ссылку - сохраним
+        (data.root__refs = data.root.__refs || {})[hash.ref] = component;
+      }
 
       (data.root.__children = data.root.__children || []).push({ component, embed(node: DocumentFragment) {
         // Ищем среди детей плейсхолдеры для размещения компонентов и заменяем заглушки на реальные компоненты

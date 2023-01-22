@@ -3,9 +3,9 @@ import { compile } from './handlebars';
 export abstract class Block<Props extends object> {
   protected abstract template: string; // Handlebars-шаблон текущего компонента.
   protected props = {} as Props; // Свойства компонента. Будут переданы в шаблон во время рендеринга
+  protected refs = {} as Record<string, Element | Block<object>>; // ссылки на элементы внутри поддерева
 
   private children: Block<object>[] = []; // как таковой не нужен, храним только для того, чтобы было у кого вызывать unmount
-  private refs = {} as Record<string, Element>; // ссылки на элементы внутри поддерева
   private element: Element | null = null; // Элемент в DOM, в который отрендерен этот компонент
 
   constructor(props: Props) {
@@ -24,10 +24,6 @@ export abstract class Block<Props extends object> {
     return this.element as Element;
   }
 
-  protected ref(ref: string) {
-    return this.refs[ref];
-  }
-
   // Автоматически вызываемые методы компонента: componentDidMount, componentWillUnmount
   protected componentDidMount() {
     // Метод будет вызван при встраивании компонента в DOM. На момент вызова уже всё встроено, DOM готов и доступен
@@ -38,8 +34,10 @@ export abstract class Block<Props extends object> {
   }
 
   private render() {
-    this.componentWillUnmount();
-    this.children.reverse().forEach(child => child.componentWillUnmount()); // вызываем очистку в порядке, обратном созданию
+    if (this.element) {
+      this.componentWillUnmount();
+      this.children.reverse().forEach(child => child.componentWillUnmount()); // вызываем очистку в порядке, обратном созданию
+    }
 
     const fragment = this.compile();
 
@@ -51,7 +49,7 @@ export abstract class Block<Props extends object> {
   }
 
   private compile() {
-    const { html, children } = compile(this.template, this.props);
+    const { html, children, refs } = compile(this.template, this.props);
     this.children = children.map(child => child.component as Block<object>);
 
     const templateElement = document.createElement('template');
@@ -63,7 +61,7 @@ export abstract class Block<Props extends object> {
       list[element.getAttribute('ref') as string] = element as HTMLElement;
       element.removeAttribute('ref');
       return list;
-    }, {} as Record<string, HTMLElement>);
+    }, refs as typeof this.refs);
 
     children.forEach(child => child.embed(fragment));
 
