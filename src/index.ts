@@ -13,7 +13,7 @@ const pages = {
   // 'profile-avatar-upload': [ Pages.ProfilePage, { upload: true } ],
   // 'profile-edit': [ Pages.ProfilePage, { edit: true } ],
   // 'profile-edit-password': [ Pages.ProfilePage, { edit: true, password: true } ],
-  // 'registration': [ Pages.RegistrationPage ],
+  'registration': [ Pages.RegistrationPage ],
 };
 
 type PageName = keyof typeof pages;
@@ -34,4 +34,4 @@ function navigate(page: PageName) {
   document.body.append(content.content());
 }
 
-document.addEventListener('DOMContentLoaded', () => navigate('error'));
+document.addEventListener('DOMContentLoaded', () => navigate('registration'));
