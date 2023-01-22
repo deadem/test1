@@ -1,7 +1,8 @@
 import Handlebars, { HelperOptions } from 'handlebars';
 import { Block } from './utils/Block';
 
-export interface BlockComponent {
+interface BlockComponent<T> {
+  new (props: unknown): T;
   content(): Element;
 }
 
@@ -13,7 +14,7 @@ export function compile(template: string, context: object) {
 
 let uniqueId = 0; // Идентификатор текущего компонента. Используется во время рендеринга для подстановки дочерних компонентов.
 
-export function registerComponent<T extends BlockComponent, P extends object>(Component: { new (props: P): T }) {
+export function registerComponent<T extends BlockComponent<T>, P extends object>(Component: { new (props: P): InstanceType<T> }) {
   Handlebars.registerHelper(Component.name,
     function (this: unknown, { hash, data, fn }: HelperOptions) {
       const component = new Component(hash);

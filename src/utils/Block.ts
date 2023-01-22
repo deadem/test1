@@ -29,11 +29,11 @@ export abstract class Block<Props extends object> {
     this.element = fragment;
   }
 
-  public content(): HTMLElement {
+  public content(): Element {
     if (!this.element) {
       this.render();
     }
-    return this.element as HTMLElement;
+    return this.element as Element;
   }
 
   protected compile() {
