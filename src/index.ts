@@ -1,9 +1,10 @@
-import { registerComponent } from './handlebars';
+import { registerComponent, registerPartial } from './handlebars';
 import * as Components from './components';
 import * as Pages from './pages';
+import * as Partials from './partials';
 
 const pages = {
-  // 'chat': [ Pages.ChatPage ],
+  'chat': [ Pages.ChatPage ],
   // 'chat-menu-user': [ Pages.ChatPage, { menu: true } ],
   // 'chat-user-add': [ Pages.ChatPage, { useradd: true } ],
   // 'error': [ Pages.ErrorPage ],
@@ -19,6 +20,10 @@ type PageName = keyof typeof pages;
 
 Object.entries(Components).forEach(([, component ]) => {
   registerComponent(component);
+});
+
+Object.entries(Partials).forEach(([ name, component ]) => {
+  registerPartial(name, component);
 });
 
 function navigate(page: PageName) {

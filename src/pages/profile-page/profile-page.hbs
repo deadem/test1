@@ -4,14 +4,14 @@
   </div>
   <div class="profile-page__center">
     <div class="profile-page__content">
-      {{> ProfileContent }}
+      {{{ ProfileContent }}}
       <div class="profile-page__footer">
         {{#if edit}}
-          {{> Button text="Сохранить" page="profile" className="profile-page__button-save" }}
+          {{{ Button text="Сохранить" page="profile" className="profile-page__button-save" }}}
         {{else}}
-          {{> ProfileLink className="profile-page__field" name="Изменить данные" page="profile-edit"}}
-          {{> ProfileLink className="profile-page__field" name="Изменить пароль" page="profile-edit-password"}}
-          {{> ProfileLink className="profile-page__field" name="Выйти" page="login" color="red"}}
+          {{{ ProfileLink className="profile-page__field" name="Изменить данные" page="profile-edit"}}}
+          {{{ ProfileLink className="profile-page__field" name="Изменить пароль" page="profile-edit-password"}}}
+          {{{ ProfileLink className="profile-page__field" name="Выйти" page="login" color="red"}}}
         {{/if}}
       </div>
     </div>

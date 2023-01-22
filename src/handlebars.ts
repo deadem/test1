@@ -42,3 +42,7 @@ export function registerComponent<T extends BlockComponent<T>, P extends object>
 export function registerHelpers() {
   Handlebars.registerHelper('append', (str, suffix) => String(str) + suffix);
 }
+
+export function registerPartial(name: string, component: string) {
+  Handlebars.registerPartial(name, component);
+}
