@@ -4,7 +4,7 @@ import * as Pages from './pages';
 import * as Partials from './partials';
 
 const pages = {
-  // 'chat': [ Pages.ChatPage ],
+  'chat': [ Pages.ChatPage ],
   // 'chat-menu-user': [ Pages.ChatPage, { menu: true } ],
   // 'chat-user-add': [ Pages.ChatPage, { useradd: true } ],
   'error': [ Pages.ErrorPage ],
@@ -16,8 +16,6 @@ const pages = {
   'registration': [ Pages.RegistrationPage ],
 };
 
-type PageName = keyof typeof pages;
-
 Object.entries(Components).forEach(([, component ]) => {
   registerComponent(component);
 });
@@ -26,7 +24,7 @@ Object.entries(Partials).forEach(([ name, component ]) => {
   registerPartial(name, component);
 });
 
-function navigate(page: PageName) {
+function navigate(page: keyof typeof pages) {
   const [ component, args ] = pages[page];
   const content = new component(args || {});
 
@@ -34,4 +32,4 @@ function navigate(page: PageName) {
   document.body.append(content.content());
 }
 
-document.addEventListener('DOMContentLoaded', () => navigate('profile'));
+document.addEventListener('DOMContentLoaded', () => navigate('chat'));

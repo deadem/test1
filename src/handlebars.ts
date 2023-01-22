@@ -7,6 +7,7 @@ interface BlockComponent<T> {
 }
 
 export function compile(template: string, context: object) {
+  // Ожидаем, что родитель после создания вызовет у каждого children метод embed для встраивания сгенерированнной разметки в реальный DOM
   const data = { ...context, __children: [] as Array<{ component: Block<object>, embed(node: DocumentFragment): void }> };
   const html = Handlebars.compile(template)(data);
   return { html, children: data.__children };

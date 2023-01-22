@@ -1,8 +1,8 @@
 <div class="chat-page">
   {{# ChatList className="chat-page__list" }}
     {{{ ChatListHeader }}}
-    {{#each (chat-page-list)}}
-      {{{ ChatItem }}}
+    {{#each chatList}}
+      {{{ ChatItem current=current avatar=avatar name=name date=date message=message unread=unread }}}
     {{/each}}
   {{/ ChatList }}
 

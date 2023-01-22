@@ -7,9 +7,13 @@ interface Props {
 
 export class ChatContent extends Block<Props> {
   protected template = template;
+
+  constructor() {
+    super(message);
+  }
 }
 
-export const message = {
+const message = {
   date: {
     text: '19 июня',
     datetime: '2000-06-19'
@@ -21,17 +25,17 @@ export const message = {
     ],
     time: '11:56',
   },
-  'image-message': {
+  'imageMessage': {
     image: new URL('../../assets/chat-message-image.png', import.meta.url),
     time: '12:03',
   },
-  'my-message': {
+  'myMessage': {
     text: [
       'Круто!'
     ],
     time: '12:33',
   },
-  'error-message': {
+  'errorMessage': {
     text: [
       '<a href page=\'error\'>Ссылка на страницу с ошибкой</a>'
     ],
