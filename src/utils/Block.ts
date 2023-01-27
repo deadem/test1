@@ -8,6 +8,10 @@ interface Events {
   [key: string]: ((e: Event) => void) | undefined;
 }
 
+interface AnyProps {
+  [key: string]: unknown;
+}
+
 export abstract class Block<Props extends object, Refs extends object = RefType> implements BlockComponent {
   // Handlebars-шаблон текущего компонента.
   protected abstract template: string;
@@ -24,12 +28,14 @@ export abstract class Block<Props extends object, Refs extends object = RefType>
   // Элемент в DOM, в который отрендерен этот компонент
   private domElement: Element | null = null;
 
-  constructor(props: Props) {
+  // Строгие типы для Props, плюс разрешаем расширять любыми данными
+  constructor(props: Props & AnyProps) {
     this.props = props;
   }
 
-  public setProps(props: Props) {
-    this.props = props;
+  // Обновить свойства. Передаваемые значения "мержатся" с уже существующими
+  public setProps(props: Partial<Props> & AnyProps) {
+    this.props = { ...this.props, ...props };
     this.render();
   }
 

@@ -7,23 +7,20 @@ interface Props {
   navigate(page: string): void;
 }
 
-interface FullProps extends Props {
-  navigateToRegistration(e: Event): void;
-}
-
 interface Refs {
   login: InputField;
   password: InputField;
   form: HTMLElement;
 }
 
-export class LoginPage extends Block<FullProps, Refs> {
+export class LoginPage extends Block<Props, Refs> {
   static componentName = 'LoginPage';
   protected template = template;
 
   constructor(props: Props) {
     super({
       ...props,
+      onChangeLogin: (e: Event) => console.log(e),
       navigateToRegistration: (e: Event) => {
         e.preventDefault();
         e.stopImmediatePropagation();
