@@ -1,8 +1,11 @@
 import Handlebars, { HelperOptions } from 'handlebars';
 
-interface BlockComponent<T> {
+export interface BlockComponent {
+  element(): Element;
+}
+
+interface BlockComponentClass<T> extends BlockComponent {
   new (props: unknown): T;
-  content(): Element;
 }
 
 type StaticMethods = {
@@ -22,7 +25,7 @@ export function compile(template: string, context: object) {
 
 let uniqueId = 0; // Идентификатор текущего компонента. Используется во время рендеринга для подстановки дочерних компонентов.
 
-export function registerComponent<T extends BlockComponent<T>, P extends object>(Component: { new (props: P): InstanceType<T> } & StaticMethods) {
+export function registerComponent<T extends BlockComponentClass<T>, P extends object>(Component: { new (props: P): InstanceType<T> } & StaticMethods) {
   Handlebars.registerHelper(Component.componentName, function (this: unknown, { hash, data, fn }: HelperOptions) {
       const component = new Component(hash);
       const dataAttribute = `data-component-hbs-id="${++uniqueId}"`;
@@ -39,7 +42,7 @@ export function registerComponent<T extends BlockComponent<T>, P extends object>
           throw new Error(`Can't find data-id for component ${Component.componentName}`);
         }
 
-        const element = component.content();
+        const element = component.element();
         element.append(...Array.from(placeholder.childNodes));
         placeholder.replaceWith(element);
       }});

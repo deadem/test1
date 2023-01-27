@@ -29,7 +29,7 @@ function navigate(page: keyof typeof pages) {
   const content = new component(args || {});
 
   document.body.innerHTML = '';
-  document.body.append(content.content());
+  document.body.append(content.element());
 }
 
 document.addEventListener('DOMContentLoaded', () => navigate('login'));

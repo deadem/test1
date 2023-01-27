@@ -1,16 +1,16 @@
-import { compile } from './handlebars';
+import { BlockComponent, compile } from './handlebars';
 
 interface RefType {
   [key: string]: Element | Block<object>
 }
 
-export abstract class Block<Props extends object, Refs extends object = RefType> {
+export abstract class Block<Props extends object, Refs extends object = RefType> implements BlockComponent {
   protected abstract template: string; // Handlebars-шаблон текущего компонента.
   protected props = {} as Props; // Свойства компонента. Будут переданы в шаблон во время рендеринга
   protected refs: Refs = {} as Refs; // ссылки на элементы внутри поддерева
 
   private children: Block<object>[] = []; // как таковой не нужен, храним только для того, чтобы было у кого вызывать unmount
-  private element: Element | null = null; // Элемент в DOM, в который отрендерен этот компонент
+  private domElement: Element | null = null; // Элемент в DOM, в который отрендерен этот компонент
 
   constructor(props: Props) {
     this.props = props;
@@ -21,16 +21,17 @@ export abstract class Block<Props extends object, Refs extends object = RefType>
     this.render();
   }
 
-  public content(): Element {
-    if (!this.element) {
+  public element(): Element {
+    if (!this.domElement) {
       this.render();
     }
-    return this.element as Element;
+    return this.domElement as Element;
   }
 
   // Автоматически вызываемые методы компонента: componentDidMount, componentWillUnmount
   protected componentDidMount() {
     // Метод будет вызван при встраивании компонента в DOM. На момент вызова уже всё встроено, DOM готов и доступен
+    // В отличие от React, метод вызывается на КАЖДЫЙ перерендер, т.к. фактически точка монтирования каждый раз меняется
   }
 
   protected componentWillUnmount() {
@@ -38,17 +39,17 @@ export abstract class Block<Props extends object, Refs extends object = RefType>
   }
 
   private render() {
-    if (this.element) {
+    if (this.domElement) {
       this.componentWillUnmount();
       this.children.reverse().forEach(child => child.componentWillUnmount()); // вызываем очистку в порядке, обратном созданию
     }
 
     const fragment = this.compile();
 
-    if (this.element) {
-      this.element.replaceWith(fragment);
+    if (this.domElement) {
+      this.domElement.replaceWith(fragment);
     }
-    this.element = fragment;
+    this.domElement = fragment;
     this.componentDidMount();
   }
 
