@@ -16,6 +16,15 @@ export class LoginPage extends Block<Props, Refs> {
   static componentName = 'LoginPage';
   protected template = template;
 
+  constructor(props: Props) {
+    super({
+      ...props,
+      onChangeLogin: (e: Event) => {
+        console.log(e);
+      }
+    });
+  }
+
   private onSubmit(e: Event) {
     console.log('login:', this.refs.login.value());
     console.log('password:', this.refs.password.value());

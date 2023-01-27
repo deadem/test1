@@ -5,12 +5,20 @@ interface RefType {
 }
 
 export abstract class Block<Props extends object, Refs extends object = RefType> implements BlockComponent {
-  protected abstract template: string; // Handlebars-шаблон текущего компонента.
-  protected props = {} as Props; // Свойства компонента. Будут переданы в шаблон во время рендеринга
-  protected refs: Refs = {} as Refs; // ссылки на элементы внутри поддерева
+  // Handlebars-шаблон текущего компонента.
+  protected abstract template: string;
+  // Свойства компонента. Будут переданы в шаблон во время рендеринга
+  protected props = {} as Props;
+  // ссылки на элементы внутри поддерева
+  protected refs = {} as Refs;
+  // события, которые будут автоматически подключены к this.element()
+  // Просто сахар, чтобы не навешиваться руками в componenDidMount
+  protected events = {} as { [key: string]: (e: Event) => void; };
 
-  private children: Block<object>[] = []; // как таковой не нужен, храним только для того, чтобы было у кого вызывать unmount
-  private domElement: Element | null = null; // Элемент в DOM, в который отрендерен этот компонент
+  // как таковой список не нужен, храним только для того, чтобы было у кого вызывать unmount
+  private children: Block<object>[] = [];
+  // Элемент в DOM, в который отрендерен этот компонент
+  private domElement: Element | null = null;
 
   constructor(props: Props) {
     this.props = props;
@@ -50,6 +58,7 @@ export abstract class Block<Props extends object, Refs extends object = RefType>
       this.domElement.replaceWith(fragment);
     }
     this.domElement = fragment;
+    Object.entries(this.events).forEach(([ key, value ]) => fragment.addEventListener(key, value));
     this.componentDidMount();
   }
 

@@ -4,6 +4,7 @@ import { Block } from '../../utils/Block';
 import { Input } from '../input/input';
 
 interface Props {
+  onChange: (e: Event) => void;
 }
 
 interface Refs {
