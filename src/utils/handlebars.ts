@@ -25,7 +25,9 @@ export function compile(template: string, context: object) {
 
 let uniqueId = 0; // Идентификатор текущего компонента. Используется во время рендеринга для подстановки дочерних компонентов.
 
-export function registerComponent<T extends BlockComponentClass<T>, P extends object>(Component: { new (props: P): InstanceType<T> } & StaticMethods) {
+type ComponentType<T extends BlockComponentClass<T>> = { new (props: ConstructorParameters<InstanceType<T>>[0]): InstanceType<T> } & StaticMethods;
+
+export function registerComponent<T extends BlockComponentClass<T>>(Component: ComponentType<T>) {
   Handlebars.registerHelper(Component.componentName, function (this: unknown, { hash, data, fn }: HelperOptions) {
       const component = new Component(hash);
       const dataAttribute = `data-component-hbs-id="${++uniqueId}"`;

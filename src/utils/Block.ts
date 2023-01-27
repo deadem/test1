@@ -4,6 +4,10 @@ interface RefType {
   [key: string]: Element | Block<object>
 }
 
+interface Events {
+  [key: string]: (e: Event) => void;
+}
+
 export abstract class Block<Props extends object, Refs extends object = RefType> implements BlockComponent {
   // Handlebars-шаблон текущего компонента.
   protected abstract template: string;
@@ -13,7 +17,7 @@ export abstract class Block<Props extends object, Refs extends object = RefType>
   protected refs = {} as Refs;
   // события, которые будут автоматически подключены к this.element()
   // Просто сахар, чтобы не навешиваться руками в componenDidMount
-  protected events = {} as { [key: string]: (e: Event) => void; };
+  protected events = {} as Events;
 
   // как таковой список не нужен, храним только для того, чтобы было у кого вызывать unmount
   private children: Block<object>[] = [];
