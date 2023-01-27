@@ -5,7 +5,7 @@ interface RefType {
 }
 
 interface Events {
-  [key: string]: (e: Event) => void;
+  [key: string]: ((e: Event) => void) | undefined;
 }
 
 export abstract class Block<Props extends object, Refs extends object = RefType> implements BlockComponent {
@@ -62,8 +62,14 @@ export abstract class Block<Props extends object, Refs extends object = RefType>
       this.domElement.replaceWith(fragment);
     }
     this.domElement = fragment;
-    Object.entries(this.events).forEach(([ key, value ]) => fragment.addEventListener(key, value));
-    this.componentDidMount();
+
+    // Подключаем все листенеры, передавая непустые обработчики
+    // Размонтировать при разрушении компонента нет необходимости - this.domElement пересоздаётся на каждый рендер
+    Object.entries(this.events)
+      .filter((evt): evt is [ string, (e: Event) => void ] => !!evt[1])
+      .forEach(([ key, value ]) => fragment.addEventListener(key, value));
+
+      this.componentDidMount();
   }
 
   private compile() {

@@ -26,7 +26,7 @@ Object.entries(Partials).forEach(([ name, component ]) => {
 
 function navigate(page: keyof typeof pages) {
   const [ component, args ] = pages[page];
-  const content = new component(args || {});
+  const content = new component({ ...args, navigate });
 
   document.body.innerHTML = '';
   document.body.append(content.element());

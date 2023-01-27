@@ -4,6 +4,11 @@ import { Block } from '../../utils/Block';
 import { InputField } from '../../components';
 
 interface Props {
+  navigate(page: string): void;
+}
+
+interface FullProps extends Props {
+  navigateToRegistration(e: Event): void;
 }
 
 interface Refs {
@@ -12,16 +17,18 @@ interface Refs {
   form: HTMLElement;
 }
 
-export class LoginPage extends Block<Props, Refs> {
+export class LoginPage extends Block<FullProps, Refs> {
   static componentName = 'LoginPage';
   protected template = template;
 
   constructor(props: Props) {
     super({
       ...props,
-      onChangeLogin: (e: Event) => {
-        console.log(e);
-      }
+      navigateToRegistration: (e: Event) => {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        this.props.navigate('registration');
+      },
     });
   }
 
@@ -31,6 +38,8 @@ export class LoginPage extends Block<Props, Refs> {
 
     e.preventDefault();
     e.stopPropagation();
+
+    this.props.navigate('chat');
   }
 
   protected override componentDidMount() {

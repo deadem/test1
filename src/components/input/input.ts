@@ -3,7 +3,7 @@ import { default as template } from './input.hbs?raw';
 import { Block } from '../../utils/Block';
 
 interface Props {
-  onChange(e: Event): void;
+  onChange?(e: Event): void;
 }
 
 interface Refs {

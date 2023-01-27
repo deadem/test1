@@ -3,7 +3,7 @@ import { default as template } from './button.hbs?raw';
 import { Block } from '../../utils/Block';
 
 interface Props {
-  onClick(e: Event): void;
+  onClick?(e: Event): void;
 }
 
 export class Button extends Block<Props> {
