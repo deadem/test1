@@ -6,10 +6,15 @@ import { InputField } from '../../components';
 interface Props {
 }
 
-export class LoginPage extends Block<Props> {
+interface Refs {
+  login: InputField;
+  password: InputField;
+  form: HTMLElement;
+}
+
+export class LoginPage extends Block<Props, Refs> {
   static componentName = 'LoginPage';
   protected template = template;
-  protected override refs = {} as { login: InputField, password: InputField, form: HTMLElement };
 
   private onSubmit(e: Event) {
     console.log('login:', this.refs.login.value());

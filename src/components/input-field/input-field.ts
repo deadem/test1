@@ -6,10 +6,13 @@ import { Input } from '../input/input';
 interface Props {
 }
 
-export class InputField extends Block<Props> {
+interface Refs {
+  input: Input;
+}
+
+export class InputField extends Block<Props, Refs> {
   static componentName = 'InputField';
   protected template = template;
-  protected override refs = {} as { input: Input };
 
   public value() {
     return this.refs.input.value();

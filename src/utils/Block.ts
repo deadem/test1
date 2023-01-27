@@ -1,9 +1,13 @@
 import { compile } from './handlebars';
 
-export abstract class Block<Props extends object> {
+interface RefType {
+  [key: string]: Element | Block<object>
+}
+
+export abstract class Block<Props extends object, Refs extends object = RefType> {
   protected abstract template: string; // Handlebars-шаблон текущего компонента.
   protected props = {} as Props; // Свойства компонента. Будут переданы в шаблон во время рендеринга
-  protected refs = {} as Record<string, Element | Block<object>>; // ссылки на элементы внутри поддерева
+  protected refs: Refs = {} as Refs; // ссылки на элементы внутри поддерева
 
   private children: Block<object>[] = []; // как таковой не нужен, храним только для того, чтобы было у кого вызывать unmount
   private element: Element | null = null; // Элемент в DOM, в который отрендерен этот компонент
@@ -58,10 +62,11 @@ export abstract class Block<Props extends object> {
 
     // Инициализация списка ссылок на элементы
     this.refs = Array.from(fragment.querySelectorAll('[ref]')).reduce((list, element) => {
-      list[element.getAttribute('ref') as string] = element as HTMLElement;
+      const key = element.getAttribute('ref') as string;
+      list[key] = element as HTMLElement;
       element.removeAttribute('ref');
       return list;
-    }, refs as typeof this.refs);
+    }, refs) as Refs;
 
     children.forEach(child => child.embed(fragment));
 
