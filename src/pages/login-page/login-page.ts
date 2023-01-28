@@ -2,9 +2,10 @@ import './login-page.scss';
 import { default as template } from './login-page.hbs?raw';
 import { Block } from '../../utils/Block';
 import { InputField } from '../../components';
+import { navigation, Page } from '../../utils/Navigation';
 
 interface Props {
-  navigate(page: string): void;
+  // empty
 }
 
 interface Refs {
@@ -24,7 +25,7 @@ export class LoginPage extends Block<Props, Refs> {
       navigateToRegistration: (e: Event) => {
         e.preventDefault();
         e.stopImmediatePropagation();
-        this.props.navigate('registration');
+        navigation.emit('page', Page.registration);
       },
     });
   }
@@ -36,7 +37,7 @@ export class LoginPage extends Block<Props, Refs> {
     e.preventDefault();
     e.stopPropagation();
 
-    this.props.navigate('chat');
+    navigation.emit('page', Page.chat);
   }
 
   protected override componentDidMount() {
