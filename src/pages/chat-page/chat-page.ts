@@ -10,7 +10,7 @@ export class ChatPage extends Block<Props> {
   protected template = template;
 
   constructor() {
-    super(props)
+    super(props);
   }
 }
 

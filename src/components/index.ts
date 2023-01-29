@@ -9,6 +9,7 @@ export { ChatListHeader } from './chat-list-header/chat-list-header';
 export { ChatMessage } from './chat-message/chat-message';
 export { ChatMessageImage } from './chat-message-image/chat-message-image';
 export { ChatMessageMy } from './chat-message-my/chat-message-my';
+export { ErrorLine } from './error-line/error-line';
 export { Input } from './input/input';
 export { InputField } from './input-field/input-field';
 export { Link } from './link/link';

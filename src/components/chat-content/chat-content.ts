@@ -42,4 +42,4 @@ const message = {
     ],
     time: '13:22',
   },
-}
+};

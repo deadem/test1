@@ -1,27 +1,28 @@
 import { BlockComponent, compile } from './handlebars';
 
-interface RefType {
+type RefType = {
   [key: string]: Element | Block<object>
 }
 
-interface Events {
-  [key: string]: ((e: Event) => void) | undefined;
-}
+type EventListType = { [key: string]: ((e: Event) => void) | undefined; };
+type EventsType<Refs> = { [key in keyof Refs]?: EventListType } | EventListType;
 
 interface AnyProps {
   [key: string]: unknown;
 }
 
-export abstract class Block<Props extends object, Refs extends object = RefType> implements BlockComponent {
+export abstract class Block<Props extends object, Refs extends RefType = RefType> implements BlockComponent {
   // Handlebars-шаблон текущего компонента.
   protected abstract template: string;
   // Свойства компонента. Будут переданы в шаблон во время рендеринга
   protected props = {} as Props;
-  // ссылки на элементы внутри поддерева
+  // Ссылки на элементы внутри поддерева
   protected refs = {} as Refs;
-  // события, которые будут автоматически подключены к this.element()
+  // События, которые будут автоматически подключены к указанным refs или this.element()
   // Просто сахар, чтобы не навешиваться руками в componenDidMount
-  protected events = {} as Events;
+  // При передаче { event: callback } подключится к this.element()
+  // При передаче { ref: { event: callback } } подключится к указанному ref
+  protected events = {} as EventsType<Refs>;
 
   // как таковой список не нужен, храним только для того, чтобы было у кого вызывать unmount
   private children: Block<object>[] = [];
@@ -56,6 +57,26 @@ export abstract class Block<Props extends object, Refs extends object = RefType>
     // Метод будет вызван при удалении компонента в DOM. На момент вызова DOM ещё есть. Это последний шанс почистить за собой
   }
 
+  // Подключаем все листенеры с непустыми обработчиками
+  private attachListeners() {
+    const addEventListener = (element: Element | Block<object>, event: string, callback: ((e: Event) => void) | undefined) => {
+      if (element && callback) {
+        (element instanceof Element ? element : element.element()).addEventListener(event, callback);
+      }
+    };
+
+    for (const refOrEvent in this.events) {
+      const eventsOrCallback = this.events[refOrEvent];
+      if (typeof eventsOrCallback == 'function') {
+        addEventListener(this.element(), refOrEvent, eventsOrCallback);
+      } else {
+        for (const event in eventsOrCallback) {
+          addEventListener(this.refs[refOrEvent], event, eventsOrCallback?.[event]);
+        }
+      }
+    }
+  }
+
   private render() {
     if (this.domElement) {
       this.componentWillUnmount();
@@ -69,13 +90,10 @@ export abstract class Block<Props extends object, Refs extends object = RefType>
     }
     this.domElement = fragment;
 
-    // Подключаем все листенеры, передавая непустые обработчики
-    // Размонтировать при разрушении компонента нет необходимости - this.domElement пересоздаётся на каждый рендер
-    Object.entries(this.events)
-      .filter((evt): evt is [ string, (e: Event) => void ] => !!evt[1])
-      .forEach(([ key, value ]) => fragment.addEventListener(key, value));
+    // Отключать обработчики при разрушении компонента нет необходимости - this.domElement пересоздаётся на каждый рендер
+    this.attachListeners();
 
-      this.componentDidMount();
+    this.componentDidMount();
   }
 
   private compile() {

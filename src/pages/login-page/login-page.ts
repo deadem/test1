@@ -3,16 +3,17 @@ import { default as template } from './login-page.hbs?raw';
 import { Block } from '../../utils/Block';
 import { InputField } from '../../components';
 import { navigation, Page } from '../../utils/Navigation';
+import * as Validation from '../../utils/Validation';
 
 interface Props {
   // empty
 }
 
-interface Refs {
+type Refs = {
   login: InputField;
   password: InputField;
   form: HTMLElement;
-}
+};
 
 export class LoginPage extends Block<Props, Refs> {
   static componentName = 'LoginPage';
@@ -21,23 +22,29 @@ export class LoginPage extends Block<Props, Refs> {
   constructor(props: Props) {
     super({
       ...props,
+      // свойства для шаблона
       onChangeLogin: (e: Event) => console.log(e),
       navigateToRegistration: (e: Event) => {
         e.preventDefault();
         e.stopImmediatePropagation();
         navigation.emit('page', Page.registration);
       },
+      validateLogin: Validation.login,
     });
   }
 
   private onSubmit(e: Event) {
-    console.log('login:', this.refs.login.value());
-    console.log('password:', this.refs.password.value());
-
     e.preventDefault();
     e.stopPropagation();
 
-    navigation.emit('page', Page.chat);
+    const login = this.refs.login.value();
+    const password = this.refs.password.value();
+    console.log('login:', login);
+    console.log('password:', password);
+
+    if (login && password) {
+      navigation.emit('page', Page.chat);
+    }
   }
 
   protected override componentDidMount() {
