@@ -1,5 +1,5 @@
 import './login-page.scss';
-import { default as template } from './login-page.hbs?raw';
+import template from './login-page.hbs?raw';
 import { Block } from '../../utils/Block';
 import { InputField } from '../../components';
 import { navigation, Page } from '../../utils/Navigation';
@@ -23,13 +23,13 @@ export class LoginPage extends Block<Props, Refs> {
     super({
       ...props,
       // свойства для шаблона
-      onChangeLogin: (e: Event) => console.log(e),
       navigateToRegistration: (e: Event) => {
         e.preventDefault();
         e.stopImmediatePropagation();
         navigation.emit('page', Page.registration);
       },
       validateLogin: Validation.login,
+      validatePassword: Validation.password,
     });
   }
 
