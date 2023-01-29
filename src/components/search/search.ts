@@ -1,5 +1,5 @@
 import './search.scss';
-import { default as template } from './search.hbs?raw';
+import template from './search.hbs?raw';
 import { Block } from '../../utils/Block';
 
 interface Props {

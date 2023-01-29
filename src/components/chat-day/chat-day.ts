@@ -1,5 +1,5 @@
 import './chat-day.scss';
-import { default as template } from './chat-day.hbs?raw';
+import template from './chat-day.hbs?raw';
 import { Block } from '../../utils/Block';
 
 interface Props {

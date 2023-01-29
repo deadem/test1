@@ -1,5 +1,5 @@
 import './registration-page.scss';
-import { default as template } from './registration-page.hbs?raw';
+import template from './registration-page.hbs?raw';
 import { Block } from '../../utils/Block';
 
 interface Props {

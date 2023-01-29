@@ -1,5 +1,5 @@
 import './menu.scss';
-import { default as template } from './menu.hbs?raw';
+import template from './menu.hbs?raw';
 import { Block } from '../../utils/Block';
 
 interface Props {

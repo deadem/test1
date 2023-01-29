@@ -1,5 +1,5 @@
 import './link.scss';
-import { default as template } from './link.hbs?raw';
+import template from './link.hbs?raw';
 import { Block } from '../../utils/Block';
 
 interface Props {

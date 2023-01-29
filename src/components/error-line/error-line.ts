@@ -1,5 +1,5 @@
 import './error-line.scss';
-import { default as template } from './error-line.hbs?raw';
+import template from './error-line.hbs?raw';
 import { Block } from '../../utils/Block';
 
 interface Props {

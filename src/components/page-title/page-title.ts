@@ -1,5 +1,5 @@
 import './page-title.scss';
-import { default as template } from './page-title.hbs?raw';
+import template from './page-title.hbs?raw';
 import { Block } from '../../utils/Block';
 
 interface Props {

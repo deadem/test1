@@ -1,5 +1,5 @@
 import './button.scss';
-import { default as template } from './button.hbs?raw';
+import template from './button.hbs?raw';
 import { Block } from '../../utils/Block';
 
 interface Props {

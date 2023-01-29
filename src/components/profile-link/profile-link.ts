@@ -1,5 +1,5 @@
 import './profile-link.scss';
-import { default as template } from './profile-link.hbs?raw';
+import template from './profile-link.hbs?raw';
 import { Block } from '../../utils/Block';
 
 interface Props {

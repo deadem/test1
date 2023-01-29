@@ -1,5 +1,5 @@
 import './input-field.scss';
-import { default as template } from './input-field.hbs?raw';
+import template from './input-field.hbs?raw';
 import { Block } from '../../utils/Block';
 import { Input } from '../input/input';
 import { ErrorLine } from '../error-line/error-line';
@@ -22,6 +22,8 @@ export class InputField extends Block<Props, Refs> {
   constructor(props: Props) {
     super({
       ...props,
+      // В материалах курса вадидация должна запускаться по фокусу, но выглядит это странно - ещё ничего не ввели, но уже ошибка,
+      // поэтому проверку по фокусу выключил
       // onFocus: () => this.validate(),
       onBlur: () => this.validate(),
     });
