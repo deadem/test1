@@ -3,6 +3,7 @@ import template from './input.hbs?raw';
 import { Block } from '../../utils/Block';
 
 interface Props {
+  alignRight?: boolean;
   onBlur?(e: Event): void;
   onFocus?(e: Event): void;
   onChange?(e: Event): void;

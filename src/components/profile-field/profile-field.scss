@@ -11,6 +11,11 @@
     color: $title-color;
   }
 
+  &__input {
+    flex: 1;
+    margin-left: 8px;
+  }
+
   &__value {
     color: $text-light-color;
   }

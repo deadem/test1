@@ -4,6 +4,7 @@ export const enum Page {
   chat,
   login,
   registration,
+  profile,
 }
 
 type Events = {
