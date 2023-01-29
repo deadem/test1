@@ -17,6 +17,7 @@
   "rules": {
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
+    "indent": ["error", 2],
     "@typescript-eslint/no-unused-vars": ["error", { "destructuredArrayIgnorePattern": "^_" }],
     "@typescript-eslint/no-empty-interface": [0]
   }
