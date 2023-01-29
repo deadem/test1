@@ -32,7 +32,7 @@ function init() {
     document.body.append(content.element());
   });
 
-  navigation.emit('page', Page.login);
+  navigation.emit('page', Page.profile);
 }
 
 document.addEventListener('DOMContentLoaded', init);

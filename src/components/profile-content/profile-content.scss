@@ -48,8 +48,6 @@
   &__field {
     $this: &;
 
-    flex: 1;
-
     + #{$this} {
       border-top: 1px solid $divider-line-color;
     }

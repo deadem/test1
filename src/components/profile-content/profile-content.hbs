@@ -3,15 +3,24 @@
   {{#if upload}}{{> UploadFile }}{{/if}}
   <div class="profile-content__name{{#if edit}} profile-content__name--hidden{{/if}}">Иван</div>
   {{#if password}}
-    {{{ ProfileField edit=edit className="profile-content__field" name="password" title="Старый пароль" value="1234567" type="password" alignRight=true}}}
-    {{{ ProfileField edit=edit className="profile-content__field" name="password_new" title="Новый пароль" value="111222333" type="password" alignRight=true}}}
-    {{{ ProfileField edit=edit className="profile-content__field" name="password_new_copy" title="Повторите новый пароль" value="111222333" type="password" alignRight=true}}}
+    {{{ ProfileField edit=edit className="profile-content__field" name="password" title="Старый пароль" value="1234567"
+      type="password" alignRight=true validate=validatePassword ref="password" }}}
+    {{{ ProfileField edit=edit className="profile-content__field" name="password_new" title="Новый пароль" value="111222333"
+      type="password" alignRight=true validate=validateNewPassword ref="passwordNew" }}}
+    {{{ ProfileField edit=edit className="profile-content__field" name="password_new_copy" title="Повторите новый пароль"
+      value="111222333" type="password" alignRight=true validate=validateNewPasswordCopy ref="passwordNewCopy" }}}
   {{else}}
-    {{{ ProfileField edit=edit className="profile-content__field" name="email" title="Почта" value="pochta@yandex.ru" alignRight=edit}}}
-    {{{ ProfileField edit=edit className="profile-content__field" name="login" title="Логин" value="ivanivanov" alignRight=edit}}}
-    {{{ ProfileField edit=edit className="profile-content__field" name="first_name" title="Имя" value="Иван" alignRight=edit}}}
-    {{{ ProfileField edit=edit className="profile-content__field" name="second_name" title="Фамилия" value="Иванов" alignRight=edit}}}
-    {{{ ProfileField edit=edit className="profile-content__field" name="nick" title="Имя в чате" value="Иван" alignRight=edit}}}
-    {{{ ProfileField edit=edit className="profile-content__field" name="phone" title="Телефон" value="+7 (909) 967 30 30" alignRight=edit}}}
+    {{{ ProfileField edit=edit className="profile-content__field" name="email" title="Почта" value="pochta@yandex.ru"
+      alignRight=edit validate=validateEmail ref="email" }}}
+    {{{ ProfileField edit=edit className="profile-content__field" name="login" title="Логин" value="ivanivanov" alignRight=edit
+      validate=validateLogin ref="login" }}}
+    {{{ ProfileField edit=edit className="profile-content__field" name="first_name" title="Имя" value="Иван" alignRight=edit
+      validate=validateName ref="name" }}}
+    {{{ ProfileField edit=edit className="profile-content__field" name="second_name" title="Фамилия" value="Иванов" alignRight=edit
+      validate=validateSurname ref="surname" }}}
+    {{{ ProfileField edit=edit className="profile-content__field" name="nick" title="Имя в чате" value="Иван" alignRight=edit
+      validate=validateNickname ref="nick" }}}
+    {{{ ProfileField edit=edit className="profile-content__field" name="phone" title="Телефон" value="+79099673030" alignRight=edit
+      validate=validatePhone ref="phone" }}}
   {{/if}}
 </div>
