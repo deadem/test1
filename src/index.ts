@@ -37,7 +37,7 @@ function init() {
     document.body.append(content.element());
   });
 
-  navigation.emit('page', Page.login);
+  navigation.emit('page', Page.registration);
 }
 
 document.addEventListener('DOMContentLoaded', init);
