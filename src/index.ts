@@ -1,4 +1,4 @@
-import { registerComponent, registerPartial } from './utils/handlebars';
+import { registerComponent, registerPartial } from './utils/Handlebars';
 import * as Components from './components';
 import * as Pages from './pages';
 import * as Partials from './partials';

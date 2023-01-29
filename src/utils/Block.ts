@@ -1,4 +1,4 @@
-import { BlockComponent, compile } from './handlebars';
+import { BlockComponent, compile } from './Handlebars';
 
 type RefType = {
   [key: string]: Element | Block<object>
