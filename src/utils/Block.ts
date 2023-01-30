@@ -49,12 +49,12 @@ export abstract class Block<Props extends object, Refs extends RefType = RefType
 
   // Автоматически вызываемые методы компонента: componentDidMount, componentWillUnmount
   protected componentDidMount() {
-    // Метод будет вызван при встраивании компонента в DOM. На момент вызова уже всё встроено, DOM готов и доступен
-    // В отличие от React, метод вызывается на КАЖДЫЙ перерендер, т.к. фактически точка монтирования каждый раз меняется
+    // Метод будет вызван при встраивании компонента в DOM. На момент вызова уже всё встроено, DOM готов и доступен.
+    // В отличие от React, метод вызывается на КАЖДЫЙ перерендер, т.к. фактически точка монтирования каждый раз меняется.
   }
 
   protected componentWillUnmount() {
-    // Метод будет вызван при удалении компонента в DOM. На момент вызова DOM ещё есть. Это последний шанс почистить за собой
+    // Метод будет вызван при удалении компонента в DOM. На момент вызова DOM ещё есть. Это последний шанс почистить за собой.
   }
 
   // Подключаем все листенеры с непустыми обработчиками
@@ -71,7 +71,7 @@ export abstract class Block<Props extends object, Refs extends RefType = RefType
         addEventListener(this.element(), refOrEvent, eventsOrCallback);
       } else {
         for (const event in eventsOrCallback) {
-          addEventListener(this.refs[refOrEvent], event, eventsOrCallback?.[event]);
+          addEventListener(this.refs[refOrEvent], event, eventsOrCallback[event]);
         }
       }
     }
