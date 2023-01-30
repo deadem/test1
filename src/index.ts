@@ -12,7 +12,7 @@ Object.entries(Partials).forEach(([ name, component ]) => {
   registerPartial(name, component);
 });
 
-function init() {
+document.addEventListener('DOMContentLoaded', () => {
   const pages = {
     [Page.chat]: Pages.ChatPage,
     [Page.login]: Pages.LoginPage,
@@ -33,6 +33,4 @@ function init() {
   });
 
   navigation.emit('page', Page.login);
-}
-
-document.addEventListener('DOMContentLoaded', init);
+});
