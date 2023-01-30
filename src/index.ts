@@ -4,15 +4,15 @@ import * as Pages from './pages';
 import * as Partials from './partials';
 import { navigation, Page } from './utils/Navigation';
 
-Object.entries(Components).forEach(([, component ]) => {
-  registerComponent(component);
-});
-
-Object.entries(Partials).forEach(([ name, component ]) => {
-  registerPartial(name, component);
-});
-
 document.addEventListener('DOMContentLoaded', () => {
+  Object.entries(Components).forEach(([, component ]) => {
+    registerComponent(component);
+  });
+
+  Object.entries(Partials).forEach(([ name, component ]) => {
+    registerPartial(name, component);
+  });
+
   const pages = {
     [Page.chat]: Pages.ChatPage,
     [Page.login]: Pages.LoginPage,
