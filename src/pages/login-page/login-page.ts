@@ -28,8 +28,7 @@ export class LoginPage extends Block<Props, Refs> {
         e.stopImmediatePropagation();
         navigation.emit('page', Page.registration);
       },
-      validateLogin: Validation.login,
-      validatePassword: Validation.password,
+      validate: Validation,
     });
   }
 

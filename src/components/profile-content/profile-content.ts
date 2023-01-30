@@ -28,12 +28,7 @@ export class ProfileContent extends Block<Props, Refs> {
     super({
       ...props,
       // свойства шаблона
-      validateEmail: Validation.email,
-      validateLogin: Validation.login,
-      validateName: Validation.name,
-      validateSurname: Validation.surname,
-      validatePhone: Validation.phone,
-      validatePassword: Validation.password,
+      validate: Validation,
     });
   }
 

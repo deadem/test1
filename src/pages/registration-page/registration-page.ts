@@ -32,12 +32,7 @@ export class RegistrationPage extends Block<Props, Refs> {
         e.stopImmediatePropagation();
         navigation.emit('page', Page.login);
       },
-      validateEmail: Validation.email,
-      validateLogin: Validation.login,
-      validateName: Validation.name,
-      validateSurname: Validation.surname,
-      validatePhone: Validation.phone,
-      validatePassword: Validation.password,
+      validate: Validation,
       validatePasswordCopy: (value: string) => {
         if (value != this.refs.password.value()) {
           return 'Пароли не совпадают';

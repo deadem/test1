@@ -3,17 +3,17 @@
     <div class="registration-page__content">
       {{{ PageTitle title="Регистрация" }}}
       {{{ InputField className="registration-page__input" title="Почта" name="email"
-        ref="email" validate=validateEmail }}}
+        ref="email" validate=validate.email }}}
       {{{ InputField className="registration-page__input" title="Логин" name="login"
-        ref="login" validate=validateLogin }}}
+        ref="login" validate=validate.login }}}
       {{{ InputField className="registration-page__input" title="Имя" name="first_name"
-        ref="name" validate=validateName }}}
+        ref="name" validate=validate.name }}}
       {{{ InputField className="registration-page__input" title="Фамилия" name="second_name"
-        ref="surname" validate=validateSurname }}}
+        ref="surname" validate=validate.surname }}}
       {{{ InputField className="registration-page__input" title="Телефон" name="phone"
-        ref="phone" validate=validatePhone }}}
+        ref="phone" validate=validate.phone }}}
       {{{ InputField className="registration-page__input" title="Пароль" type="password" name="password"
-        ref="password" validate=validatePassword }}}
+        ref="password" validate=validate.password }}}
       {{{ InputField className="registration-page__input" title="Пароль (ещё раз)" type="password" name="password_copy"
         ref="passwordCopy" validate=validatePasswordCopy }}}
     </div>
