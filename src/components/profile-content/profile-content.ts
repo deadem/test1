@@ -1,8 +1,8 @@
 import './profile-content.scss';
 import template from './profile-content.hbs?raw';
 import { Block } from '../../utils/Block';
-import * as Validation from '../../utils/Validation';
 import { ProfileField } from '../index';
+import * as Validation from '../../utils/Validation';
 
 interface Props {
   password: boolean;

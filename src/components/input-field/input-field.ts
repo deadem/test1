@@ -1,8 +1,7 @@
 import './input-field.scss';
 import template from './input-field.hbs?raw';
 import { Block } from '../../utils/Block';
-import { Input } from '../input/input';
-import { ErrorLine } from '../error-line/error-line';
+import { Input, ErrorLine } from '../index';
 
 interface Props {
   validate?: (value: string) => void | string;
