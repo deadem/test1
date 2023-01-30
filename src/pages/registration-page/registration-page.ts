@@ -1,7 +1,7 @@
 import './registration-page.scss';
 import template from './registration-page.hbs?raw';
 import { Block } from '../../utils/Block';
-import { navigation, Page } from '../../utils/Navigation';
+import { NavigateTo } from '../../utils/Navigation';
 import * as Validation from '../../utils/Validation';
 import { InputField } from '../../components';
 
@@ -30,7 +30,7 @@ export class RegistrationPage extends Block<Props, Refs> {
       navigateToLogin: (e: Event) => {
         e.preventDefault();
         e.stopImmediatePropagation();
-        navigation.emit('page', Page.login);
+        NavigateTo.login();
       },
       validate: Validation,
       validatePasswordCopy: (value: string) => {
@@ -56,7 +56,7 @@ export class RegistrationPage extends Block<Props, Refs> {
     console.log('form:', email, login, name, surname, phone, password, passwordCopy);
 
     if (email && login && name && surname && phone && password && passwordCopy) {
-      navigation.emit('page', Page.chat);
+      NavigateTo.chat();
     }
   }
 

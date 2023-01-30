@@ -2,7 +2,7 @@ import { registerComponent, registerPartial } from './utils/Handlebars';
 import * as Components from './components';
 import * as Pages from './pages';
 import * as Partials from './partials';
-import { navigation, Page } from './utils/Navigation';
+import { Navigation, Page, NavigateTo } from './utils/Navigation';
 
 document.addEventListener('DOMContentLoaded', () => {
   Object.entries(Components).forEach(([, component ]) => {
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 'profile-avatar-upload': [ Pages.ProfilePage, { upload: true } ],
   };
 
-  navigation.on('page', (page: Page) => {
+  Navigation.eventBus().on('page', (page: Page) => {
     const component = pages[page];
     const content = new component({});
 
@@ -32,5 +32,5 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.append(content.element());
   });
 
-  navigation.emit('page', Page.login);
+  NavigateTo.login();
 });

@@ -2,7 +2,7 @@ import './login-page.scss';
 import template from './login-page.hbs?raw';
 import { Block } from '../../utils/Block';
 import { InputField } from '../../components';
-import { navigation, Page } from '../../utils/Navigation';
+import { NavigateTo } from '../../utils/Navigation';
 import * as Validation from '../../utils/Validation';
 
 interface Props {
@@ -26,7 +26,7 @@ export class LoginPage extends Block<Props, Refs> {
       navigateToRegistration: (e: Event) => {
         e.preventDefault();
         e.stopImmediatePropagation();
-        navigation.emit('page', Page.registration);
+        NavigateTo.registation();
       },
       validate: Validation,
     });
@@ -42,7 +42,7 @@ export class LoginPage extends Block<Props, Refs> {
     console.log('password:', password);
 
     if (login && password) {
-      navigation.emit('page', Page.chat);
+      NavigateTo.chat();
     }
   }
 

@@ -1,7 +1,7 @@
 import './profile-page.scss';
 import template from './profile-page.hbs?raw';
 import { Block } from '../../utils/Block';
-import { navigation, Page } from '../../utils/Navigation';
+import { NavigateTo } from '../../utils/Navigation';
 import { Button, ProfileContent, ProfileLink } from '../../components';
 
 interface Props {
@@ -21,12 +21,12 @@ export class ProfilePage extends Block<Props, Refs> {
   protected template = template;
   protected override events = {
     chatLink: {
-      click: () => navigation.emit('page', Page.chat),
+      click: () => NavigateTo.chat(),
     },
     exit: {
       click: (e: Event) => {
         e.preventDefault();
-        navigation.emit('page', Page.login);
+        NavigateTo.login();
       },
     },
     edit: {
