@@ -6,6 +6,8 @@ type Options = {
   headers?: { [key: string]: string },
   data?: Data;
   timeout?: number;
+  withCredentials?: boolean | undefined;
+  responseType?: XMLHttpRequestResponseType;
   signal?: AbortSignal;
 }
 
@@ -52,7 +54,8 @@ export class HTTPTransport {
   }
 
   private request<Response>(url: string, method: Method, options: Options = {}): Promise<Response> {
-    const { data, headers, timeout = 60000, signal } = options; // 60 секунд умолчательный таймаут
+    // 60 секунд умолчательный таймаут
+    const { data, headers, signal, timeout = 60000, withCredentials = true, responseType = 'json' } = options;
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -72,8 +75,8 @@ export class HTTPTransport {
       });
 
       xhr.timeout = timeout;
-      xhr.withCredentials = true;
-      xhr.responseType = 'json';
+      xhr.withCredentials = withCredentials;
+      xhr.responseType = responseType;
 
       if (method === 'GET' || !data) {
         xhr.send();
@@ -88,6 +91,8 @@ export class HTTPTransport {
 }
 
 /*
+Модуль пока что в проекте не используется, тут в комментарии хоть какой-то пример, как его вызывать:
+
 const req = new HTTPTransport();
 req.get('https://ya-praktikum.tech/api/v2/auth/user', { data: { q: 'te?1=&st' } }).then(e => {
   console.log(e);
