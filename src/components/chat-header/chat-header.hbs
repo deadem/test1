@@ -3,9 +3,9 @@
   <div class="chat-header__name">{{ name }}</div>
   <div class="chat-header__menu-button" ref="button">&vellip;</div>
   {{#if menu}}
-    {{{ Menu className="chat-header__menu" menu=menu }}}
+    {{{ Menu className="chat-header__menu" menu=menu onClick=onClickMenu }}}
   {{/if}}
   {{#if useradd}}
-    {{{ UserAdd }}}
+    {{{ UserAdd onSubmit=onUserAdd }}}
   {{/if}}
 </div>

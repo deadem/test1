@@ -1,12 +1,14 @@
 @import '../../variables';
 
 .dialog-modal {
-  &__overlay {
-    position: absolute;
-    inset: 0;
-    background: $dialog-modal-overlay-bgcolor;
-    z-index: 1;
-  }
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  inset: 0;
+  background: $dialog-modal-overlay-bgcolor;
+  z-index: 1;
 
   &__main {
     position: absolute;

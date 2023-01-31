@@ -18,9 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     [Page.login]: Pages.LoginPage,
     [Page.registration]: Pages.RegistrationPage,
     [Page.profile]: Pages.ProfilePage,
-    // 'chat-menu-user': [ Pages.ChatPage, { menu: true } ],
-    // 'chat-user-add': [ Pages.ChatPage, { useradd: true } ],
-    // 'error': [ Pages.ErrorPage ],
+
     // 'profile-avatar-upload': [ Pages.ProfilePage, { upload: true } ],
   };
 

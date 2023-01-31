@@ -21,6 +21,15 @@ export class ChatHeader extends Block<Props, Refs> {
     }
   };
 
+  constructor(props: Props) {
+    super({
+      ...props,
+      // внутренние свойства
+      onClickMenu: (id: number) => this.onClickMenu(id),
+      onUserAdd: () => this.onUserAdd(),
+    });
+  }
+
   private showMenu(e: Event) {
     e.stopPropagation();
     this.setProps({
@@ -29,6 +38,15 @@ export class ChatHeader extends Block<Props, Refs> {
         { icon: cross, text: 'Удалить пользователя' },
       ]
     });
+  }
+
+  private onClickMenu(id: number) {
+    void(id);
+    this.setProps({ menu: undefined, useradd: true });
+  }
+
+  private onUserAdd() {
+    this.setProps({ menu: undefined, useradd: false });
   }
 
   protected override componentDidMount(): void {
