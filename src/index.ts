@@ -18,8 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
     [Page.login]: Pages.LoginPage,
     [Page.registration]: Pages.RegistrationPage,
     [Page.profile]: Pages.ProfilePage,
-
-    // 'profile-avatar-upload': [ Pages.ProfilePage, { upload: true } ],
   };
 
   Navigation.eventBus().on('page', (page: Page) => {

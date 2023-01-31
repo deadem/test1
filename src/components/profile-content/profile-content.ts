@@ -18,17 +18,24 @@ type Refs = {
   password: ProfileField;
   passwordNew: ProfileField;
   passwordNewCopy: ProfileField;
+  upload: HTMLElement;
 };
 
 export class ProfileContent extends Block<Props, Refs> {
   static componentName = 'ProfileContent';
   protected template = template;
+  protected override events = {
+    upload: {
+      click: () => { this.setProps({ upload: true }); }
+    }
+  };
 
   constructor(props: Props) {
     super({
       ...props,
       // свойства шаблона
       validate: Validation,
+      onAddAvatar: () => { this.setProps({ upload: false }); },
     });
   }
 

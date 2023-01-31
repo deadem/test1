@@ -22,7 +22,7 @@ export abstract class Block<Props extends object, Refs extends RefType = RefType
   // Просто сахар, чтобы не навешиваться руками в componenDidMount
   // При передаче { event: callback } подключится к this.element()
   // При передаче { ref: { event: callback } } подключится к указанному ref
-  protected events = {} as EventsType<Refs>;
+  protected readonly events = {} as EventsType<Refs>;
 
   // как таковой список не нужен, храним только для того, чтобы было у кого вызывать unmount
   private children: Block<object>[] = [];
