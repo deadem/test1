@@ -77,11 +77,16 @@ export abstract class Block<Props extends object, Refs extends RefType = RefType
     }
   }
 
-  private render() {
+  // Метод вызывает componentWillUnmount у себя, а затем, рекурсивно, и у всех детей
+  private unmountComponent() {
     if (this.domElement) {
       this.componentWillUnmount();
-      this.children.reverse().forEach(child => child.componentWillUnmount()); // вызываем очистку в порядке, обратном созданию
+      this.children.reverse().forEach(child => child.unmountComponent()); // вызываем очистку в порядке, обратном созданию
     }
+  }
+
+  private render() {
+    this.unmountComponent();
 
     const fragment = this.compile();
 
