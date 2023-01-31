@@ -20,19 +20,22 @@ export class AbortController {
   }
 }
 
+function queryString(data: Record<string | number, string | number | undefined>) {
+  return Object.entries(data)
+    .filter((entry): entry is [ string, string | number ] => entry[1] != undefined)
+    .map(([ name, value ]) => `${encodeURIComponent(name)}=${encodeURIComponent(value)}`)
+    .join('&');
+}
+
 export class HTTPTransport {
   public get(url: string, { data, ...options }: Omit<Options, 'data'> & { data?: DataObject } = {}) {
     if (data && Object.keys(data).length) {
-      // Соберём из data строку QUERY_STRING
-      const pack = Object.entries(data)
-        .filter((entry): entry is [ string, string | number ] => entry[1] != undefined)
-        .map(([ name, value ]) => `${encodeURIComponent(name)}=${encodeURIComponent(value)}`)
-        .join('&');
-
-      if (pack) {
-        url += '?' + pack;
+      const queryPart = queryString(data);
+      if (queryPart) {
+        url += '?' + queryPart;
       }
     }
+
     return this.request(url, 'GET', options);
   }
 
