@@ -52,13 +52,12 @@ export class HTTPTransport {
   }
 
   private request<Response>(url: string, method: Method, options: Options = {}): Promise<Response> {
-    const { data, headers, timeout, signal } = options;
+    const { data, headers, timeout = 60000, signal } = options; // 60 секунд умолчательный таймаут
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open(method, url);
 
-      xhr.timeout = timeout ?? 60000; // 60 секунд умолчательный таймаут
       if (signal) {
         signal.handler = () => { xhr.abort(); };
       }
@@ -72,6 +71,7 @@ export class HTTPTransport {
         xhr.setRequestHeader(key, value);
       });
 
+      xhr.timeout = timeout;
       xhr.withCredentials = true;
       xhr.responseType = 'json';
 
