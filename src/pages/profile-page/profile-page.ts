@@ -3,8 +3,10 @@ import template from './profile-page.hbs?raw';
 import { Block } from '../../utils/Block';
 import { NavigateTo } from '../../utils/Navigation';
 import { Button, ProfileContent, ProfileLink } from '../../components';
+import { Store, withStore } from '../../utils/Store';
 
 interface Props {
+  store?: Store;
 }
 
 type Refs = {
@@ -16,6 +18,7 @@ type Refs = {
   fields: ProfileContent;
 }
 
+@withStore
 export class ProfilePage extends Block<Props, Refs> {
   static componentName = 'ProfilePage';
   protected template = template;

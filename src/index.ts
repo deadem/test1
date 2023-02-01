@@ -28,5 +28,5 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.append(content.element());
   });
 
-  NavigateTo.login();
+  NavigateTo.profile();
 });

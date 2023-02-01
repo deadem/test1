@@ -10,9 +10,9 @@
     {{{ ProfileField edit=edit className="profile-content__field" name="password_new_copy" title="Повторите новый пароль"
       value="111222333" type="password" alignRight=true validate=validateNewPasswordCopy ref="passwordNewCopy" }}}
   {{else}}
-    {{{ ProfileField edit=edit className="profile-content__field" name="email" title="Почта" value="pochta@yandex.ru"
+    {{{ ProfileField edit=edit className="profile-content__field" name="email" title="Почта" value=store.email
       alignRight=edit validate=validate.email ref="email" }}}
-    {{{ ProfileField edit=edit className="profile-content__field" name="login" title="Логин" value="ivanivanov" alignRight=edit
+    {{{ ProfileField edit=edit className="profile-content__field" name="login" title="Логин" value=store.login alignRight=edit
       validate=validate.login ref="login" }}}
     {{{ ProfileField edit=edit className="profile-content__field" name="first_name" title="Имя" value="Иван" alignRight=edit
       validate=validate.name ref="name" }}}

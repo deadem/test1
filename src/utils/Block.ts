@@ -101,7 +101,7 @@ export abstract class Block<Props extends object, Refs extends RefType = RefType
     this.componentDidMount();
   }
 
-  private compile() {
+  protected compile() {
     const { html, children, refs } = compile(this.template, this.props);
     this.children = children.map(child => child.component as Block<object>);
 
