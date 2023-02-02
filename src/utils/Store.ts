@@ -11,90 +11,61 @@ export type Store = {
 
 type Component = Block<object>;
 
-interface TreeNode {
-  parent: this | undefined;
-  component: Component | undefined;
-  children: this[];
-}
-
 class Bindings {
   static store = {} as Store;
-  static componentRoot = {} as TreeNode;
-  static currentRenderStack = [] as Component[];
   static bindings = {} as {
-    [keys in keyof Store]: Component[]
+    [keys in keyof Store]?: Component[]
   };
 
   static updateStore(store: Partial<Store>) {
-    this.store = { ...this.store, ...store };
+    const updatedStore = { ...this.store, ...store };
+    const updateList = [] as Component[];
+    // Рассчитываем, что в store никогда не будет больше ключей, чем уже есть в this.store
+    (Object.keys(updatedStore) as Array<keyof Store>).forEach(prop => {
+      // Если изменилось какое-либо свойство, добавляем компонент в список на обновление
+      if (this.store[prop] !== updatedStore[prop]) {
+        (this.bindings[prop] ?? []).forEach(component => {
+          if (updateList.indexOf(component) < 0) {
+            updateList.push(component);
+          }
+        });
+      }
+    });
+
+    // Изменяем значения в сторе
+    this.store = updatedStore;
+
+    // Вызываем обновления для списка компонентов. Если компонент уже выключен из DOM (находится в фазе разрушения), не отправляем ему обновление
+    updateList.filter(component => component.element().isConnected).forEach(component => {
+      console.log('update', component);
+      component.setProps({ store: this.getStore(component) });
+    });
   }
 
   static registerBinding(component: Component, prop: keyof Store) {
-    if (this.bindings[prop]?.indexOf(component) >= 0) {
+    const list = this.bindings[prop] ?? [];
+    if (list.indexOf(component) >= 0) {
       // уже зарегистрирован
       return;
     }
-    (this.bindings[prop] = this.bindings[prop] ?? []).push(component);
+    list.push(component);
+    this.bindings[prop] = list;
+  }
 
-    // На момент регистрации компонент должен быть текущим,
-
-
-    const node = this.findComponentNode(component);
-    if (!node) {
-      // если его ещё нет в дереве - добавляем
-    }
+  static unregisterBinding(component: Component) {
+    (Object.keys(this.bindings) as Array<keyof Store>).forEach(prop => {
+      this.bindings[prop] = (this.bindings[prop] ?? []).filter(i => i != component);
+    });
   }
 
   static getStore<T extends Component>(component: T): Store {
     return new Proxy(this.store, {
       get(obj: Store, prop: keyof Store) {
         Bindings.registerBinding(component, prop);
-        console.log('get', prop, component, Bindings.currentRenderStack);
+        console.log('get', prop, component);
         return obj[prop];
       },
     });
-  }
-
-  static findComponentNode(component: Component, subtree = this.componentRoot): TreeNode | void {
-    if (!subtree || !subtree.component) {
-      return;
-    }
-    if (component == subtree.component) {
-      return subtree;
-    }
-    for (let i = 0; i < subtree.children.length; ++i) {
-      const candidate = this.findComponentNode(component, subtree.children[i]);
-      if (candidate) {
-        return candidate;
-      }
-    }
-  }
-
-  static removeComponent(component: Component): void {
-    (Object.keys(this.bindings) as Array<keyof Store>).forEach(prop => {
-      this.bindings[prop] = this.bindings[prop].filter(i => i != component);
-    });
-
-    const node = this.findComponentNode(component);
-    if (!node) {
-      return;
-    }
-    const parent = node.parent;
-    if (parent) {
-      parent.children = parent.children.filter(i => i.component != component);
-    } else {
-      node.component = undefined;
-    }
-  }
-
-  static updateSubTree<T>(node: Component, callback: () => T): T {
-    console.log('compile starts');
-    this.removeComponent(node);
-    this.currentRenderStack.push(node);
-    const result = callback();
-    this.currentRenderStack.pop();
-    console.log('compile ends');
-    return result;
   }
 }
 
@@ -104,6 +75,14 @@ Bindings.updateStore({
   login: 'aakkaa',
 });
 
+setTimeout(() => {
+  // Начальное значение стора
+  Bindings.updateStore({
+    email: 'aj111jzzzakk@mail.ru',
+    // login: 'aakkaa',
+  });
+}, 5000);
+
 type PropsWithStore = {
   store?: Store;
 }
@@ -112,45 +91,14 @@ export function withStore<Props extends PropsWithStore, T extends Constructor<Bl
   return class extends constructor {
     protected template!: string;
 
-    constructor(...args: any[]) {
-      console.log('constructor');
-      super(...args);
-      console.log('init props store', this);
+    protected override compile() {
       this.props.store = Bindings.getStore(this);
+      return super.compile();
     }
 
-    protected override compile(): Element {
-      return Bindings.updateSubTree(this, () => { return super.compile(); });
+    protected override componentWillUnmount(): void {
+      super.componentWillUnmount();
+      Bindings.unregisterBinding(this);
     }
   };
 }
-
-// class C<Props> {
-//   protected props: Props;
-//   // public refs = {} as Refs;
-
-//   constructor(props: Props) {
-//     this.props = props;
-//   }
-
-//   protected compile() {
-//     //
-//   }
-// }
-
-// @withStore
-// export class CA extends Block<A> {
-//   // render() {
-//   // console.log('login', this.props.store.profile.login);
-//   // }
-// }
-
-
-// type A = Store & {
-//   a: number;
-// }
-
-// export const test = new CA({ a: 1 });
-
-/// Proxy
-
