@@ -6,7 +6,7 @@ import { Button, ProfileContent, ProfileLink } from '../../components';
 import { Store, withStore } from '../../utils/Store';
 
 interface Props {
-  store?: Store;
+  store: Store;
 }
 
 type Refs = {

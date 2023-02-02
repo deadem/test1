@@ -1,108 +1,53 @@
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Block } from './Block';
+import { StoreBindings } from './StoreBindings';
 
-type Constructor<T = {}> = new (...args: any[]) => T;
-
+// Описание типов в сторе
 export type Store = {
   email: string;
   login: string;
 };
 
-type Component = Block<object>;
+// Статический класс для ленивой инициализации стора
+class Storage {
+  static store: StoreBindings<Store>;
 
-class Bindings {
-  static store = {} as Store;
-  static bindings = {} as {
-    [keys in keyof Store]?: Component[]
-  };
-
-  static updateStore(store: Partial<Store>) {
-    const updatedStore = { ...this.store, ...store };
-    const updateList = [] as Component[];
-    // Рассчитываем, что в store никогда не будет больше ключей, чем уже есть в this.store
-    (Object.keys(updatedStore) as Array<keyof Store>).forEach(prop => {
-      // Если изменилось какое-либо свойство, добавляем компонент в список на обновление
-      if (this.store[prop] !== updatedStore[prop]) {
-        (this.bindings[prop] ?? []).forEach(component => {
-          if (updateList.indexOf(component) < 0) {
-            updateList.push(component);
-          }
-        });
-      }
-    });
-
-    // Изменяем значения в сторе
-    this.store = updatedStore;
-
-    // Вызываем обновления для списка компонентов.
-    updateList.reverse().forEach(component => {
-      // Если компонент уже выключен из DOM (находится в фазе разрушения), не отправляем ему обновление
-      if (component.element().isConnected) {
-        console.log('update', component);
-        component.setProps({ store: this.getStore(component) });
-      }
-    });
-  }
-
-  static registerBinding(component: Component, prop: keyof Store) {
-    const list = this.bindings[prop] ?? [];
-    if (list.indexOf(component) >= 0) {
-      // уже зарегистрирован
-      return;
+  static bingings() {
+    if (!this.store) {
+      this.store = new StoreBindings();
     }
-    list.push(component);
-    console.log('register', component, list);
-    this.bindings[prop] = list;
-  }
 
-  static unregisterBinding(component: Component) {
-    (Object.keys(this.bindings) as Array<keyof Store>).forEach(prop => {
-      this.bindings[prop] = (this.bindings[prop] ?? []).filter(i => i != component);
-    });
-  }
-
-  static getStore<T extends Component>(component: T): Store {
-    return new Proxy(this.store, {
-      get(obj: Store, prop: keyof Store) {
-        Bindings.registerBinding(component, prop);
-        console.log('get', prop, component);
-        return obj[prop];
-      },
-    });
+    return this.store;
   }
 }
 
-// Начальное значение стора
-Bindings.updateStore({
-  email: 'ajjzzzakk@mail.ru',
-  login: 'aakkaa',
-});
-
-setTimeout(() => {
-  // Начальное значение стора
-  Bindings.updateStore({
-    email: 'aj111jzzzakk@mail.ru',
-    login: 'aak11kaa',
-  });
-}, 3000);
+// Тут должен быть именно any: TS не умеет выводить конструкторы миксинов для других типов
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Constructor<T> = new (...args: any[]) => T;
 
 type PropsWithStore = {
-  store?: Store;
+  store: Store;
 }
 
+// Декоратор, автоматически добавляющий в класс Store
+// У свойств оборачиваемого компонента резервируется свойство store. К нему можно обращаться, но нельзя переопределять его тип.
+// При подключении проверяем наличие свойства store в Props.
 export function withStore<Props extends PropsWithStore, T extends Constructor<Block<Props>>>(constructor: T) {
   return class extends constructor {
-    protected template!: string;
+    protected template!: string; // Тушим предупреждение TS: это абстрактное свойство будет определено в настоящем наследнике от Block<>
 
     protected override render() {
-      this.props.store = Bindings.getStore(this);
+      this.props.store = Storage.bingings().getStore(this);
       return super.render();
     }
 
     protected override componentWillUnmount(): void {
       super.componentWillUnmount();
-      Bindings.unregisterBinding(this);
+      Storage.bingings().unregisterBinding(this);
     }
   };
+}
+
+// Обновление значений в сторе
+export function updateStore(store: Partial<Store>) {
+  Storage.bingings().updateStore(store);
 }

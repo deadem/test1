@@ -4,9 +4,7 @@
   </div>
   <div class="profile-page__center">
     <div class="profile-page__content">
-      --{{ store.login }}--
       {{{ ProfileContent edit=edit password=password ref="fields" }}}
-      --{{ store.login }}--
       <div class="profile-page__footer">
         {{#if edit}}
           {{{ Button text="Сохранить" page="profile" className="profile-page__button-save" ref="save" }}}
