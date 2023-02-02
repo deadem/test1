@@ -35,10 +35,13 @@ class Bindings {
     // Изменяем значения в сторе
     this.store = updatedStore;
 
-    // Вызываем обновления для списка компонентов. Если компонент уже выключен из DOM (находится в фазе разрушения), не отправляем ему обновление
-    updateList.filter(component => component.element().isConnected).forEach(component => {
-      console.log('update', component);
-      component.setProps({ store: this.getStore(component) });
+    // Вызываем обновления для списка компонентов.
+    updateList.reverse().forEach(component => {
+      // Если компонент уже выключен из DOM (находится в фазе разрушения), не отправляем ему обновление
+      if (component.element().isConnected) {
+        console.log('update', component);
+        component.setProps({ store: this.getStore(component) });
+      }
     });
   }
 
@@ -49,6 +52,7 @@ class Bindings {
       return;
     }
     list.push(component);
+    console.log('register', component, list);
     this.bindings[prop] = list;
   }
 
@@ -79,9 +83,9 @@ setTimeout(() => {
   // Начальное значение стора
   Bindings.updateStore({
     email: 'aj111jzzzakk@mail.ru',
-    // login: 'aakkaa',
+    login: 'aak11kaa',
   });
-}, 5000);
+}, 3000);
 
 type PropsWithStore = {
   store?: Store;
@@ -91,9 +95,9 @@ export function withStore<Props extends PropsWithStore, T extends Constructor<Bl
   return class extends constructor {
     protected template!: string;
 
-    protected override compile() {
+    protected override render() {
       this.props.store = Bindings.getStore(this);
-      return super.compile();
+      return super.render();
     }
 
     protected override componentWillUnmount(): void {
