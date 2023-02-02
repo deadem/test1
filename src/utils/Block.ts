@@ -85,7 +85,7 @@ export abstract class Block<Props extends object, Refs extends RefType = RefType
     }
   }
 
-  private render() {
+  protected render() {
     this.unmountComponent();
 
     const fragment = this.compile();

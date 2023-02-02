@@ -3,9 +3,11 @@ import template from './profile-content.hbs?raw';
 import { Block } from '../../utils/Block';
 import { ProfileField } from '../index';
 import * as Validation from '../../utils/Validation';
+import { Store, withStore } from '../../utils/Store';
 
 interface Props {
   password: boolean;
+  store: Store;
 }
 
 type Refs = {
@@ -21,6 +23,7 @@ type Refs = {
   upload: HTMLElement;
 };
 
+@withStore
 export class ProfileContent extends Block<Props, Refs> {
   static componentName = 'ProfileContent';
   protected template = template;
