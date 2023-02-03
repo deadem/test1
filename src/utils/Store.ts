@@ -3,6 +3,7 @@ import { StoreBindings } from './StoreBindings';
 
 // Описание типов в сторе
 type Store = {
+  userId: number;
   email: string;
   login: string;
 };
@@ -21,7 +22,7 @@ class Storage {
 }
 
 export type WithStoreProps = {
-  store: Store;
+  store: DeepReadonly<Store>;
 }
 
 // Декоратор, автоматически добавляющий в класс Store
@@ -32,7 +33,7 @@ export function withStore<Props extends WithStoreProps, T extends Constructor<Bl
     protected template!: string; // Тушим предупреждение TS: это абстрактное свойство будет определено в настоящем наследнике от Block<>
 
     protected override render() {
-      this.props.store = Storage.bingings().getStore(this);
+      this.props.store = Storage.bingings().getBoundStore(this);
       return super.render();
     }
 

@@ -38,7 +38,7 @@ export class StoreBindings<Store extends Record<string | number | symbol, unknow
     updateList.forEach(component => {
       // Если компонент уже выключен из DOM (находится в фазе разрушения), не отправляем ему обновление
       if (component.element().isConnected) {
-        component.setProps({ store: this.getStore(component) });
+        component.setProps({ store: this.getBoundStore(component) });
       }
     });
   }
@@ -62,7 +62,7 @@ export class StoreBindings<Store extends Record<string | number | symbol, unknow
   }
 
   // Каждый раз возвращает новый прокси-объект для отслеживания обращений к стору
-  getStore<T extends Component>(component: T): Store {
+  getBoundStore<T extends Component>(component: T): DeepReadonly<Store> {
     const bind = this.registerBinding.bind(this);
 
     return new Proxy(this.store, {
@@ -71,5 +71,10 @@ export class StoreBindings<Store extends Record<string | number | symbol, unknow
         return obj[prop];
       },
     });
+  }
+
+  // Получение текущего среза стора. Обращения не отслеживаются
+  getStaticStore(): DeepReadonly<Store> {
+    return this.store;
   }
 }
