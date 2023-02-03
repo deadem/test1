@@ -27,7 +27,7 @@ export type WithStoreProps = {
 // Декоратор, автоматически добавляющий в класс Store
 // У свойств оборачиваемого компонента резервируется свойство store. К нему можно обращаться, но нельзя переопределять его тип.
 // При подключении проверяем наличие свойства store в Props.
-export function withStore<Props extends WithStoreProps, T extends Constructor<Block<Props>>>(constructor: T) {
+export function withStore<Props extends WithStoreProps, T extends Constructor<Block<Props>>>(constructor: T): T {
   return class extends constructor {
     protected template!: string; // Тушим предупреждение TS: это абстрактное свойство будет определено в настоящем наследнике от Block<>
 

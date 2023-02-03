@@ -2,10 +2,10 @@ import './login-page.scss';
 import template from './login-page.hbs?raw';
 import { Block } from '../../utils/Block';
 import { InputField } from '../../components';
-import { NavigateTo } from '../../utils/Navigation';
-import * as Validation from '../../utils/Validation';
+import { NavigateTo, withNavigation, WithNavigationProps } from '../../utils/Navigation';
+import { withValidation, WithValidationProps } from '../../utils/Validation';
 
-interface Props {
+interface Props extends WithNavigationProps, WithValidationProps {
   // empty
 }
 
@@ -15,22 +15,11 @@ type Refs = {
   form: HTMLElement;
 };
 
+@withNavigation
+@withValidation
 export class LoginPage extends Block<Props, Refs> {
   static componentName = 'LoginPage';
   protected template = template;
-
-  constructor(props: Props) {
-    super({
-      ...props,
-      // свойства для шаблона
-      navigateToRegistration: (e: Event) => {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        NavigateTo.registation();
-      },
-      validate: Validation,
-    });
-  }
 
   private onSubmit(e: Event) {
     e.preventDefault();

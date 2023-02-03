@@ -1,11 +1,11 @@
 import './registration-page.scss';
 import template from './registration-page.hbs?raw';
 import { Block } from '../../utils/Block';
-import { NavigateTo } from '../../utils/Navigation';
-import * as Validation from '../../utils/Validation';
+import { NavigateTo, withNavigation, WithNavigationProps } from '../../utils/Navigation';
 import { InputField } from '../../components';
+import { withValidation, WithValidationProps } from '../../utils/Validation';
 
-interface Props {
+interface Props extends WithNavigationProps, WithValidationProps {
 }
 
 type Refs = {
@@ -19,6 +19,8 @@ type Refs = {
   passwordCopy: InputField;
 };
 
+@withNavigation
+@withValidation
 export class RegistrationPage extends Block<Props, Refs> {
   static componentName = 'RegistrationPage';
   protected template = template;
@@ -27,12 +29,6 @@ export class RegistrationPage extends Block<Props, Refs> {
     super({
       ...props,
       // свойства шаблона
-      navigateToLogin: (e: Event) => {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        NavigateTo.login();
-      },
-      validate: Validation,
       validatePasswordCopy: (value: string) => {
         if (value != this.refs.password.value()) {
           return 'Пароли не совпадают';

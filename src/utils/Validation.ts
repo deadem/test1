@@ -1,3 +1,5 @@
+import { Block } from './Block';
+
 type Rule = [ RegExp, boolean, string ];
 type Rules = Rule[];
 
@@ -59,4 +61,33 @@ export function phone(value: string) {
     [ /^\+?[0-9]+$/, false, 'Допустимы только цифры (может начинаться с плюса)' ],
     [ /^\+?[0-9]{10,15}$/, false, 'Длина телефона не может быть меньше 10 или больше 15 символов' ],
   ]);
+}
+
+export type WithValidationProps = {
+  validate: {
+    login: typeof login,
+    password: typeof password,
+    email: typeof email,
+    name: typeof name,
+    surname: typeof surname,
+    phone: typeof phone,
+  };
+}
+
+export function withValidation<Props extends WithValidationProps, T extends Constructor<Block<Props>>>(constructor: T): T {
+  return class extends constructor {
+    protected template!: string;
+
+    // Вынуждены использовать any[], см. ts(2545)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    constructor(...args: any[]) {
+      const [ props ] = args;
+      super({
+        ...props,
+        validate: {
+          login, password, email, name, surname, phone
+        }
+      } as WithValidationProps);
+    }
+  };
 }

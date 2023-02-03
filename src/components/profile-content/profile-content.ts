@@ -2,10 +2,10 @@ import './profile-content.scss';
 import template from './profile-content.hbs?raw';
 import { Block } from '../../utils/Block';
 import { ProfileField } from '../index';
-import * as Validation from '../../utils/Validation';
 import { withStore, WithStoreProps } from '../../utils/Store';
+import { withValidation, WithValidationProps } from '../../utils/Validation';
 
-interface Props extends WithStoreProps {
+interface Props extends WithStoreProps, WithValidationProps {
   password: boolean;
 }
 
@@ -23,6 +23,7 @@ type Refs = {
 };
 
 @withStore
+@withValidation
 export class ProfileContent extends Block<Props, Refs> {
   static componentName = 'ProfileContent';
   protected template = template;
@@ -36,7 +37,6 @@ export class ProfileContent extends Block<Props, Refs> {
     super({
       ...props,
       // свойства шаблона
-      validate: Validation,
       onAddAvatar: () => { this.setProps({ upload: false }); },
     });
   }

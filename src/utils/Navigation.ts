@@ -1,3 +1,4 @@
+import { Block } from './Block';
 import { Router } from './Router';
 export { Router };
 
@@ -10,22 +11,42 @@ export const enum Page {
 
 export class NavigateTo {
   static chat() {
-    this.navigate(Page.chat);
+    NavigateTo.navigate(Page.chat);
   }
 
   static login() {
-    this.navigate(Page.login);
+    NavigateTo.navigate(Page.login);
   }
 
-  static registation() {
-    this.navigate(Page.registration);
+  static registration() {
+    NavigateTo.navigate(Page.registration);
   }
 
   static profile() {
-    this.navigate(Page.profile);
+    NavigateTo.navigate(Page.profile);
   }
 
   private static navigate(page: Page) {
     Router.go(page);
   }
+}
+
+export type WithNavigationProps = {
+  navigateTo: NavigateTo;
+}
+
+export function withNavigation<Props extends WithNavigationProps, T extends Constructor<Block<Props>>>(constructor: T): T {
+  return class extends constructor {
+    protected template!: string;
+
+    // Вынуждены использовать any[], см. ts(2545)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    constructor(...args: any[]) {
+      const [ props ] = args;
+      super({
+        ...props,
+        navigateTo: NavigateTo
+      } as WithNavigationProps);
+    }
+  };
 }
