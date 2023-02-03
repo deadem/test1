@@ -1,25 +1,11 @@
-import { EventBus } from './EventBus';
+import { Router } from './Router';
+export { Router };
 
 export const enum Page {
   chat = '/messenger',
   login = '/',
-  registration = '/sigh-up',
+  registration = '/sign-up',
   profile = '/settings',
-}
-
-type Events = {
-  'page': [ Page ]
-};
-
-export class Navigation {
-  private static events: EventBus<Events>;
-
-  static eventBus() {
-    if (!this.events) {
-      this.events = new EventBus<Events>();
-    }
-    return this.events;
-  }
 }
 
 export class NavigateTo {
@@ -40,6 +26,6 @@ export class NavigateTo {
   }
 
   private static navigate(page: Page) {
-    Navigation.eventBus().emit('page', page);
+    Router.go(page);
   }
 }

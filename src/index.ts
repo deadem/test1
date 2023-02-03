@@ -2,9 +2,8 @@ import { registerComponent, registerPartial } from './utils/Handlebars';
 import * as Components from './components';
 import * as Pages from './pages';
 import * as Partials from './partials';
-import { Navigation, Page } from './utils/Navigation';
+import { Router, Page } from './utils/Navigation';
 import { updateStore } from './utils/Store';
-import { Router } from './utils/Router';
 
 document.addEventListener('DOMContentLoaded', () => {
   Object.entries(Components).forEach(([, component ]) => {
@@ -21,23 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
     login: 'ivan',
   });
 
-  const pages = {
-    [Page.chat]: Pages.ChatPage,
-    [Page.login]: Pages.LoginPage,
-    [Page.registration]: Pages.RegistrationPage,
-    [Page.profile]: Pages.ProfilePage,
-  };
-
-  Object.entries(pages).forEach(([ path, block ]) => {
-    Router.use(path, '', block);
-  });
-
-  // Всё, что не заматчилось отображаем как ошибку
-  Router.use(/.?/, 'Error', Pages.ErrorPage);
+  Router
+    .use(Page.chat, 'Чаты', Pages.ChatPage)
+    .use(Page.login, 'Авторизация', Pages.LoginPage)
+    .use(Page.registration, 'Регистрация', Pages.RegistrationPage)
+    .use(Page.profile, 'Профиль', Pages.ProfilePage)
+    .use(/.?/, 'Error', Pages.ErrorPage); // Всё, что не заматчилось отображаем как ошибку
 
   Router.start();
-
-  Navigation.eventBus().on('page', (page: Page) => {
-    Router.go(page);
-  });
 });
