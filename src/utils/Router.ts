@@ -1,19 +1,23 @@
 import { Block } from './Block';
 
 class Route {
-  private readonly path: string;
+  private readonly path: string | RegExp;
   private readonly title: string;
   private readonly block: new (props: object) => Block<object>;
   private destroyCallback: (() => void) | undefined;
 
-  constructor(path: string, title: string, block: typeof Block) {
+  constructor(path: string | RegExp, title: string, block: typeof Block) {
     this.path = path;
     this.title = title;
     this.block = block as typeof this.block;
   }
 
-  public match(path: string) {
-    return this.path == path;
+  public match(path: string): boolean {
+    if (typeof this.path == 'string') {
+      return this.path == path;
+    }
+
+    return !!path.match(this.path);
   }
 
   public render(element: Element) {
@@ -42,7 +46,7 @@ class Router {
     this.rootMountPoint = mountPoint;
   }
 
-  public use<T extends Constructor<Block<object>>>(path: string, title: string, block: T) {
+  public use<T extends Constructor<Block<object>>>(path: string | RegExp, title: string, block: T) {
     this.routes.push(new Route(path, title, block as typeof Block));
 
     return this;
