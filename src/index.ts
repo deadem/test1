@@ -3,7 +3,8 @@ import * as Components from './components';
 import * as Pages from './pages';
 import * as Partials from './partials';
 import { Navigation, Page, NavigateTo } from './utils/Navigation';
-import { Store, updateStore } from './utils/Store';
+import { updateStore } from './utils/Store';
+import { Router } from './utils/Router';
 
 document.addEventListener('DOMContentLoaded', () => {
   Object.entries(Components).forEach(([, component ]) => {
@@ -21,16 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
     [Page.profile]: Pages.ProfilePage,
   };
 
-  Navigation.eventBus().on('page', (page: Page) => {
-    const component = pages[page];
-    const content = new component({
-      // Временная заглушка.
-      // Настоящий стор будет добавлен только в те компоненты, которые его попросили через @withStore
-      store: {} as Store
-    });
+  Object.entries(pages).forEach(([ path, block ]) => {
+    Router.use(path, '', block);
+  });
 
-    document.body.innerHTML = '';
-    document.body.append(content.element());
+  Router.start();
+
+  Navigation.eventBus().on('page', (page: Page) => {
+    Router.go(page);
   });
 
   // Начальное значение стора
@@ -39,5 +38,4 @@ document.addEventListener('DOMContentLoaded', () => {
     login: 'ivan',
   });
 
-  NavigateTo.login();
 });

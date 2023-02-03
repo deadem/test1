@@ -3,11 +3,10 @@ import template from './profile-content.hbs?raw';
 import { Block } from '../../utils/Block';
 import { ProfileField } from '../index';
 import * as Validation from '../../utils/Validation';
-import { Store, withStore } from '../../utils/Store';
+import { withStore, WithStoreProps } from '../../utils/Store';
 
-interface Props {
+interface Props extends WithStoreProps {
   password: boolean;
-  store: Store;
 }
 
 type Refs = {

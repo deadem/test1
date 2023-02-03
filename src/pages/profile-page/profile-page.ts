@@ -3,10 +3,9 @@ import template from './profile-page.hbs?raw';
 import { Block } from '../../utils/Block';
 import { NavigateTo } from '../../utils/Navigation';
 import { Button, ProfileContent, ProfileLink } from '../../components';
-import { Store, withStore } from '../../utils/Store';
+import { withStore, WithStoreProps } from '../../utils/Store';
 
-interface Props {
-  store: Store;
+interface Props extends WithStoreProps {
 }
 
 type Refs = {

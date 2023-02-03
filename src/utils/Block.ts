@@ -47,6 +47,14 @@ export abstract class Block<Props extends object, Refs extends RefType = RefType
     return this.domElement as Element;
   }
 
+  // Разрушить компонент
+  public destroy() {
+    this.unmountComponent();
+    if (this.domElement) {
+      this.domElement.replaceWith(document.createElement('template'));
+    }
+  }
+
   // Автоматически вызываемые методы компонента: componentDidMount, componentWillUnmount
   protected componentDidMount() {
     // Метод будет вызван при встраивании компонента в DOM. На момент вызова уже всё встроено, DOM готов и доступен.

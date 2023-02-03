@@ -2,7 +2,7 @@ import { Block } from './Block';
 import { StoreBindings } from './StoreBindings';
 
 // Описание типов в сторе
-export type Store = {
+type Store = {
   email: string;
   login: string;
 };
@@ -20,18 +20,14 @@ class Storage {
   }
 }
 
-// Тут должен быть именно any: TS не умеет выводить конструкторы миксинов для других типов
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Constructor<T> = new (...args: any[]) => T;
-
-type PropsWithStore = {
+export type WithStoreProps = {
   store: Store;
 }
 
 // Декоратор, автоматически добавляющий в класс Store
 // У свойств оборачиваемого компонента резервируется свойство store. К нему можно обращаться, но нельзя переопределять его тип.
 // При подключении проверяем наличие свойства store в Props.
-export function withStore<Props extends PropsWithStore, T extends Constructor<Block<Props>>>(constructor: T) {
+export function withStore<Props extends WithStoreProps, T extends Constructor<Block<Props>>>(constructor: T) {
   return class extends constructor {
     protected template!: string; // Тушим предупреждение TS: это абстрактное свойство будет определено в настоящем наследнике от Block<>
 

@@ -1,10 +1,10 @@
 import { EventBus } from './EventBus';
 
 export const enum Page {
-  chat,
-  login,
-  registration,
-  profile,
+  chat = '/messenger',
+  login = '/',
+  registration = '/sigh-up',
+  profile = '/settings',
 }
 
 type Events = {
