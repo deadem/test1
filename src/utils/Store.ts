@@ -48,3 +48,7 @@ export function withStore<Props extends WithStoreProps, T extends Constructor<Bl
 export function updateStore(store: Partial<Store>) {
   Storage.bingings().updateStore(store);
 }
+
+export function staticStore() {
+  return Storage.bingings().getStaticStore();
+}
