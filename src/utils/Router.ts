@@ -6,14 +6,19 @@ class Route {
   private readonly path: string | RegExp;
   private readonly title: string;
   private readonly block: new (props: object) => Block<object>;
-  private readonly middleware: Middleware;
+  private readonly middleware: Middleware[];
   private destroyCallback: (() => void) | undefined;
 
-  constructor(path: string | RegExp, title: string, block: typeof Block, middleware: Middleware = (_router, next) => next()) {
+  constructor(
+    path: string | RegExp,
+    title: string,
+    block: typeof Block,
+    middleware: Middleware | Middleware[] = ((_router, next) => next())
+  ) {
     this.path = path;
     this.title = title;
     this.block = block as typeof this.block;
-    this.middleware = middleware;
+    this.middleware = Array.isArray(middleware) ? middleware : [ middleware ];
   }
 
   public match(path: string): boolean {
@@ -25,7 +30,8 @@ class Route {
   }
 
   public render(element: Element, router: Router) {
-    this.middleware(router, () => {
+    // Непосредственно обработчик рендеров. Будет вызван самой последней мидлварью, если никто по пути не отменит запрос
+    const next = () => {
       const content = new this.block({});
 
       document.title = this.title;
@@ -33,7 +39,12 @@ class Route {
       element.append(content.element());
 
       this.destroyCallback = content.destroy.bind(content);
-    });
+    };
+
+    // Рекурсивно вложим вызовы мидлварей чтобы вызову первой передавался в качестве next вызов последующей.
+    this.middleware.reduceRight((next: () => void, middleware) => {
+      return () => middleware(router, next);
+    }, next)();
   }
 
   public leave() {
@@ -52,7 +63,9 @@ class Router {
     this.rootMountPoint = mountPoint;
   }
 
-  public use<T extends Constructor<Block<object>>>(path: string | RegExp, title: string, block: T, middleware?: Middleware) {
+  public use<T extends Constructor<Block<object>>>(
+    path: string | RegExp, title: string, block: T, middleware?: Middleware | Middleware[]
+  ) {
     this.routes.push(new Route(path, title, block as typeof Block, middleware));
 
     return this;
