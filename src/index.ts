@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .use(Page.login, 'Авторизация', Pages.LoginPage, checkauth)
     .use(Page.registration, 'Регистрация', Pages.RegistrationPage)
     .use(Page.profile, 'Профиль', Pages.ProfilePage, authorized)
-    .use(/.?/, 'Error', Pages.ErrorPage); // Всё, что не заматчилось отображаем как ошибку
+    .use(/.?/, 'Error', Pages.ErrorPage); // Всё, что не заматчилось, отображаем как ошибку
 
   Router.start();
 });
