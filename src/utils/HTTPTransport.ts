@@ -36,7 +36,7 @@ export class HTTPTransport {
     this.prefix = prefix;
   }
 
-  public get(urlPart: string, { data, ...options }: Omit<Options, 'data'> & { data?: DataObject } = {}) {
+  public get<T = unknown>(urlPart: string, { data, ...options }: Omit<Options, 'data'> & { data?: DataObject } = {}) {
     if (data && Object.keys(data).length) {
       const queryPart = queryString(data);
       if (queryPart) {
@@ -44,19 +44,19 @@ export class HTTPTransport {
       }
     }
 
-    return this.request(urlPart, 'GET', options);
+    return this.request<T>(urlPart, 'GET', options);
   }
 
-  public put(urlPart: string, options: Options = {}) {
-    return this.request(urlPart, 'PUT', options);
+  public put<T = unknown>(urlPart: string, options: Options = {}) {
+    return this.request<T>(urlPart, 'PUT', options);
   }
 
-  public post(urlPart: string, options: Options = {}) {
-    return this.request(urlPart, 'POST', options);
+  public post<T = unknown>(urlPart: string, options: Options = {}) {
+    return this.request<T>(urlPart, 'POST', options);
   }
 
-  public delete(urlPart: string, options: Options = {}) {
-    return this.request(urlPart, 'DELETE', options);
+  public delete<T = unknown>(urlPart: string, options: Options = {}) {
+    return this.request<T>(urlPart, 'DELETE', options);
   }
 
   private request<Response>(urlPart: string, method: Method, options: Options = {}): Promise<Response> {

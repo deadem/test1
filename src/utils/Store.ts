@@ -2,10 +2,15 @@ import { Block } from './Block';
 import { StoreBindings } from './StoreBindings';
 
 // Описание типов в сторе
-type Store = {
+export type Store = {
   userId: number;
   email: string;
   login: string;
+  name: string;
+  surname: string;
+  nick: string;
+  avatar: string;
+  phone: string;
 };
 
 // Статический класс для ленивой инициализации стора

@@ -19,3 +19,6 @@ type Constructor<T> = new (...args: any[]) => T;
 type DeepReadonly<T> = {
   readonly [P in keyof T]: DeepReadonly<T[P]>
 }
+
+// Декларация функции для статических проверок. Сама функция нигде не реализована и никогда не вызывается
+declare function staticAssert<T extends true>(): never & T;

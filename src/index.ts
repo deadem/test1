@@ -3,7 +3,7 @@ import * as Components from './components';
 import * as Pages from './pages';
 import * as Partials from './partials';
 import { Router, Page } from './utils/Navigation';
-import { updateStore } from './utils/Store';
+import { authorized, checkauth } from './utils/Middleware';
 
 document.addEventListener('DOMContentLoaded', () => {
   Object.entries(Components).forEach(([, component ]) => {
@@ -14,17 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
     registerPartial(name, component);
   });
 
-  // Начальное значение стора
-  updateStore({
-    email: 'address@example.com',
-    login: 'ivan',
-  });
-
   Router
-    .use(Page.chat, 'Чаты', Pages.ChatPage)
-    .use(Page.login, 'Авторизация', Pages.LoginPage)
+    .use(Page.chat, 'Чаты', Pages.ChatPage, authorized)
+    .use(Page.login, 'Авторизация', Pages.LoginPage, checkauth)
     .use(Page.registration, 'Регистрация', Pages.RegistrationPage)
-    .use(Page.profile, 'Профиль', Pages.ProfilePage)
+    .use(Page.profile, 'Профиль', Pages.ProfilePage, authorized)
     .use(/.?/, 'Error', Pages.ErrorPage); // Всё, что не заматчилось отображаем как ошибку
 
   Router.start();

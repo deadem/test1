@@ -1,15 +1,19 @@
 import { Block } from './Block';
 
+export type Middleware = (router: Router, next: () => void) => void;
+
 class Route {
   private readonly path: string | RegExp;
   private readonly title: string;
   private readonly block: new (props: object) => Block<object>;
+  private readonly middleware: Middleware;
   private destroyCallback: (() => void) | undefined;
 
-  constructor(path: string | RegExp, title: string, block: typeof Block) {
+  constructor(path: string | RegExp, title: string, block: typeof Block, middleware: Middleware = (_router, next) => next()) {
     this.path = path;
     this.title = title;
     this.block = block as typeof this.block;
+    this.middleware = middleware;
   }
 
   public match(path: string): boolean {
@@ -20,14 +24,16 @@ class Route {
     return !!path.match(this.path);
   }
 
-  public render(element: Element) {
-    const content = new this.block({});
+  public render(element: Element, router: Router) {
+    this.middleware(router, () => {
+      const content = new this.block({});
 
-    document.title = this.title;
-    element.innerHTML = '';
-    element.append(content.element());
+      document.title = this.title;
+      element.innerHTML = '';
+      element.append(content.element());
 
-    this.destroyCallback = content.destroy.bind(content);
+      this.destroyCallback = content.destroy.bind(content);
+    });
   }
 
   public leave() {
@@ -46,8 +52,8 @@ class Router {
     this.rootMountPoint = mountPoint;
   }
 
-  public use<T extends Constructor<Block<object>>>(path: string | RegExp, title: string, block: T) {
-    this.routes.push(new Route(path, title, block as typeof Block));
+  public use<T extends Constructor<Block<object>>>(path: string | RegExp, title: string, block: T, middleware?: Middleware) {
+    this.routes.push(new Route(path, title, block as typeof Block, middleware));
 
     return this;
   }
@@ -82,7 +88,7 @@ class Router {
     }
 
     this.currentRoute = route;
-    route.render(this.rootMountPoint);
+    route.render(this.rootMountPoint, this);
   }
 }
 
