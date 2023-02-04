@@ -20,9 +20,7 @@ export class AuthController extends Controller {
 
   public updateState() {
     return this.transport().get<APIUserResponse>('/user').then(data  => {
-      const store = convert<Store>()(data, userConverter);
-      updateStore(store);
-      console.log('done', data);
+      updateStore(convert<Store>()(data, userConverter));
     });
   }
 

@@ -18,6 +18,9 @@ export function convert<Store extends Record<string | number, string | number>>(
   // Мы рассчитываем, что типы данных в Store и в Resp совпадают, отличаются только ключи (проверки на совпадение типов сейчас нет, чтобы ещё тут не усложнять)
   // Проверяем только:
   // - в типе Conv описаны ключи из Resp и им сопоставлены ключи из Store. При несовпадении ключей-значений в Conv будет ошибка сборки.
+  //
+  // Почему вложенная функция: чтобы можно было передать только один аргумент для Store в дженерик, а два других чтобы вывелись сами из аргументов.
+  // В TS нельзя передавать только часть типов для дженерика - или все, или ничего (или значение по умолчанию).
   return function<Resp extends object, Conv extends { [keys in keyof Resp]: keyof Store }>(response: Resp, converter: Conv): Store {
     return (Object.entries(response) as [ [keyof Resp, Store[Conv[keyof Resp]]] ]).reduce((store, [ key, value ]) => {
       const storeKey = converter[key];

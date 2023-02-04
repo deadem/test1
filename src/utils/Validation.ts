@@ -55,6 +55,12 @@ export function surname(value: string) {
   ]);
 }
 
+export function nick(value: string) {
+  return check(value.trim(), [
+    [ /^\s*$/, true, 'Не указано имя для чата' ],
+  ]);
+}
+
 export function phone(value: string) {
   return check(value.trim(), [
     [ /^\s*$/, true, 'Не указан телефон' ],
@@ -85,7 +91,7 @@ export function withValidation<Props extends WithValidationProps, T extends Cons
       super({
         ...props,
         validate: {
-          login, password, email, name, surname, phone
+          login, password, email, name, surname, phone, nick
         }
       } as WithValidationProps);
     }
