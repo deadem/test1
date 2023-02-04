@@ -1,3 +1,4 @@
+import { api } from './API';
 import { HTTPTransport } from '../utils/HTTPTransport';
 
 export class Controller {
@@ -5,7 +6,7 @@ export class Controller {
   private httpTransport?: HTTPTransport;
 
   constructor(path: string) {
-    this.api = `https://ya-praktikum.tech/api/v2${path}`;
+    this.api = `${api}${path}`;
   }
 
   protected transport() {

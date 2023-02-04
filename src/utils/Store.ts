@@ -50,8 +50,8 @@ export function withStore<Props extends WithStoreProps, T extends Constructor<Bl
 }
 
 // Обновление значений в сторе
-export function updateStore(store: Partial<Store>) {
-  Storage.bingings().updateStore(store);
+export function updateStore(store: Partial<Store>, replace = false) {
+  Storage.bingings().updateStore(store, replace);
 }
 
 export function staticStore() {

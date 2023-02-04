@@ -4,9 +4,12 @@ import { Block } from '../../utils/Block';
 import { InputField } from '../../components';
 import { NavigateTo, withNavigation, WithNavigationProps } from '../../utils/Navigation';
 import { withValidation, WithValidationProps } from '../../utils/Validation';
+import { AuthController } from '../../controllers/AuthController';
 
 interface Props extends WithNavigationProps, WithValidationProps {
-  // empty
+  login: string;
+  password: string;
+  error: string;
 }
 
 type Refs = {
@@ -31,7 +34,11 @@ export class LoginPage extends Block<Props, Refs> {
     console.log('password:', password);
 
     if (login && password) {
-      NavigateTo.chat();
+      new AuthController().signin(login, password).then(function() {
+        NavigateTo.chat();
+      }).catch(error => {
+        this.setProps({ login, password, error });
+      });
     }
   }
 

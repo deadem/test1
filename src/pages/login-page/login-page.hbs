@@ -2,11 +2,12 @@
   <form class="login-page" ref="form">
     <div class="login-page__content">
       {{{ PageTitle title="Вход" }}}
-      {{{ InputField className="login-page__input" title="Логин" name="login" ref="login" validate=validate.login }}}
+      {{{ InputField className="login-page__input" title="Логин" name="login" value=login ref="login" validate=validate.login }}}
       {{{
-        InputField className="login-page__input" title="Пароль" name="password" type="password" ref="password"
+        InputField className="login-page__input" title="Пароль" name="password" type="password" value=password ref="password"
         validate=validate.password
       }}}
+      {{#if error}}<div class='login-page__error'>{{ error }}</div>{{/if}}
     </div>
     <div class="login-page__footer">
       {{{ Button text="Авторизоваться" }}}

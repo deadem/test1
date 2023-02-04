@@ -1,11 +1,12 @@
 import './profile-page.scss';
 import template from './profile-page.hbs?raw';
 import { Block } from '../../utils/Block';
-import { NavigateTo } from '../../utils/Navigation';
+import { NavigateTo, withNavigation, WithNavigationProps } from '../../utils/Navigation';
 import { Button, ProfileContent, ProfileLink } from '../../components';
 import { withStore, WithStoreProps } from '../../utils/Store';
+import { AuthController } from '../../controllers/AuthController';
 
-interface Props extends WithStoreProps {
+interface Props extends WithStoreProps, WithNavigationProps {
 }
 
 type Refs = {
@@ -18,6 +19,7 @@ type Refs = {
 }
 
 @withStore
+@withNavigation
 export class ProfilePage extends Block<Props, Refs> {
   static componentName = 'ProfilePage';
   protected template = template;
@@ -25,11 +27,8 @@ export class ProfilePage extends Block<Props, Refs> {
     chatLink: {
       click: () => NavigateTo.chat(),
     },
-    exit: {
-      click: (e: Event) => {
-        e.preventDefault();
-        NavigateTo.login();
-      },
+    logout: {
+      click: this.logout.bind(this),
     },
     edit: {
       click: (e: Event) => {
@@ -47,6 +46,12 @@ export class ProfilePage extends Block<Props, Refs> {
       click: () => this.save(),
     }
   };
+
+  private logout() {
+    new AuthController().logout().then(() => {
+      this.props.navigateTo.login();
+    });
+  }
 
   private save() {
     const fields = this.refs.fields.value();

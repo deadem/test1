@@ -71,7 +71,22 @@ export class HTTPTransport {
         signal.handler = () => { xhr.abort(); };
       }
 
-      xhr.onload = () => { resolve(xhr.response); };
+      xhr.onload = () => {
+        const status = xhr.status || 0;
+        if (status >= 200 && status < 300) {
+          resolve(xhr.response);
+        } else {
+          const message = {
+            '0': 'abort',
+            '100': 'Information',
+            '200': 'Ok',
+            '300': 'Redirect failed',
+            '400': 'Access error',
+            '500': 'Internal server error',
+          }[Math.floor(status / 100) * 100];
+          reject({ status, reason: xhr.response?.reason || message });
+        }
+      };
       xhr.onabort = () => reject({ reason: 'abort' });
       xhr.onerror = () => reject({ reason: 'network error' });
       xhr.ontimeout = () => reject({ reason: 'timeout' });

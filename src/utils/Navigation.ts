@@ -9,30 +9,27 @@ export const enum Page {
   profile = '/settings',
 }
 
-export class NavigateTo {
-  static chat() {
-    NavigateTo.navigate(Page.chat);
-  }
-
-  static login() {
-    NavigateTo.navigate(Page.login);
-  }
-
-  static registration() {
-    NavigateTo.navigate(Page.registration);
-  }
-
-  static profile() {
-    NavigateTo.navigate(Page.profile);
-  }
-
-  private static navigate(page: Page) {
-    Router.go(page);
-  }
+function navigate(page: Page) {
+  Router.go(page);
 }
 
+export const NavigateTo = {
+  chat() {
+    navigate(Page.chat);
+  },
+  login() {
+    navigate(Page.login);
+  },
+  registration() {
+    navigate(Page.registration);
+  },
+  profile() {
+    navigate(Page.profile);
+  }
+};
+
 export type WithNavigationProps = {
-  navigateTo: NavigateTo;
+  navigateTo: typeof NavigateTo;
 }
 
 export function withNavigation<Props extends WithNavigationProps, T extends Constructor<Block<Props>>>(constructor: T): T {

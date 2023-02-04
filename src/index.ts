@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   Router
     .use(Page.chat, 'Чаты', Pages.ChatPage, [ tryToAuth, authorized ])
-    .use(Page.login, 'Авторизация', Pages.LoginPage, [tryToAuth, checkIndex ])
+    .use(Page.login, 'Авторизация', Pages.LoginPage, [ tryToAuth, checkIndex ])
     .use(Page.registration, 'Регистрация', Pages.RegistrationPage)
     .use(Page.profile, 'Профиль', Pages.ProfilePage, [ tryToAuth, authorized ])
     .use(/.?/, 'Error', Pages.ErrorPage); // Всё, что не заматчилось, отображаем как ошибку

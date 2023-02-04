@@ -16,8 +16,8 @@ export class StoreBindings<Store extends Record<string | number | symbol, unknow
   }
 
   // Изменение стора. Если какой-то компонент зависит от изменённого свойства, у него будет вызван setProps
-  updateStore(store: Partial<Store>) {
-    const updatedStore = { ...this.store, ...store };
+  updateStore(store: Partial<Store>, replace = false) {
+    const updatedStore = { ...(replace ? {} : this.store), ...store as Store };
     const updateList = [] as Component[];
     // Рассчитываем, что в store никогда не будет больше ключей, чем уже есть в this.store
     (Object.keys(updatedStore) as Array<keyof Store>).forEach(prop => {

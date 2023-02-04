@@ -1,3 +1,5 @@
+export const api = 'https://ya-praktikum.tech/api/v2';
+
 export type APIUserResponse = {
   id: number,
   first_name: string,
