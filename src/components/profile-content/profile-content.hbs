@@ -14,13 +14,13 @@
       alignRight=edit validate=validate.email ref="email" }}}
     {{{ ProfileField edit=edit className="profile-content__field" name="login" title="Логин" value=store.login alignRight=edit
       validate=validate.login ref="login" }}}
-    {{{ ProfileField edit=edit className="profile-content__field" name="first_name" title="Имя" value="Иван" alignRight=edit
+    {{{ ProfileField edit=edit className="profile-content__field" name="first_name" title="Имя" value=store.name alignRight=edit
       validate=validate.name ref="name" }}}
-    {{{ ProfileField edit=edit className="profile-content__field" name="second_name" title="Фамилия" value="Иванов" alignRight=edit
+    {{{ ProfileField edit=edit className="profile-content__field" name="second_name" title="Фамилия" value=store.surname alignRight=edit
       validate=validate.surname ref="surname" }}}
-    {{{ ProfileField edit=edit className="profile-content__field" name="nick" title="Имя в чате" value="Иван" alignRight=edit
+    {{{ ProfileField edit=edit className="profile-content__field" name="nick" title="Имя в чате" value=store.nick alignRight=edit
       validate=validate.nickname ref="nick" }}}
-    {{{ ProfileField edit=edit className="profile-content__field" name="phone" title="Телефон" value="+79099673030" alignRight=edit
+    {{{ ProfileField edit=edit className="profile-content__field" name="phone" title="Телефон" value=store.phone alignRight=edit
       validate=validate.phone ref="phone" }}}
   {{/if}}
 </div>
