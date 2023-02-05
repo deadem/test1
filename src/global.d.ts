@@ -27,3 +27,6 @@ declare function staticAssert<T extends true>(): never & T;
 type NonPartial<T> = {
   [P in keyof T]-?: NonNullable<T[P]>;
 };
+
+// Хелпер для описания пустого объекта
+type EmptyObject = Record<string, never>;
