@@ -1,61 +1,11 @@
 import { Block } from './Block';
+import { Route } from './Route';
 
 export type Middleware = (router: Router, next: () => void) => void;
 
-class Route {
-  private readonly path: string | RegExp;
-  private readonly title: string;
-  private readonly block: new (props: object) => Block<object>;
-  private readonly middleware: Middleware[];
-  private destroyCallback: (() => void) | undefined;
-
-  constructor(
-    path: string | RegExp,
-    title: string,
-    block: typeof Block,
-    middleware: Middleware | Middleware[] = ((_router, next) => next())
-  ) {
-    this.path = path;
-    this.title = title;
-    this.block = block as typeof this.block;
-    this.middleware = Array.isArray(middleware) ? middleware : [ middleware ];
-  }
-
-  public match(path: string): boolean {
-    if (typeof this.path == 'string') {
-      return this.path == path;
-    }
-
-    return !!path.match(this.path);
-  }
-
-  public render(element: Element, router: Router) {
-    // Непосредственно обработчик рендеров. Будет вызван самой последней мидлварью, если никто по пути не отменит запрос
-    const next = () => {
-      const content = new this.block({});
-
-      document.title = this.title;
-      element.innerHTML = '';
-      element.append(content.element());
-
-      this.destroyCallback = content.destroy.bind(content);
-    };
-
-    // Рекурсивно вложим вызовы мидлварей чтобы вызову первой передавался в качестве next вызов последующей.
-    this.middleware.reduceRight((next: () => void, middleware) => {
-      return () => middleware(router, next);
-    }, next)();
-  }
-
-  public leave() {
-    this.destroyCallback?.();
-    this.destroyCallback = undefined;
-  }
-}
-
 class Router {
-  private routes: Route[] = [];
-  private currentRoute: Route | null = null;
+  private routes: Route<Middleware>[] = [];
+  private currentRoute: Route<Middleware> | null = null;
   private readonly history = window.history;
   private readonly rootMountPoint: Element;
 
@@ -64,9 +14,9 @@ class Router {
   }
 
   public use<T extends Constructor<Block<object>>>(
-    path: string | RegExp, title: string, block: T, middleware?: Middleware | Middleware[]
+    path: string | RegExp, title: string, block: T, middleware: Middleware | Middleware[] = ((_router, next) => next())
   ) {
-    this.routes.push(new Route(path, title, block as typeof Block, middleware));
+    this.routes.push(new Route(path, title, block as typeof Block, Array.isArray(middleware) ? middleware : [ middleware ]));
 
     return this;
   }
@@ -99,9 +49,15 @@ class Router {
     if (this.currentRoute && this.currentRoute !== route) {
       this.currentRoute.leave();
     }
-
     this.currentRoute = route;
-    route.render(this.rootMountPoint, this);
+
+    // Непосредственно обработчик рендеров. Будет вызван самой последней мидлварью, если никто по пути не отменит запрос
+    const next = () => route.render(this.rootMountPoint);
+
+    // Рекурсивно вложим вызовы мидлварей чтобы вызову первой передавался в качестве next вызов последующей.
+    route.middlewares().reduceRight((next: () => void, middleware) => {
+      return () => middleware(this, next);
+    }, next)();
   }
 }
 
