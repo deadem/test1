@@ -2,7 +2,7 @@ import { staticStore, Store, updateStore } from '../utils/Store';
 import { APIUserData } from './API';
 import { Controller } from './Controller';
 import { convertFromAPI } from './Convert';
-import { userConverter } from './UserController';
+import { userConverter } from './UserConverter';
 
 export class AuthController extends Controller {
   constructor() {

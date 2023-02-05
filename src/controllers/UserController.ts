@@ -2,17 +2,7 @@ import { Store, updateStore } from '../utils/Store';
 import { APIUserData } from './API';
 import { Controller } from './Controller';
 import { convertFromAPI, convertToAPI } from './Convert';
-
-export const userConverter = {
-  id: 'userId',
-  first_name: 'name',
-  second_name: 'surname',
-  display_name: 'nick',
-  login: 'login',
-  avatar: 'avatar',
-  email: 'email',
-  phone: 'phone'
-} as const;
+import { userConverter } from './UserConverter';
 
 export class UserController extends Controller {
   constructor() {
