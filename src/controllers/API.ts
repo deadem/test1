@@ -1,6 +1,6 @@
 export const api = 'https://ya-praktikum.tech/api/v2';
 
-export type APIUserResponse = {
+export type APIUserData = {
   id: number,
   first_name: string,
   second_name: string,
@@ -11,7 +11,11 @@ export type APIUserResponse = {
   phone: string
 };
 
-export function convert<Store extends Record<string | number, string | number>>() {
+// Тип для краткости описания прототипа стора
+type StoreBase = Record<string | number, string | number>;
+
+// Конвертер данных из формата данных API в формат стора
+export function convertFromAPI<Store extends StoreBase>() {
   // Что тут происходит?
   // Есть три типа:
   // - Store - внутреннее хранилище данных
@@ -31,5 +35,25 @@ export function convert<Store extends Record<string | number, string | number>>(
       }
       return store;
     }, {} as Store);
+  };
+}
+
+// Конвертер данных из формата стора в формат API
+export function convertToAPI<Resp extends object>() {
+  // Тот же самый конвертер с теми же проверками, но в обратную сторону
+  return function<Store extends StoreBase, Conv extends { [keys in keyof Resp]: keyof Store }>(store: Store, converter: Conv): Resp {
+
+    const reverseConverter = (Object.entries(converter) as [ [keyof Resp, Conv[keyof Conv] ] ]).reduce((acc, [key, value]) => {
+      acc[value] = key;
+      return acc;
+    }, {} as { [K in Conv[keyof Conv]]: keyof Resp });
+
+    return (Object.entries(store) as [ [Conv[keyof Conv], Resp[keyof Resp] ] ]).reduce((resp, [ key, value ]) => {
+      const respKey = reverseConverter[key];
+      if (respKey) {
+        resp[respKey] = value;
+      }
+      return resp;
+    }, {} as Resp);
   };
 }

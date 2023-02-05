@@ -30,7 +30,7 @@ export class ProfileField extends Block<Props, Refs> {
 
   public value() {
     if (!this.validate()) {
-      return false;
+      return undefined;
     }
     return this.refs.input.value();
   }

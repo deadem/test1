@@ -7,7 +7,7 @@
         InputField className="login-page__input" title="Пароль" name="password" type="password" value=password ref="password"
         validate=validate.password
       }}}
-      {{#if error}}<div class='login-page__error'>{{ error }}</div>{{/if}}
+      {{{ ErrorLine className="login-page__error" ref="errorLine" }}}
     </div>
     <div class="login-page__footer">
       {{{ Button text="Авторизоваться" }}}

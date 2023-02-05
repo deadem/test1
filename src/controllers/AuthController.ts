@@ -1,5 +1,5 @@
 import { staticStore, Store, updateStore } from '../utils/Store';
-import { APIUserResponse, convert } from './API';
+import { APIUserData, convertFromAPI } from './API';
 import { Controller } from './Controller';
 import { userConverter } from './UserController';
 
@@ -9,8 +9,8 @@ export class AuthController extends Controller {
   }
 
   public updateState() {
-    return this.transport().get<APIUserResponse>('/user').then(data => {
-      updateStore(convert<Store>()(data, userConverter));
+    return this.transport().get<APIUserData>('/user').then(data => {
+      updateStore(convertFromAPI<Store>()(data, userConverter));
     });
   }
 
@@ -19,10 +19,7 @@ export class AuthController extends Controller {
   }
 
   public signin(login: string, password: string) {
-    return this.transport().post('/signin', { data: { login, password } }).catch(error => {
-      // Если произошла ошибка авторизации, перебрасываем текст ошибки дальше
-      throw (error?.reason ?? 'Ошибка авторизации');
-    }).then(() => {
+    return this.transport().post('/signin', { data: { login, password } }).then(() => {
       return this.updateState();
     });
   }

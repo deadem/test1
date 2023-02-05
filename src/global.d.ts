@@ -22,3 +22,8 @@ type DeepReadonly<T> = {
 
 // Декларация функции для статических проверок. Сама функция нигде не реализована и никогда не вызывается
 declare function staticAssert<T extends true>(): never & T;
+
+// Хелпер, который делает все поля в классе существующими и без undefined/null значений
+type NonPartial<T> = {
+  [P in keyof T]-?: NonNullable<T[P]>;
+};

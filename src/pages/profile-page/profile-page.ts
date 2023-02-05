@@ -2,9 +2,10 @@ import './profile-page.scss';
 import template from './profile-page.hbs?raw';
 import { Block } from '../../utils/Block';
 import { NavigateTo, withNavigation, WithNavigationProps } from '../../utils/Navigation';
-import { Button, ProfileContent, ProfileLink } from '../../components';
+import { Button, ErrorLine, ProfileContent, ProfileLink } from '../../components';
 import { withStore, WithStoreProps } from '../../utils/Store';
 import { AuthController } from '../../controllers/AuthController';
+import { UserController } from '../../controllers/UserController';
 
 interface Props extends WithStoreProps, WithNavigationProps {
 }
@@ -15,7 +16,9 @@ type Refs = {
   edit: ProfileLink;
   editPassword: ProfileLink;
   save: Button;
+  form: HTMLElement;
   fields: ProfileContent;
+  errorLine: ErrorLine;
 }
 
 @withStore
@@ -42,9 +45,9 @@ export class ProfilePage extends Block<Props, Refs> {
         this.setProps({ edit: true, password: true });
       }
     },
-    save: {
-      click: () => this.save(),
-    }
+    form: {
+      'submit': this.save.bind(this)
+    },
   };
 
   private logout() {
@@ -53,13 +56,25 @@ export class ProfilePage extends Block<Props, Refs> {
     });
   }
 
-  private save() {
+  private save(e: Event) {
+    e.preventDefault();
+    e.stopPropagation();
+
     const fields = this.refs.fields.value();
     console.log(fields);
-    if (Object.values(fields).filter(value => !value).length) {
+
+    const allValues = (f: typeof fields): f is NonPartial<typeof fields> => {
+      return Object.values(f).filter(value => !value).length == 0;
+    };
+
+    if (!allValues(fields)) {
       return;
     }
 
-    this.setProps({ edit: false, password: false });
+    new UserController().updateProfile(fields).then(() => {
+      this.setProps({ edit: false, password: false });
+    }).catch(error => {
+      this.refs.errorLine.setProps({ error: error?.reason || 'Ошибка сохранения' });
+    });
   }
 }
