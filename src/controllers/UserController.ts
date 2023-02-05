@@ -9,7 +9,7 @@ export class UserController extends Controller {
     super('/user');
   }
 
-  updateProfile(props: Pick<Store, 'name' | 'surname' | 'nick' | 'login' | 'email' | 'phone'>) {
+  updateProfile(props: { [K in 'name' | 'surname' | 'nick' | 'login' | 'email' | 'phone']: string }) {
     const data = convertToAPI<Omit<APIUserData, 'id' | 'avatar'>>()(props, userConverter);
     return this.transport().put<APIUserData>('/profile', { data }).then(data => {
       updateStore(convertFromAPI<Store>()(data, userConverter));
