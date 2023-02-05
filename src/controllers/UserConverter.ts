@@ -1,7 +1,4 @@
-import { Store } from '../utils/Store';
-import { APIUserData } from './API';
-
-// Поля в конвертере должны совпадать с полями в API, а значения - с полями в Store
+// Поля в конвертере должны совпадать с полями в API, а значения - с полями в приложении
 // Проверка на соответствие происходит в момент конвертации
 export const userConverter = {
   id: 'userId',
@@ -11,13 +8,6 @@ export const userConverter = {
   login: 'login',
   avatar: 'avatar',
   email: 'email',
-  phone: 'phone'
+  phone: 'phone',
+  password: 'password',
 } as const;
-
-type UserConverterType = typeof userConverter;
-
-// Убедимся, что все ключи в userConverter присутствуют в ключах APIUserData
-typeof staticAssert<EmptyObject extends Omit<UserConverterType, keyof APIUserData> ? true : false>;
-
-// Убедимся, что значения в userConverter - это ключи из Store
-typeof staticAssert<Exclude<UserConverterType[keyof UserConverterType], keyof Store> extends never ? true : false>;

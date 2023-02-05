@@ -2,21 +2,23 @@ import './registration-page.scss';
 import template from './registration-page.hbs?raw';
 import { Block } from '../../utils/Block';
 import { NavigateTo, withNavigation, WithNavigationProps } from '../../utils/Navigation';
-import { InputField } from '../../components';
-import { withValidation, WithValidationProps } from '../../utils/Validation';
+import { ErrorLine, InputField } from '../../components';
+import { isAllPropsDefined, withValidation, WithValidationProps } from '../../utils/Validation';
+import { AuthController } from '../../controllers/AuthController';
 
 interface Props extends WithNavigationProps, WithValidationProps {
 }
 
 type Refs = {
-  form: HTMLElement;
   email: InputField;
-  name: InputField;
-  surname: InputField;
-  phone: InputField;
+  errorLine: ErrorLine;
+  form: HTMLElement;
   login: InputField;
+  name: InputField;
   password: InputField;
   passwordCopy: InputField;
+  phone: InputField;
+  surname: InputField;
 };
 
 @withNavigation
@@ -45,19 +47,27 @@ export class RegistrationPage extends Block<Props, Refs> {
   private onSubmit(e: Event) {
     e.preventDefault();
     e.stopPropagation();
+    this.refs.errorLine.setProps({ error: undefined });
 
-    const email = this.refs.email.value();
-    const login = this.refs.login.value();
-    const name = this.refs.name.value();
-    const surname = this.refs.surname.value();
-    const phone = this.refs.phone.value();
-    const password = this.refs.password.value();
-    const passwordCopy = this.refs.passwordCopy.value();
+    const fields = {
+      email: this.refs.email.value(),
+      login: this.refs.login.value(),
+      name: this.refs.name.value(),
+      surname: this.refs.surname.value(),
+      phone: this.refs.phone.value(),
+      password: this.refs.password.value(),
+    };
 
-    console.log('form:', email, login, name, surname, phone, password, passwordCopy);
+    console.log('form:', fields);
 
-    if (email && login && name && surname && phone && password && passwordCopy) {
-      NavigateTo.chat();
+    if (!isAllPropsDefined(fields)) {
+      return;
     }
+
+    new AuthController().signup(fields).then(() => {
+      NavigateTo.chat();
+    }).catch(error => {
+      this.refs.errorLine.setProps({ error: error?.reason || 'Неизвестная ошибка' });
+    });
   }
 }

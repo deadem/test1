@@ -1,7 +1,7 @@
 import { staticStore, Store, updateStore } from '../utils/Store';
-import { APIUserData } from './API';
+import { APISignupData, APIUserData } from './API';
 import { Controller } from './Controller';
-import { convertFromAPI } from './Convert';
+import { convertFromAPI, convertToAPI } from './Convert';
 import { userConverter } from './UserConverter';
 
 export class AuthController extends Controller {
@@ -17,6 +17,12 @@ export class AuthController extends Controller {
 
   public isAuthorized() {
     return !!staticStore().userId;
+  }
+
+  public signup(data: { [K in 'name' | 'surname' | 'login' | 'email' | 'phone' | 'password']: string; }) {
+    return this.transport().post<{ id: number }>('/signup', { data: convertToAPI<APISignupData>()(data, userConverter) }).then(() => {
+      return this.updateState();
+    });
   }
 
   public signin(login: string, password: string) {
