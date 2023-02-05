@@ -17,7 +17,7 @@ export const userConverter = {
 type UserConverterType = typeof userConverter;
 
 // Убедимся, что все ключи в userConverter присутствуют в ключах APIUserData
-staticAssert<EmptyObject extends Omit<UserConverterType, keyof APIUserData> ? true : false>;
+typeof staticAssert<EmptyObject extends Omit<UserConverterType, keyof APIUserData> ? true : false>;
 
 // Убедимся, что значения в userConverter - это ключи из Store
-staticAssert<Exclude<UserConverterType[keyof UserConverterType], keyof Store> extends never ? true : false>;
+typeof staticAssert<Exclude<UserConverterType[keyof UserConverterType], keyof Store> extends never ? true : false>;
