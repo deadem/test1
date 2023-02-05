@@ -6,8 +6,11 @@ import { Button, ErrorLine, ProfileContent, ProfileLink } from '../../components
 import { withStore, WithStoreProps } from '../../utils/Store';
 import { AuthController } from '../../controllers/AuthController';
 import { UserController } from '../../controllers/UserController';
+import { isAllPropsDefined } from '../../utils/Validation';
 
 interface Props extends WithStoreProps, WithNavigationProps {
+  edit?: boolean;
+  password?: boolean;
 }
 
 type Refs = {
@@ -60,18 +63,36 @@ export class ProfilePage extends Block<Props, Refs> {
     e.preventDefault();
     e.stopPropagation();
 
-    const fields = this.refs.fields.value();
+    if (this.props.password) {
+      this.updatePassword();
+      return;
+    }
+
+    this.updateProfile();
+  }
+
+  private updateProfile() {
+    const fields = this.refs.fields.profileFields();
     console.log(fields);
 
-    const allValues = (f: typeof fields): f is NonPartial<typeof fields> => {
-      return Object.values(f).filter(value => !value).length == 0;
-    };
-
-    if (!allValues(fields)) {
+    if (!isAllPropsDefined(fields)) {
       return;
     }
 
     new UserController().updateProfile(fields).then(() => {
+      this.setProps({ edit: false, password: false });
+    }).catch(error => {
+      this.refs.errorLine.setProps({ error: error?.reason || 'Ошибка сохранения' });
+    });
+  }
+
+  private updatePassword() {
+    const fields = this.refs.fields.passwordFields();
+    if (!isAllPropsDefined(fields)) {
+      return;
+    }
+
+    new UserController().updatePassword(fields.password, fields.passwordNew).then(() => {
       this.setProps({ edit: false, password: false });
     }).catch(error => {
       this.refs.errorLine.setProps({ error: error?.reason || 'Ошибка сохранения' });

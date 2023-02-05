@@ -7,9 +7,6 @@ import { withValidation, WithValidationProps } from '../../utils/Validation';
 import { AuthController } from '../../controllers/AuthController';
 
 interface Props extends WithNavigationProps, WithValidationProps {
-  login: string;
-  password: string;
-  error: string;
 }
 
 type Refs = {

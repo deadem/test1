@@ -12,6 +12,10 @@ function check(value: string, rules: Rules) {
   }
 }
 
+export function isAllPropsDefined<T extends object>(fields: T): fields is NonPartial<T> {
+  return Object.values(fields).filter(value => !value).length == 0;
+}
+
 export function login(value: string) {
   return check(value.trim(), [
     [ /^\s*$/, true, 'Не указан логин' ],

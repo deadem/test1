@@ -1,6 +1,7 @@
 import { staticStore, Store, updateStore } from '../utils/Store';
-import { APIUserData, convertFromAPI } from './API';
+import { APIUserData } from './API';
 import { Controller } from './Controller';
+import { convertFromAPI } from './Convert';
 import { userConverter } from './UserController';
 
 export class AuthController extends Controller {

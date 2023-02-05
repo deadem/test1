@@ -24,6 +24,11 @@ type Refs = {
 export class RegistrationPage extends Block<Props, Refs> {
   static componentName = 'RegistrationPage';
   protected template = template;
+  protected override events = {
+    form: {
+      'submit': this.onSubmit.bind(this)
+    },
+  };
 
   constructor(props: Props) {
     super({
@@ -54,9 +59,5 @@ export class RegistrationPage extends Block<Props, Refs> {
     if (email && login && name && surname && phone && password && passwordCopy) {
       NavigateTo.chat();
     }
-  }
-
-  protected override componentDidMount() {
-    this.refs.form.addEventListener('submit', this.onSubmit.bind(this));
   }
 }

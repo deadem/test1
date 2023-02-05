@@ -6,7 +6,6 @@ import { withStore, WithStoreProps } from '../../utils/Store';
 import { withValidation, WithValidationProps } from '../../utils/Validation';
 
 interface Props extends WithStoreProps, WithValidationProps {
-  password: boolean;
 }
 
 type Refs = {
@@ -20,6 +19,21 @@ type Refs = {
   passwordNew: ProfileField;
   passwordNewCopy: ProfileField;
   upload: HTMLElement;
+};
+
+export type ProfileContentFields = {
+  email: string | undefined;
+  login: string | undefined;
+  name: string | undefined;
+  surname: string | undefined;
+  nick: string | undefined;
+  phone: string | undefined;
+};
+
+export type ProfileContentPassword = {
+  password: string | undefined;
+  passwordNew: string | undefined;
+  passwordNewCopy: string | undefined;
 };
 
 @withStore
@@ -38,18 +52,23 @@ export class ProfileContent extends Block<Props, Refs> {
       ...props,
       // свойства шаблона
       onAddAvatar: () => { this.setProps({ upload: false }); },
+      validateNewPasswordCopy: (value: string) => {
+        if (value != (this.refs.passwordNew.value() || '')) {
+          return 'Пароли не совпадают';
+        }
+      }
     });
   }
 
-  public value() {
-    if (this.props.password) {
-      return {
-        password: this.refs.password.value(),
-        passwordNew: this.refs.passwordNew.value(),
-        passwordNewCopy: this.refs.passwordNewCopy.value(),
-      };
-    }
+  public passwordFields(): ProfileContentPassword {
+    return {
+      password: this.refs.password.value(),
+      passwordNew: this.refs.passwordNew.value(),
+      passwordNewCopy: this.refs.passwordNewCopy.value(),
+    };
+  }
 
+  public profileFields(): ProfileContentFields {
     return {
       email: this.refs.email.value(),
       login: this.refs.login.value(),

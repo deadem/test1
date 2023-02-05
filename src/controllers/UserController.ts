@@ -1,6 +1,7 @@
 import { Store, updateStore } from '../utils/Store';
-import { APIUserData, convertFromAPI, convertToAPI } from './API';
+import { APIUserData } from './API';
 import { Controller } from './Controller';
+import { convertFromAPI, convertToAPI } from './Convert';
 
 export const userConverter = {
   id: 'userId',
@@ -23,5 +24,9 @@ export class UserController extends Controller {
     return this.transport().put<APIUserData>('/profile', { data }).then(data => {
       updateStore(convertFromAPI<Store>()(data, userConverter));
     });
+  }
+
+  updatePassword(password: string, newPassword: string) {
+    return this.transport().put('/password', { data: { oldPassword: password, newPassword } });
   }
 }
