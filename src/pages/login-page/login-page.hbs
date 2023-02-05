@@ -2,9 +2,9 @@
   <form class="login-page" ref="form">
     <div class="login-page__content">
       {{{ PageTitle title="Вход" }}}
-      {{{ InputField className="login-page__input" title="Логин" name="login" value=login ref="login" validate=validate.login }}}
+      {{{ InputField className="login-page__input" title="Логин" name="login" ref="login" validate=validate.login }}}
       {{{
-        InputField className="login-page__input" title="Пароль" name="password" type="password" value=password ref="password"
+        InputField className="login-page__input" title="Пароль" name="password" type="password" ref="password"
         validate=validate.password
       }}}
       {{{ ErrorLine className="login-page__error" ref="errorLine" }}}
