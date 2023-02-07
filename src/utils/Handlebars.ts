@@ -28,6 +28,10 @@ let uniqueId = 0; // Идентификатор текущего компоне�
 type ComponentType<T extends BlockComponentClass<T>> = { new (props: ConstructorParameters<InstanceType<T>>[0]): InstanceType<T> } & StaticMethods;
 
 export function registerComponent<T extends BlockComponentClass<T>>(Component: ComponentType<T>) {
+  if (Component.componentName in Handlebars.helpers) {
+    throw `The ${Component.componentName} component is already registered!`;
+  }
+
   Handlebars.registerHelper(Component.componentName, function (this: unknown, { hash, data, fn }: HelperOptions) {
     const component = new Component(hash);
     const dataAttribute = `data-component-hbs-id="${++uniqueId}"`;
@@ -60,5 +64,9 @@ export function registerHelpers() {
 }
 
 export function registerPartial(name: string, component: string) {
+  if (name in Handlebars.partials) {
+    throw `The ${name} partial is already registered!`;
+  }
+
   Handlebars.registerPartial(name, component);
 }
