@@ -3,15 +3,17 @@ import plus from '../../assets/plus_icon.svg';
 import cross from '../../assets/cross_icon.svg';
 import template from './chat-header.hbs?raw';
 import { Block } from '../../utils/Block';
+import { withStore, WithStoreProps } from '../../utils/Store';
 
-interface Props {
+type Props = WithStoreProps & {
   menu?: { icon: string; text: string; }[] | undefined;
-}
+};
 
 type Refs = {
   button: HTMLElement;
-}
+};
 
+@withStore
 export class ChatHeader extends Block<Props, Refs> {
   static componentName = 'ChatHeader';
   protected template = template;
@@ -27,6 +29,7 @@ export class ChatHeader extends Block<Props, Refs> {
       // внутренние свойства
       onClickMenu: (id: number) => this.onClickMenu(id),
       onUserAdd: () => this.onUserAdd(),
+      name: () => this.props.store.chats.filter(chat => chat.id == this.props.store.currentChat)[0].name,
     });
   }
 
