@@ -1,4 +1,4 @@
-export const api = 'https://ya-praktikum.tech/api/v2';
+export const api = 'https://ya-praktikum.tech/api/v2'; // swagger: https://ya-praktikum.tech/api/v2/swagger
 
 export type APIUserData = {
   avatar: string,
