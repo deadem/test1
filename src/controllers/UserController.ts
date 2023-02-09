@@ -1,4 +1,5 @@
-import { Store, updateStore } from '../utils/Store';
+import { updateStore } from '../utils/Store';
+import { UserStore } from '../utils/StoreInterface';
 import { APIUserData } from './API';
 import { Controller } from './Controller';
 import { convertFromAPI, convertToAPI } from './Convert';
@@ -12,7 +13,7 @@ export class UserController extends Controller {
   updateProfile(props: { [K in 'name' | 'surname' | 'nick' | 'login' | 'email' | 'phone']: string }) {
     const data = convertToAPI<Omit<APIUserData, 'id' | 'avatar'>>()(props, userConverter);
     return this.transport().put<APIUserData>('/profile', { data }).then(data => {
-      updateStore(convertFromAPI<Store>()(data, userConverter));
+      updateStore(convertFromAPI<UserStore>()(data, userConverter));
     });
   }
 

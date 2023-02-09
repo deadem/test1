@@ -1,7 +1,7 @@
 import './chat-page.scss';
 import template from './chat-page.hbs?raw';
 import { Block } from '../../utils/Block';
-import { chatList } from './chat-page-stub';
+import { ChatController } from '../../controllers/ChatController';
 
 interface Props {
 }
@@ -11,6 +11,8 @@ export class ChatPage extends Block<Props> {
   protected template = template;
 
   constructor() {
-    super({ chatList });
+    super({});
+
+    new ChatController().initChats();
   }
 }

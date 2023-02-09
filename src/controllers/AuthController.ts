@@ -1,4 +1,5 @@
-import { staticStore, Store, updateStore } from '../utils/Store';
+import { staticStore, updateStore } from '../utils/Store';
+import { UserStore } from '../utils/StoreInterface';
 import { APISignupData, APIUserData } from './API';
 import { Controller } from './Controller';
 import { convertFromAPI, convertToAPI } from './Convert';
@@ -11,7 +12,7 @@ export class AuthController extends Controller {
 
   public updateState() {
     return this.transport().get<APIUserData>('/user').then(data => {
-      updateStore(convertFromAPI<Store>()(data, userConverter));
+      updateStore(convertFromAPI<UserStore>()(data, userConverter));
     });
   }
 

@@ -1,17 +1,6 @@
 import { Block } from './Block';
 import { StoreBindings } from './StoreBindings';
-
-// Описание типов в сторе
-export type Store = {
-  userId: number;
-  email: string;
-  login: string;
-  name: string;
-  surname: string;
-  nick: string;
-  avatar: string;
-  phone: string;
-};
+import { Store } from './StoreInterface';
 
 // Статический класс для ленивой инициализации стора
 class Storage {
