@@ -2,6 +2,7 @@ import './chat-list-header.scss';
 import template from './chat-list-header.hbs?raw';
 import { Block } from '../../utils/Block';
 import { NavigateTo } from '../../utils/Navigation';
+import { ChatController } from '../../controllers/ChatController';
 
 interface Props {
 }
@@ -16,6 +17,21 @@ export class ChatListHeader extends Block<Props, Refs> {
   protected override events = {
     profile: {
       click: () => NavigateTo.profile(),
+    },
+    button: {
+      click: () => this.setProps({ addChat: true }),
     }
   };
+
+  constructor(props: Props) {
+    super({
+      ...props,
+      // внутренние свойства
+      onAddChat: (props: { value: string }) => this.addChat(props.value),
+    });
+  }
+
+  private addChat(value: string) {
+    new ChatController().createChat(value);
+  }
 }

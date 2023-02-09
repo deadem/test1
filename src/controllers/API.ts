@@ -25,7 +25,7 @@ export type APIChatsData = Array<{
   title: string,
   avatar: string,
   unread_count: number,
-  last_message: {
+  last_message?: {
     user: {
       first_name: string,
       second_name: string,

@@ -28,6 +28,10 @@ export class InputField extends Block<Props, Refs> {
     });
   }
 
+  public focus() {
+    this.refs.input.focus();
+  }
+
   public value() {
     if (!this.validate()) {
       return undefined;

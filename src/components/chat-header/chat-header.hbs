@@ -6,6 +6,6 @@
     {{{ Menu className="chat-header__menu" menu=menu onClick=onClickMenu }}}
   {{/if}}
   {{#if useradd}}
-    {{{ UserAdd onSubmit=onUserAdd }}}
+    {{{ DialogInput onSubmit=onUserAdd title="Добавить пользователя" inputTitle="Логин" actionText="Добавить" }}}
   {{/if}}
 </div>

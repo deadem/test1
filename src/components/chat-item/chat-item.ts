@@ -6,8 +6,8 @@ import { updateStore, withStore, WithStoreProps } from '../../utils/Store';
 type Props = WithStoreProps & {
   id: number;
   current: () => boolean;
-  time: Date,
-  textTime: () => string;
+  time: Date | undefined,
+  textTime: () => string | undefined;
 };
 
 @withStore
@@ -28,15 +28,20 @@ export class ChatItem extends Block<Props> {
       ...props,
       current: () => this.props.store.currentChat == this.props.id,
       textTime: () => {
-        if (this.props.time.getTime() > today - msInDay) {
-          return props.time.toLocaleString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+        const time = this.props.time;
+        if (!time) {
+          return;
         }
 
-        if (this.props.time.getTime() > today - msInDay * 5) {
-          return props.time.toLocaleString('ru-RU', { weekday: 'short' });
+        if (time.getTime() > today - msInDay) {
+          return time.toLocaleString('ru-RU', { hour: '2-digit', minute: '2-digit' });
         }
 
-        return props.time.toLocaleDateString('ru-RU', {
+        if (time.getTime() > today - msInDay * 5) {
+          return time.toLocaleString('ru-RU', { weekday: 'short' });
+        }
+
+        return time.toLocaleDateString('ru-RU', {
           year: 'numeric', month: 'short', day: 'numeric'
         });
       }

@@ -19,8 +19,8 @@ export type ChatsStore = {
     name: string;
     avatar: string;
     unread: number;
-    message: string;
-    time: Date;
+    message: string | undefined;
+    time: Date | undefined;
   }>;
 };
 
