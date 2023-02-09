@@ -7,6 +7,7 @@ interface Props {
   validate?: (value: string) => void | string;
   error?: string | undefined;
   value?: string;
+  onBlur: () => void;
 }
 
 type Refs = {
@@ -18,14 +19,14 @@ export class InputField extends Block<Props, Refs> {
   static componentName = 'InputField';
   protected template = template;
 
-  constructor(props: Props) {
-    super({
-      ...props,
+  protected override customProps() {
+    return {
+      ...super.customProps(),
       // В материалах курса вадидация должна запускаться по фокусу, но выглядит это странно - ещё ничего не ввели, но уже ошибка,
       // поэтому проверку по фокусу выключил
       // onFocus: () => this.validate(),
-      onBlur: () => this.validate(),
-    });
+      onBlur: this.validate.bind(this),
+    };
   }
 
   public focus() {

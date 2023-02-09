@@ -20,12 +20,12 @@ export class ChatItem extends Block<Props> {
     }
   };
 
-  constructor(props: Props) {
+  protected override customProps() {
     const today = new Date().getTime();
     const msInDay = 86400000;
 
-    super({
-      ...props,
+    return {
+      ...super.customProps(),
       current: () => this.props.store.currentChat == this.props.id,
       textTime: () => {
         const time = this.props.time;
@@ -44,7 +44,7 @@ export class ChatItem extends Block<Props> {
         return time.toLocaleDateString('ru-RU', {
           year: 'numeric', month: 'short', day: 'numeric'
         });
-      }
-    });
+      },
+    };
   }
 }

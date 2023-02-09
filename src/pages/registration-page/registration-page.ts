@@ -7,6 +7,7 @@ import { isAllPropsDefined, withValidation, WithValidationProps } from '../../ut
 import { AuthController } from '../../controllers/AuthController';
 
 interface Props extends WithNavigationProps, WithValidationProps {
+  validatePasswordCopy: (value: string) => string | undefined;
 }
 
 type Refs = {
@@ -32,16 +33,15 @@ export class RegistrationPage extends Block<Props, Refs> {
     },
   };
 
-  constructor(props: Props) {
-    super({
-      ...props,
-      // свойства шаблона
+  protected override customProps() {
+    return {
+      ...super.customProps(),
       validatePasswordCopy: (value: string) => {
         if (value != this.refs.password.value()) {
           return 'Пароли не совпадают';
         }
       }
-    });
+    };
   }
 
   private onSubmit(e: Event) {

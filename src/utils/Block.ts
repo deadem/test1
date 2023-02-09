@@ -32,6 +32,16 @@ export abstract class Block<Props extends object, Refs extends RefType = RefType
   // Строгие типы для Props, плюс разрешаем расширять любыми данными
   constructor(props: Props & AnyProps) {
     this.props = props;
+    // Расширяем props набором свойств из customProps
+    Object.entries(this.customProps()).forEach(([ key, value ]) => {
+      this.props[key as keyof Props] = value;
+    });
+  }
+
+  // Метод для расширения набора свойств, вызывается после сборки конструктора.
+  // На момент вызова все основные свойства уже находятся в this.props
+  protected customProps(): Props {
+    return {} as Props;
   }
 
   // Обновить свойства. Передаваемые значения "мержатся" с уже существующими

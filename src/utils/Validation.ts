@@ -81,6 +81,7 @@ export type WithValidationProps = {
     name: typeof name,
     surname: typeof surname,
     phone: typeof phone,
+    nick: typeof nick,
   };
 }
 
@@ -88,16 +89,13 @@ export function withValidation<Props extends WithValidationProps, T extends Cons
   return class extends constructor {
     protected template!: string;
 
-    // Вынуждены использовать any[], см. ts(2545)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    constructor(...args: any[]) {
-      const [ props ] = args;
-      super({
-        ...props,
+    protected override customProps() {
+      return {
+        ...super.customProps(),
         validate: {
-          login, password, email, name, surname, phone, nick
+          login, password, email, name, surname, phone, nick,
         }
-      } as WithValidationProps);
+      };
     }
   };
 }

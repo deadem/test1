@@ -23,12 +23,11 @@ export class ChatListHeader extends Block<Props, Refs> {
     }
   };
 
-  constructor(props: Props) {
-    super({
-      ...props,
-      // внутренние свойства
+  protected override customProps() {
+    return {
+      ...super.customProps(),
       onAddChat: (props: { value: string }) => this.addChat(props.value),
-    });
+    };
   }
 
   private addChat(value: string) {
