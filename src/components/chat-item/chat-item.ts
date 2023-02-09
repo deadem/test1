@@ -37,7 +37,7 @@ export class ChatItem extends Block<Props> {
         }
 
         return props.time.toLocaleDateString('ru-RU', {
-          year: 'numeric', month: 'short', day: '2-digit'
+          year: 'numeric', month: 'short', day: 'numeric'
         });
       }
     });
