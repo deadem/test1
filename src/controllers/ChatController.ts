@@ -3,21 +3,43 @@ import { APIChatsData } from './API';
 import { Controller } from './Controller';
 
 export class ChatController extends Controller {
+  private chatId?: number;
+
   constructor() {
     super('/chats');
   }
 
-  public initChats() {
+  public connect(id: number) {
+    if (this.chatId == id) {
+      // Не подключаем второй раз тот же чат
+      return;
+    }
+    this.chatId = id;
+
+    this.transport().post<{ token: string}>(`/token/${this.chatId}`).then(({ token }) => {
+      console.log('token', token);
+    }).catch((e) => {
+      // Пока что никак не обрабыватываем сообщения об ошибках
+      console.error(e);
+    });
+  }
+
+  public disconnect() {
+    // temp
+  }
+
+  public request() {
     if (staticStore().loading?.chats) {
       // Если данные по чатам уже загружаются - ничего не делаем
       return;
     }
 
     updateStore({ loading: { ...staticStore().loading, chats: true } });
-    this.fetchList().then(chats => updateStore({ chats }));
+    const currentChat = staticStore().currentChat;
+    this.fetchList().then(chats => updateStore({ currentChat: currentChat || chats[0]?.id || 0, chats }));
   }
 
-  public createChat(name: string) {
+  public addChat(name: string) {
     this.transport().post<{ id: number }>('', { data: { title: name } }).then(data => {
       return Promise.all([ data.id, this.fetchList() ]);
     }).then(([ currentChat, chats ]) => {

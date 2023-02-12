@@ -13,6 +13,6 @@ export class ChatPage extends Block<Props> {
   constructor() {
     super({});
 
-    new ChatController().initChats();
+    new ChatController().request();
   }
 }

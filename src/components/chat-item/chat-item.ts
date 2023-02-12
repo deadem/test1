@@ -41,9 +41,7 @@ export class ChatItem extends Block<Props> {
           return time.toLocaleString('ru-RU', { weekday: 'short' });
         }
 
-        return time.toLocaleDateString('ru-RU', {
-          year: 'numeric', month: 'short', day: 'numeric'
-        });
+        return time.toLocaleDateString('ru-RU', { year: 'numeric', month: 'short', day: 'numeric' });
       },
     };
   }

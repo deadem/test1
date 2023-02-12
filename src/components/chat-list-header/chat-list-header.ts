@@ -31,6 +31,6 @@ export class ChatListHeader extends Block<Props, Refs> {
   }
 
   private addChat(value: string) {
-    new ChatController().createChat(value);
+    new ChatController().addChat(value);
   }
 }

@@ -28,7 +28,7 @@ export class ChatHeader extends Block<Props, Refs> {
       ...super.customProps(),
       onClickMenu: this.onClickMenu.bind(this),
       onUserAdd: this.onUserAdd.bind(this),
-      name: () => this.props.store.chats.filter(chat => chat.id == this.props.store.currentChat)[0]?.name,
+      name: () => this.props.store.chats?.filter(chat => chat.id == this.props.store.currentChat)[0]?.name,
     };
   }
 
