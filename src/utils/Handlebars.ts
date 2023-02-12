@@ -59,7 +59,7 @@ export function registerComponent<T extends BlockComponentClass<T>>(Component: C
   });
 }
 
-function localTime(time: Date) {
+function localDate(time: Date) {
   const today = new Date().getTime();
   const msInDay = 86400000;
 
@@ -83,7 +83,8 @@ function localTime(time: Date) {
 export function registerHelpers() {
   Handlebars.registerHelper('append', (str, suffix) => String(str) + suffix);
   Handlebars.registerHelper('equals', (arg1, arg2) => (arg1 == arg2));
-  Handlebars.registerHelper('localTime', (time) => localTime(time));
+  Handlebars.registerHelper('localDate', (time) => localDate(time));
+  Handlebars.registerHelper('localTime', (time) => time.toLocaleString('ru-RU', { hour: '2-digit', minute: '2-digit' }));
 }
 
 export function registerPartial(name: string, component: string) {
