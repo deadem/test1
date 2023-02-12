@@ -20,4 +20,14 @@ export class UserController extends Controller {
   updatePassword(password: string, newPassword: string) {
     return this.transport().put('/password', { data: { oldPassword: password, newPassword } });
   }
+
+  find(name: string) {
+    return this.transport().post<Array<{ id: number; login: string; }>>('/search', { data: { login: name } }).then((list) => {
+      const user = list.find(value => value.login == name);
+      if (!user) {
+        throw new Error('Can\'t find user');
+      }
+      return user.id;
+    });
+  }
 }

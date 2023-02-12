@@ -19,11 +19,15 @@ export class ChatController extends Controller {
   }
 
   public addChat(name: string) {
-    this.transport().post<{ id: number }>('', { data: { title: name } }).then(data => {
+    return this.transport().post<{ id: number }>('', { data: { title: name } }).then(data => {
       return Promise.all([ data.id, this.fetchList() ]);
     }).then(([ currentChat, chats ]) => {
       updateStore({ currentChat, chats });
     });
+  }
+
+  public addUser(chatId: number, userId: number) {
+    return this.transport().put('/users', { data: { users: [ userId ], chatId } });
   }
 
   private fetchList() {

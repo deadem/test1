@@ -4,6 +4,8 @@ import cross from '../../assets/cross_icon.svg';
 import template from './chat-header.hbs?raw';
 import { Block } from '../../utils/Block';
 import { withStore, WithStoreProps } from '../../utils/Store';
+import { UserController } from '../../controllers/UserController';
+import { ChatController } from '../../controllers/ChatController';
 
 type Props = WithStoreProps & {
   menu?: { icon: string; text: string; }[] | undefined;
@@ -47,8 +49,13 @@ export class ChatHeader extends Block<Props, Refs> {
     this.setProps({ menu: undefined, useradd: true });
   }
 
-  private onUserAdd() {
+  private onUserAdd({ value }: ({ value: string })) {
     this.setProps({ menu: undefined, useradd: false });
+    new UserController().find(value).then((userId) => {
+      return new ChatController().addUser(this.props.store.currentChat, userId);
+    }).catch(e => {
+      console.error(e);
+    });
   }
 
   protected override componentDidMount(): void {

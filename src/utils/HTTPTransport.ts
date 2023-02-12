@@ -1,6 +1,7 @@
 type Method = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-type DataObject = { [keys in string | number ]: string | number | undefined };
-type Data = DataObject | FormData | string | number | undefined;
+type SimpleDataObject = { [keys in string | number ]: string | number | undefined };
+type DataObject = { [keys in string | number ]: string | number | undefined | DataObject[] } | string | number | undefined;
+type Data = DataObject | FormData;
 
 type Options = {
   headers?: { [key: string]: string },
@@ -36,7 +37,7 @@ export class HTTPTransport {
     this.prefix = prefix;
   }
 
-  public get<T = unknown>(urlPart: string, { data, ...options }: Omit<Options, 'data'> & { data?: DataObject } = {}) {
+  public get<T = unknown>(urlPart: string, { data, ...options }: Omit<Options, 'data'> & { data?: SimpleDataObject } = {}) {
     if (data && Object.keys(data).length) {
       const queryPart = queryString(data);
       if (queryPart) {
