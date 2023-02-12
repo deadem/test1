@@ -50,13 +50,23 @@ export class MessagesController extends Controller {
       userId: message.user_id,
     });
 
+    const store = staticStore();
+
     const messages = Array.isArray(data)
       ? data.map(message => convert(message))
-      : [ ...staticStore().messages as Store['messages'], convert(data) ];
-
+      : [ ...store.messages as Store['messages'], convert(data) ];
 
     messages.sort((a, b) => a.time.getTime() - b.time.getTime());
 
-    updateStore({ messages });
+    // обновим последнюю запись у текущего чата:
+    const chats = [ ...store.chats as Store['chats'] ];
+    const chat = chats.find((chat) => chat.id == store.currentChat);
+    if (chat && messages.length) {
+      const message = messages[messages.length - 1];
+      chat.time = message.time;
+      chat.message = message.message;
+    }
+
+    updateStore({ messages, chats });
   }
 }
