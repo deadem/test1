@@ -3,29 +3,8 @@ import { APIChatsData } from './API';
 import { Controller } from './Controller';
 
 export class ChatController extends Controller {
-  private chatId?: number;
-
   constructor() {
     super('/chats');
-  }
-
-  public connect(id: number) {
-    if (this.chatId == id) {
-      // Не подключаем второй раз тот же чат
-      return;
-    }
-    this.chatId = id;
-
-    this.transport().post<{ token: string}>(`/token/${this.chatId}`).then(({ token }) => {
-      console.log('token', token);
-    }).catch((e) => {
-      // Пока что никак не обрабыватываем сообщения об ошибках
-      console.error(e);
-    });
-  }
-
-  public disconnect() {
-    // temp
   }
 
   public request() {

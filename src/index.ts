@@ -1,4 +1,4 @@
-import { registerComponent, registerPartial } from './utils/Handlebars';
+import { registerComponent, registerHelpers, registerPartial } from './utils/Handlebars';
 import * as Components from './components';
 import * as Pages from './pages';
 import * as Partials from './partials';
@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
   Object.entries(Partials).forEach(([ name, component ]) => {
     registerPartial(name, component);
   });
+
+  registerHelpers();
 
   Router
     .use(Page.chat, 'Чаты', Pages.ChatPage, [ tryToAuth, authorized ])

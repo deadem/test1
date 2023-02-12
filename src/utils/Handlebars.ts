@@ -59,8 +59,31 @@ export function registerComponent<T extends BlockComponentClass<T>>(Component: C
   });
 }
 
+function localTime(time: Date) {
+  const today = new Date().getTime();
+  const msInDay = 86400000;
+
+  if (!time) {
+    return;
+  }
+
+  if (time.getTime() > today - msInDay) {
+    return time.toLocaleString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  if (time.getTime() > today - msInDay * 5) {
+    return time.toLocaleString('ru-RU', { weekday: 'short' });
+  }
+
+  return time.toLocaleDateString('ru-RU', { year: 'numeric', month: 'short', day: 'numeric' });
+
+}
+
+
 export function registerHelpers() {
   Handlebars.registerHelper('append', (str, suffix) => String(str) + suffix);
+  Handlebars.registerHelper('equals', (arg1, arg2) => (arg1 == arg2));
+  Handlebars.registerHelper('localTime', (time) => localTime(time));
 }
 
 export function registerPartial(name: string, component: string) {

@@ -21,28 +21,9 @@ export class ChatItem extends Block<Props> {
   };
 
   protected override customProps() {
-    const today = new Date().getTime();
-    const msInDay = 86400000;
-
     return {
       ...super.customProps(),
       current: () => this.props.store.currentChat == this.props.id,
-      textTime: () => {
-        const time = this.props.time;
-        if (!time) {
-          return;
-        }
-
-        if (time.getTime() > today - msInDay) {
-          return time.toLocaleString('ru-RU', { hour: '2-digit', minute: '2-digit' });
-        }
-
-        if (time.getTime() > today - msInDay * 5) {
-          return time.toLocaleString('ru-RU', { weekday: 'short' });
-        }
-
-        return time.toLocaleDateString('ru-RU', { year: 'numeric', month: 'short', day: 'numeric' });
-      },
     };
   }
 }

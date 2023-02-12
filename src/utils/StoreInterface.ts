@@ -14,6 +14,11 @@ export type UserStore = {
 
 export type ChatsStore = {
   currentChat: number;
+  messages: Array<{
+    message: string;
+    time: Date;
+    userId: number;
+  }>;
   chats: Array<{
     id: number;
     name: string;

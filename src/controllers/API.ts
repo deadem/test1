@@ -1,4 +1,5 @@
 export const api = 'https://ya-praktikum.tech/api/v2'; // swagger: https://ya-praktikum.tech/api/v2/swagger
+export const webSocketAPI = 'wss://ya-praktikum.tech/ws/chats/';
 
 export type APIUserData = {
   avatar: string,
@@ -38,3 +39,9 @@ export type APIChatsData = Array<{
     content: string;
   }
 }>;
+
+export type APIMessageData = {
+  content: string;
+  time: string;
+  user_id: number;
+};
