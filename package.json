@@ -21,13 +21,15 @@
     "start": "npm run build && node ./server.js",
     "eslint": "eslint \"src/**/*.[jt]s\"",
     "stylelint": "stylelint \"src/**/*.scss\"",
-    "lint": "npm run stylelint && npm run eslint"
+    "lint": "npm run stylelint && npm run eslint",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.48.2",
     "eslint": "^8.32.0",
     "handlebars": "^4.7.7",
+    "husky": "^8.0.3",
     "rimraf": "^3.0.2",
     "sass": "^1.57.1",
     "stylelint": "^14.14.0",
