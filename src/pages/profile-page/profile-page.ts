@@ -73,7 +73,6 @@ export class ProfilePage extends Block<Props, Refs> {
 
   private updateProfile() {
     const fields = this.refs.fields.profileFields();
-    console.log(fields);
 
     if (!isAllPropsDefined(fields)) {
       return;

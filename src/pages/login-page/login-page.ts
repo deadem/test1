@@ -33,8 +33,6 @@ export class LoginPage extends Block<Props, Refs> {
 
     const login = this.refs.login.value();
     const password = this.refs.password.value();
-    console.log('login:', login);
-    console.log('password:', password);
 
     this.refs.errorLine.setProps({ error: undefined });
 
