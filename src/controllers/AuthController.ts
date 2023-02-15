@@ -5,6 +5,15 @@ import { Controller } from './Controller';
 import { convertFromAPI, convertToAPI } from './Convert';
 import { userConverter } from './UserConverter';
 
+type SignupData = {
+  name: string;
+  surname: string;
+  login: string;
+  email: string;
+  phone: string;
+  password: string;
+};
+
 export class AuthController extends Controller {
   constructor() {
     super('/auth');
@@ -20,7 +29,7 @@ export class AuthController extends Controller {
     return !!staticStore().userId;
   }
 
-  public signup(data: { [K in 'name' | 'surname' | 'login' | 'email' | 'phone' | 'password']: string; }) {
+  public signup(data: SignupData) {
     return this.transport().post<{ id: number }>('/signup', { data: convertToAPI<APISignupData>()(data, userConverter) }).then(() => {
       return this.updateState();
     });
