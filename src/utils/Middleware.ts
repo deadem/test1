@@ -23,7 +23,7 @@ export const tryToAuth: Middleware = (_router, next) => {
     return next();
   }
 
-  controller.updateState().finally(() => {
+  controller.initUserData().finally(() => {
     next();
   });
 };
