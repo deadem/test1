@@ -58,8 +58,6 @@ export class RegistrationPage extends Block<Props, Refs> {
       password: this.refs.password.value(),
     };
 
-    console.log('form:', fields);
-
     if (!isAllPropsDefined(fields)) {
       return;
     }
