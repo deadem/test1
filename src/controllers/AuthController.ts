@@ -19,7 +19,7 @@ export class AuthController extends Controller {
     super('/auth');
   }
 
-  public updateState() {
+  public initUserData() {
     return this.transport().get<APIUserData>('/user').then(data => {
       updateStore(convertFromAPI<UserStore>()(data, userConverter));
     });
@@ -31,13 +31,13 @@ export class AuthController extends Controller {
 
   public signup(data: SignupData) {
     return this.transport().post<{ id: number }>('/signup', { data: convertToAPI<APISignupData>()(data, userConverter) }).then(() => {
-      return this.updateState();
+      return this.initUserData();
     });
   }
 
   public signin(login: string, password: string) {
     return this.transport().post('/signin', { data: { login, password } }).then(() => {
-      return this.updateState();
+      return this.initUserData();
     });
   }
 
