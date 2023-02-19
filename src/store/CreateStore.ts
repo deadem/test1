@@ -2,12 +2,13 @@ import { AuthAPI } from '../api/AuthAPI';
 import { ChatAPI } from '../api/ChatAPI';
 import { MessagesAPI } from '../api/MessageAPI';
 import { UserAPI } from '../api/UserAPI';
+import { resourcesPath } from '../api/Resources';
 import { NavigateTo } from '../utils/Navigation';
-import { AuthStore, Message, Store } from './Interface';
+import { AuthStore, Config, Message, Store } from './Interface';
 import { Reducers } from './Reducers';
 
 // Создание стора и редьюсеров
-export function createStore(get: () => DeepReadonly<Store>, set: (data: Partial<Store>, replace?: boolean) => void): AuthStore & Reducers {
+export function createStore(get: () => DeepReadonly<Store>, set: (data: Partial<Store>, replace?: boolean) => void): AuthStore & Config & Reducers {
   const userAuth = new Promise<number>((resolve, reject) => {
     const userId = get().userId;
     if (userId) {
@@ -40,6 +41,7 @@ export function createStore(get: () => DeepReadonly<Store>, set: (data: Partial<
 
   return {
     userAuth,
+    resourcesPath,
     reducers: {
       addChat(name) {
         const chat = new ChatAPI();
@@ -98,6 +100,11 @@ export function createStore(get: () => DeepReadonly<Store>, set: (data: Partial<
           .then(() => auth.userData())
           .then(data => set(data))
           .then(() => NavigateTo.chat());
+      },
+      updateAvatar(file) {
+        return new UserAPI().updateAvatar(file)
+          .then(data => set(data))
+          .then(() => undefined);
       },
       updateChatList() {
         if (get().loading?.chats) { // Если данные по чатам уже загружаются - ничего не делаем

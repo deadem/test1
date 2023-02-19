@@ -1,5 +1,7 @@
 <div class="profile-content">
-  <div class="profile-content__avatar" ref="upload"></div>
+  <div class="profile-content__avatar"
+    {{#if store.avatar}}style="background-image: url({{store.resourcesPath}}{{store.avatar}}){{/if}}" ref="upload">
+  </div>
   {{#if upload}}{{{ UploadFile onSubmit=onAddAvatar }}}{{/if}}
   <div class="profile-content__name{{#if edit}} profile-content__name--hidden{{/if}}">Иван</div>
   {{#if password}}

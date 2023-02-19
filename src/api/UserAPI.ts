@@ -18,9 +18,15 @@ export class UserAPI extends API {
     super('/user');
   }
 
+  updateAvatar(file: File) {
+    const data = new FormData();
+    data.append('avatar', file);
+    return this.transport().put<APIUserData>('/profile/avatar', { data }).then(data => this.convert(data));
+  }
+
   updateProfile(props: ProfileData) {
     const data = convertToAPI<Omit<APIUserData, 'id' | 'avatar'>>()(props, userConverter);
-    return this.transport().put<APIUserData>('/profile', { data }).then(data => convertFromAPI<UserStore>()(data, userConverter));
+    return this.transport().put<APIUserData>('/profile', { data }).then(data => this.convert(data));
   }
 
   updatePassword(password: string, newPassword: string) {
@@ -35,5 +41,9 @@ export class UserAPI extends API {
       }
       return user.id;
     });
+  }
+
+  private convert(data: APIUserData) {
+    return convertFromAPI<UserStore>()(data, userConverter);
   }
 }
