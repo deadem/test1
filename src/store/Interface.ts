@@ -1,11 +1,15 @@
 // Описание типов в сторе
 import { Reducers } from './Reducers';
 
-export type Store = AuthStore & UserStore & ChatsStore & Loading & Reducers;
+export type Store = AuthStore & Config & UserStore & ChatsStore & Loading & Reducers;
 
 export type AuthStore = {
   userAuth: Promise<number>;
 };
+
+export type Config = {
+  resourcesPath: string; // Путь к статическим API-ресурсам (файлы, картинки)
+}
 
 export type UserStore = {
   userId: number;

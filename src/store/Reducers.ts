@@ -12,6 +12,7 @@ export type Reducers = {
     selectChat(id: number): void;
     signin(login: string, password: string): Promise<void>;
     signup(data: SignupData): Promise<void>;
+    updateAvatar(file: File): Promise<void>;
     updatePassword(password: string, newPassword: string): Promise<void>;
     updateProfile(data: ProfileData): Promise<void>;
     updateChatList(): void;
