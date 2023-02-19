@@ -1,14 +1,21 @@
-import { Block } from './Block';
+import { Block } from '../utils/Block';
 import { StoreBindings } from './StoreBindings';
-import { Store } from './StoreInterface';
+import { Store } from './Interface';
+import { createStore } from './CreateStore';
 
-// Статический класс для ленивой инициализации стора
 class Storage {
+  // Статический класс для ленивой инициализации стора
   static store: StoreBindings<Store>;
 
   static bingings() {
     if (!this.store) {
       this.store = new StoreBindings();
+
+      const get = () => this.store.getStaticStore();
+      const set = (store: Partial<Store>, replace = false) => {
+        this.store.updateStore(store, replace);
+      };
+      set(createStore(get, set));
     }
 
     return this.store;
@@ -38,11 +45,6 @@ export function withStore<Props extends WithStoreProps, T extends Constructor<Bl
       Storage.bingings().unregisterBinding(this);
     }
   };
-}
-
-// Обновление значений в сторе
-export function updateStore(store: Partial<Store>, replace = false) {
-  Storage.bingings().updateStore(store, replace);
 }
 
 export function staticStore() {

@@ -3,10 +3,8 @@ import template from './profile-page.hbs?raw';
 import { Block } from '../../utils/Block';
 import { NavigateTo, withNavigation, WithNavigationProps } from '../../utils/Navigation';
 import { Button, ErrorLine, ProfileContent, ProfileLink } from '../../components';
-import { withStore, WithStoreProps } from '../../utils/Store';
-import { AuthController } from '../../controllers/AuthController';
-import { UserController } from '../../controllers/UserController';
 import { isAllPropsDefined } from '../../utils/Validation';
+import { withStore, WithStoreProps } from '../../store/Store';
 
 interface Props extends WithStoreProps, WithNavigationProps {
   edit?: boolean;
@@ -54,9 +52,7 @@ export class ProfilePage extends Block<Props, Refs> {
   };
 
   private logout() {
-    new AuthController().logout().then(() => {
-      this.props.navigateTo.login();
-    });
+    this.props.store.reducers.logout();
   }
 
   private save(e: Event) {
@@ -78,7 +74,7 @@ export class ProfilePage extends Block<Props, Refs> {
       return;
     }
 
-    new UserController().updateProfile(fields).then(() => {
+    this.props.store.reducers.updateProfile(fields).then(() => {
       this.setProps({ edit: false, password: false });
     }).catch(error => {
       this.refs.errorLine.setProps({ error: error?.reason || 'Ошибка сохранения' });
@@ -91,7 +87,7 @@ export class ProfilePage extends Block<Props, Refs> {
       return;
     }
 
-    new UserController().updatePassword(fields.password, fields.passwordNew).then(() => {
+    this.props.store.reducers.updatePassword(fields.password, fields.passwordNew).then(() => {
       this.setProps({ edit: false, password: false });
     }).catch(error => {
       this.refs.errorLine.setProps({ error: error?.reason || 'Ошибка сохранения' });

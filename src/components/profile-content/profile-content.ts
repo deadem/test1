@@ -2,7 +2,7 @@ import './profile-content.scss';
 import template from './profile-content.hbs?raw';
 import { Block } from '../../utils/Block';
 import { ProfileField } from '../index';
-import { withStore, WithStoreProps } from '../../utils/Store';
+import { withStore, WithStoreProps } from '../../store/Store';
 import { withValidation, WithValidationProps } from '../../utils/Validation';
 
 interface Props extends WithStoreProps, WithValidationProps {

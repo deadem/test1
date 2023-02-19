@@ -17,7 +17,7 @@ type Constructor<T> = new (...args: any[]) => T;
 
 // Хелпер для декларации неизменяемых свойств классов-массивов
 type DeepReadonly<T> = {
-  readonly [P in keyof T]: DeepReadonly<T[P]>
+  readonly [P in keyof T]: T[P] extends Promise ? T[P] : DeepReadonly<T[P]>
 }
 
 // Декларация функции для статических проверок. Сама функция нигде не реализована и никогда не вызывается

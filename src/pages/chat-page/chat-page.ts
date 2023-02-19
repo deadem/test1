@@ -1,32 +1,21 @@
 import './chat-page.scss';
 import template from './chat-page.hbs?raw';
 import { Block } from '../../utils/Block';
-import { MessagesController } from '../../controllers/MessagesController';
-import { ChatController } from '../../controllers/ChatController';
+import { withStore, WithStoreProps } from '../../store/Store';
 
-interface Props {
-  controller: MessagesController;
+interface Props extends WithStoreProps {
 }
 
+@withStore
 export class ChatPage extends Block<Props> {
   static componentName = 'ChatPage';
   protected template = template;
-  protected controller!: MessagesController;
-
-  protected override customProps() {
-    this.controller = new MessagesController();
-    return {
-      ...super.customProps(),
-      controller: this.controller,
-    };
-  }
 
   public override destroy() {
-    this.controller.disconnect();
+    this.props.store.reducers.destroyChat();
   }
 
   protected override componentDidMount(): void {
-    new ChatController().request(); // Инициируем подгрузку чатов
+    this.props.store.reducers.updateChatList();
   }
-
 }

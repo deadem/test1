@@ -1,4 +1,3 @@
-import { APIMessageData } from '../controllers/API';
 import { EventBus } from './EventBus';
 
 export const enum WSTransportEvents {
@@ -8,16 +7,17 @@ export const enum WSTransportEvents {
   Close,
 }
 
-type EventTypes = {
-  [WSTransportEvents.Message]: [ APIMessageData | APIMessageData[] ];
+type EventTypes<Message> = {
+  [WSTransportEvents.Message]: [ Message ];
   [WSTransportEvents.Error]: [ unknown ];
   [WSTransportEvents.Connected]: [ void ];
   [WSTransportEvents.Close]: [ void ] ;
 }
 
-export class WSTransport extends EventBus<EventTypes> {
+export class WSTransport<Message> extends EventBus<EventTypes<Message>> {
   private socket?: WebSocket;
   private pingInterval?: ReturnType<typeof setInterval>;
+  private readonly pingIntervalTime = 30000; // 30 секунд интервал между пингами
   private url: string;
 
   constructor(url: string) {
@@ -34,6 +34,10 @@ export class WSTransport extends EventBus<EventTypes> {
   }
 
   public connect(): Promise<void> {
+    if (this.socket) {
+      throw new Error('The socket is already connected');
+    }
+
     this.socket = new WebSocket(this.url);
     this.subscribe(this.socket);
     this.setupPing();
@@ -55,7 +59,7 @@ export class WSTransport extends EventBus<EventTypes> {
   private setupPing() {
     this.pingInterval = setInterval(() => {
       this.send({ type: 'ping' });
-    }, 30000);
+    }, this.pingIntervalTime);
 
     this.on(WSTransportEvents.Close, () => {
       clearInterval(this.pingInterval);
@@ -78,7 +82,7 @@ export class WSTransport extends EventBus<EventTypes> {
 
     socket.addEventListener('message', (message) => {
       const data = JSON.parse(message.data);
-      if (data?.type == 'pong' || data?.type == 'user connected') {
+      if (['pong', 'user connected'].includes(data?.type)) {
         return;
       }
       this.emit(WSTransportEvents.Message, data);

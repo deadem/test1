@@ -1,6 +1,3 @@
-export const api = 'https://ya-praktikum.tech/api/v2'; // swagger: https://ya-praktikum.tech/api/v2/swagger
-export const webSocketAPI = 'wss://ya-praktikum.tech/ws/chats/';
-
 export type APIUserData = {
   avatar: string,
   display_name: string,

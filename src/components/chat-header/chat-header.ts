@@ -3,9 +3,7 @@ import plus from '../../assets/plus_icon.svg';
 import cross from '../../assets/cross_icon.svg';
 import template from './chat-header.hbs?raw';
 import { Block } from '../../utils/Block';
-import { withStore, WithStoreProps } from '../../utils/Store';
-import { UserController } from '../../controllers/UserController';
-import { ChatController } from '../../controllers/ChatController';
+import { withStore, WithStoreProps } from '../../store/Store';
 
 type Props = WithStoreProps & {
   menu?: { icon: string; text: string; }[] | undefined;
@@ -51,9 +49,7 @@ export class ChatHeader extends Block<Props, Refs> {
 
   private onUserAdd({ value }: ({ value: string })) {
     this.setProps({ menu: undefined, useradd: false });
-    new UserController().find(value).then((userId) => {
-      return new ChatController().addUser(this.props.store.currentChat, userId);
-    }).catch(e => {
+    this.props.store.reducers.addUser(value).catch(e => {
       console.error(e);
     });
   }
