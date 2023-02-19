@@ -14,6 +14,10 @@ export class ChatAPI extends API {
     return this.transport().put('/users', { data: { users: [ userId ], chatId } });
   }
 
+  public removeUser(chatId: number, userId: number) {
+    return this.transport().delete('/users', { data: { users: [ userId ], chatId } });
+  }
+
   public list() {
     return this.transport().get<APIChatsData>('').then(data => {
       return data.map(chat => ({

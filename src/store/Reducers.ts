@@ -8,6 +8,7 @@ export type Reducers = {
     addUser(name: string): Promise<void>;
     destroyChat(): void; // Разрушить инфраструктуру чата
     logout(): void;
+    removeUser(name: string): Promise<void>;
     selectChat(id: number): void;
     signin(login: string, password: string): Promise<void>;
     signup(data: SignupData): Promise<void>;

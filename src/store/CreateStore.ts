@@ -65,6 +65,12 @@ export function createStore(get: () => DeepReadonly<Store>, set: (data: Partial<
           .finally(() => { chatMessages?.disconnect(); chatMessages = undefined; })
           .finally(() => NavigateTo.login());
       },
+      removeUser(name) {
+        const currentChat = get().currentChat;
+        return new UserAPI().findUser(name)
+          .then((userId) => new ChatAPI().removeUser(currentChat, userId))
+          .then(() => undefined);
+      },
       selectChat(id) {
         if (!id || get().currentChat == id) {
           // Если уже отображаем тот же самый чат, ничего не меняем

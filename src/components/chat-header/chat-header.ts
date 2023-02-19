@@ -23,35 +23,46 @@ export class ChatHeader extends Block<Props, Refs> {
     }
   };
 
+  private menu = [
+    {
+      icon: plus,
+      text: 'Добавить пользователя',
+      onClick: { onSubmit: this.onUserAdd.bind(this), dialogTitle: 'Добавить пользователя', text: 'Добавить' }
+    },
+    {
+      icon: cross,
+      text: 'Удалить пользователя',
+      onClick: { onSubmit: this.onUserRemove.bind(this), dialogTitle: 'Удалить пользователя', text: 'Удалить' }
+    },
+  ];
+
   protected override customProps() {
     return {
       ...super.customProps(),
-      onClickMenu: this.onClickMenu.bind(this),
-      onUserAdd: this.onUserAdd.bind(this),
+      onClickMenu: (id: number) => this.setProps({ menu: undefined, ...this.menu[id].onClick }),
       name: () => this.props.store.chats?.filter(chat => chat.id == this.props.store.currentChat)[0]?.name,
     };
   }
 
   private showMenu(e: Event) {
     e.stopPropagation();
-    this.setProps({
-      menu: [
-        { icon: plus, text: 'Добавить пользователя' },
-        { icon: cross, text: 'Удалить пользователя' },
-      ]
-    });
+    this.setProps({ menu: this.menu });
   }
 
-  private onClickMenu(id: number) {
-    void(id);
-    this.setProps({ menu: undefined, useradd: true });
+  private closeMenu() {
+    this.setProps({ menu: undefined, dialogTitle: false });
   }
 
   private onUserAdd({ value }: ({ value: string })) {
-    this.setProps({ menu: undefined, useradd: false });
     this.props.store.reducers.addUser(value).catch(e => {
       console.error(e);
-    });
+    }).finally(() => this.closeMenu());
+  }
+
+  private onUserRemove({ value }: ({ value: string })) {
+    this.props.store.reducers.removeUser(value).catch(e => {
+      console.error(e);
+    }).finally(() => this.closeMenu());
   }
 
   protected override componentDidMount(): void {
