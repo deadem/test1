@@ -1,27 +1,33 @@
-import { updateStore } from '../utils/Store';
-import { UserStore } from '../utils/StoreInterface';
-import { APIUserData } from './API';
-import { Controller } from './Controller';
+import { UserStore } from '../store/Interface';
+import { API } from './API';
 import { convertFromAPI, convertToAPI } from './Convert';
+import { APIUserData } from './Interface';
 import { userConverter } from './UserConverter';
 
-export class UserController extends Controller {
+export type ProfileData = {
+  name: string;
+  surname: string;
+  nick: string;
+  login: string;
+  email: string;
+  phone: string;
+};
+
+export class UserAPI extends API {
   constructor() {
     super('/user');
   }
 
-  updateProfile(props: { [K in 'name' | 'surname' | 'nick' | 'login' | 'email' | 'phone']: string }) {
+  updateProfile(props: ProfileData) {
     const data = convertToAPI<Omit<APIUserData, 'id' | 'avatar'>>()(props, userConverter);
-    return this.transport().put<APIUserData>('/profile', { data }).then(data => {
-      updateStore(convertFromAPI<UserStore>()(data, userConverter));
-    });
+    return this.transport().put<APIUserData>('/profile', { data }).then(data => convertFromAPI<UserStore>()(data, userConverter));
   }
 
   updatePassword(password: string, newPassword: string) {
     return this.transport().put('/password', { data: { oldPassword: password, newPassword } });
   }
 
-  find(name: string) {
+  findUser(name: string) {
     return this.transport().post<Array<{ id: number; login: string; }>>('/search', { data: { login: name } }).then((list) => {
       const user = list.find(value => value.login == name);
       if (!user) {
