@@ -59,7 +59,9 @@ export function createStore(get: () => DeepReadonly<Store>, set: (data: Partial<
           .then(() => undefined);
       },
       destroyChat() {
-        //
+        chatMessages?.disconnect();
+        chatMessages = undefined;
+        set({ currentChat: undefined, messages: [] });
       },
       logout() {
         new AuthAPI().logout()
@@ -112,8 +114,10 @@ export function createStore(get: () => DeepReadonly<Store>, set: (data: Partial<
         }
         set({ loading: { ...get().loading, chats: true } });
         new ChatAPI().list()
-          .then(chats => [ get().currentChat || chats[0]?.id || 0, set({ chats }) ] as const)
-          .then(([ id ]) => get().reducers.selectChat(id));
+          .then(chats => {
+            set({ chats, loading: { ...get().loading, chats: false } });
+            return get().currentChat || chats[0]?.id || 0;
+          }).then((id) => get().reducers.selectChat(id));
       },
       updateProfile(data) {
         return new UserAPI().updateProfile(data)
