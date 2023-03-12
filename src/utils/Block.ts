@@ -7,10 +7,6 @@ type RefType = {
 type EventListType = { [key: string]: ((e: Event) => void) | undefined; };
 type EventsType<Refs> = { [key in keyof Refs]?: EventListType } | EventListType;
 
-interface AnyProps {
-  [key: string]: unknown;
-}
-
 export abstract class Block<Props extends object, Refs extends RefType = RefType> implements BlockComponent {
   // Handlebars-шаблон текущего компонента.
   protected abstract template: string;
@@ -29,13 +25,12 @@ export abstract class Block<Props extends object, Refs extends RefType = RefType
   // Элемент в DOM, в который отрендерен этот компонент
   private domElement: Element | null = null;
 
-  // Строгие типы для Props, плюс разрешаем расширять любыми данными
-  constructor(props: Props & AnyProps) {
+  constructor(props: Props) {
     this.props = props;
   }
 
   // Обновить свойства. Передаваемые значения "мержатся" с уже существующими
-  public setProps(props: Partial<Props> & AnyProps) {
+  public setProps(props: Partial<Props>) {
     this.props = { ...this.props, ...props };
     this.render();
   }

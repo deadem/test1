@@ -6,6 +6,9 @@ import * as Validation from '../../utils/Validation';
 
 interface Props {
   password: boolean;
+  upload?: boolean;
+  validate?: typeof Validation;
+  onAddAvatar(): void;
 }
 
 type Refs = {

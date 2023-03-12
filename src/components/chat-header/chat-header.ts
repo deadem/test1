@@ -6,6 +6,9 @@ import { Block } from '../../utils/Block';
 
 interface Props {
   menu?: { icon: string; text: string; }[] | undefined;
+  onClickMenu(id: number): void;
+  onUserAdd(): void;
+  useradd?: boolean;
 }
 
 type Refs = {
