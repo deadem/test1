@@ -5,6 +5,7 @@ import { NavigateTo } from '../../utils/Navigation';
 import { withStore, WithStoreProps } from '../../store/Store';
 
 interface Props extends WithStoreProps {
+  addChat?: boolean;
 }
 
 type Refs = {
