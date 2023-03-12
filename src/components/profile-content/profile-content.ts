@@ -6,6 +6,7 @@ import { withStore, WithStoreProps } from '../../store/Store';
 import { withValidation, WithValidationProps } from '../../utils/Validation';
 
 interface Props extends WithStoreProps, WithValidationProps {
+  upload?: boolean;
 }
 
 type Refs = {

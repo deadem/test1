@@ -6,6 +6,7 @@ import { Block } from '../../utils/Block';
 import { withStore, WithStoreProps } from '../../store/Store';
 
 type Props = WithStoreProps & {
+  dialogTitle?: string;
   menu?: { icon: string; text: string; }[] | undefined;
 };
 
@@ -50,7 +51,7 @@ export class ChatHeader extends Block<Props, Refs> {
   }
 
   private closeMenu() {
-    this.setProps({ menu: undefined, dialogTitle: false });
+    this.setProps({ menu: undefined, dialogTitle: undefined });
   }
 
   private onUserAdd({ value }: ({ value: string })) {
