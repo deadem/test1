@@ -90,10 +90,24 @@ export abstract class Block<Props extends object, Refs extends RefType = RefType
     }
   }
 
-  // Метод вызывает componentWillUnmount у себя, а затем, рекурсивно, и у всех детей
+  // Отключаем все листенеры
+  private removeListeners() {
+    // Отключать обработчики при разрушении компонента нет необходимости:
+    // все элементы, к которым они подключены, будут уничтожены и отключатся сами.
+    // this.domElement на каждый рендер будет создан новый
+  }
+
+  // Метод подключает обработчики и вызывает componentDidMount
+  private mountComponent() {
+    this.attachListeners();
+    this.componentDidMount();
+  }
+
+  // Метод вызывает componentWillUnmount и отключение событий у себя, а затем, рекурсивно, и у всех детей
   private unmountComponent() {
     if (this.domElement) {
       this.componentWillUnmount();
+      this.removeListeners();
       this.children.reverse().forEach(child => child.unmountComponent()); // вызываем очистку в порядке, обратном созданию
     }
   }
@@ -107,11 +121,7 @@ export abstract class Block<Props extends object, Refs extends RefType = RefType
       this.domElement.replaceWith(fragment);
     }
     this.domElement = fragment;
-
-    // Отключать обработчики при разрушении компонента нет необходимости - this.domElement пересоздаётся на каждый рендер
-    this.attachListeners();
-
-    this.componentDidMount();
+    this.mountComponent();
   }
 
   private compile() {
