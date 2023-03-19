@@ -21,7 +21,7 @@
     "start": "npm run build && node ./server.js",
     "eslint": "eslint \"src/**/*.[jt]s\"",
     "stylelint": "stylelint \"src/**/*.scss\"",
-    "lint": "npm run stylelint && npm run eslint"
+    "lint": "tsc --noEmit && npm run stylelint && npm run eslint"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.48.2",
