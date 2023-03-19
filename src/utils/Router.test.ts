@@ -11,18 +11,10 @@ describe('Router', () => {
 
   class ChatPage extends Block<object> {
     protected template = '';
-
-    protected override render(): void {
-      //
-    }
   }
 
   class DefaultPage extends Block<object> {
     protected template = '';
-
-    protected override render(): void {
-      //
-    }
   }
 
   afterEach(function() {
