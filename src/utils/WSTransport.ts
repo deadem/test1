@@ -59,7 +59,7 @@ export class WSTransport extends EventBus<EventTypes> {
 
     this.on(WSTransportEvents.Close, () => {
       clearInterval(this.pingInterval);
-      this.pingInterval = 0;
+      this.pingInterval = undefined;
     });
   }
 
