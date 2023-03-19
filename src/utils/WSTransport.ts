@@ -77,11 +77,15 @@ export class WSTransport extends EventBus<EventTypes> {
     });
 
     socket.addEventListener('message', (message) => {
-      const data = JSON.parse(message.data);
-      if (data?.type == 'pong' || data?.type == 'user connected') {
-        return;
+      try {
+        const data = JSON.parse(message.data);
+        if (['pong', 'user connected'].includes(data?.type)) {
+          return;
+        }
+        this.emit(WSTransportEvents.Message, data);
+      } catch (e) {
+        // Игнорируем ошибки разбора JSON
       }
-      this.emit(WSTransportEvents.Message, data);
     });
   }
 }
