@@ -16,10 +16,10 @@ https://step-1-demo.onrender.com/
 
 ## Линтинг
 
-`npm run eslint` — проверка скриптов.
-`npm run stylelint` — проверка стилей.
-`npm run lint` — запуск всех проверок: TS, eslint, stylelint.
-`npm run test` - запуск тестов
+- `npm run eslint` — проверка скриптов.
+- `npm run stylelint` — проверка стилей.
+- `npm run lint` — запуск всех проверок: TS, eslint, stylelint.
+- `npm run test` - запуск тестов
 
 ## Использованы
 
