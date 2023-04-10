@@ -29,5 +29,5 @@ https://step-1-demo.onrender.com/
 [eslint](https://eslint.org/)
 [stylelint](https://stylelint.io/)
 
-# "Тут всё не так", "ничего не работает", "а вот тут ошибка"
+## "Тут всё не так", "ничего не работает", "а вот тут ошибка"
 Откройте issue, разберёмся.
