@@ -7,7 +7,7 @@ interface Props {
   validate?: (value: string) => void | string;
   error?: string | undefined;
   value?: string;
-  onBlur: () => void;
+  onBlur(): void;
 }
 
 type Refs = {
