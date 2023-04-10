@@ -19,19 +19,6 @@ https://step-1-demo.onrender.com/
 `npm run eslint` — проверка скриптов.
 `npm run stylelint` — проверка стилей.
 `npm run lint` — запуск всех проверок: TS, eslint, stylelint.
-
-## Какие страницы свёрстаны:
-
-1. `npm i` — установка зависимостей проекта.
-2. `npm run start` — команда, запускающая проект.
-3. `npm run dev` — запуск отладочной версии.
-4. Проект работает на `http://localhost:3000`.
-
-## Линтинг
-
-`npm run eslint` — проверка скриптов.
-`npm run stylelint` — проверка стилей.
-`npm run lint` — запуск всех проверок: TS, eslint, stylelint.
 `npm run test` - запуск тестов
 
 ## Использованы
