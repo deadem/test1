@@ -14,6 +14,12 @@ https://step-1-demo.onrender.com/
 2. `npm run dev` — запуск отладочной версии.
 3. Проект работает на `http://localhost:3000`.
 
+## Линтинг
+
+`npm run eslint` — проверка скриптов.
+`npm run stylelint` — проверка стилей.
+`npm run lint` — запуск всех проверок: TS, eslint, stylelint.
+
 ## Какие страницы свёрстаны:
 
 1. `npm i` — установка зависимостей проекта.
