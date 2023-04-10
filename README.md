@@ -7,6 +7,13 @@ https://www.figma.com/file/24EUnEHGEDNLdOcxg7ULwV/Chat
 
 https://step-1-demo.onrender.com/
 
+## Запуск проекта
+
+1. `npm i` — установка зависимостей проекта.
+2. `npm run start` — команда, запускающая проект.
+2. `npm run dev` — запуск отладочной версии.
+3. Проект работает на `http://localhost:3000`.
+
 ## Какие страницы свёрстаны:
 
 - Логин
