@@ -1,4 +1,4 @@
-import { Block } from './Block';
+import { Block } from '../utils/Block';
 
 type Component = Block<object>;
 
@@ -63,11 +63,9 @@ export class StoreBindings<Store extends Record<string | number | symbol, unknow
 
   // Каждый раз возвращает новый прокси-объект для отслеживания обращений к стору
   getBoundStore<T extends Component>(component: T): DeepReadonly<Store> {
-    const bind = this.registerBinding.bind(this);
-
     return new Proxy(this.store, {
-      get(obj: Store, prop: keyof Store) {
-        bind(component, prop);
+      get: (obj: Store, prop: keyof Store) => {
+        this.registerBinding(component, prop);
         return obj[prop];
       },
     });

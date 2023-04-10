@@ -1,7 +1,8 @@
-import { api } from './API';
 import { HTTPTransport } from '../utils/HTTPTransport';
 
-export class Controller {
+const api = 'https://ya-praktikum.tech/api/v2'; // swagger: https://ya-praktikum.tech/api/v2/swagger
+
+export abstract class API {
   private readonly api: string;
   private httpTransport?: HTTPTransport;
 

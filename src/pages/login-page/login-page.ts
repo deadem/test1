@@ -2,11 +2,11 @@ import './login-page.scss';
 import template from './login-page.hbs?raw';
 import { Block } from '../../utils/Block';
 import { ErrorLine, InputField } from '../../components';
-import { NavigateTo, withNavigation, WithNavigationProps } from '../../utils/Navigation';
+import { withNavigation, WithNavigationProps } from '../../utils/Navigation';
 import { withValidation, WithValidationProps } from '../../utils/Validation';
-import { AuthController } from '../../controllers/AuthController';
+import { withStore, WithStoreProps } from '../../store/Store';
 
-interface Props extends WithNavigationProps, WithValidationProps {
+interface Props extends WithNavigationProps, WithValidationProps, WithStoreProps {
 }
 
 type Refs = {
@@ -18,6 +18,7 @@ type Refs = {
 
 @withNavigation
 @withValidation
+@withStore
 export class LoginPage extends Block<Props, Refs> {
   static componentName = 'LoginPage';
   protected template = template;
@@ -33,15 +34,11 @@ export class LoginPage extends Block<Props, Refs> {
 
     const login = this.refs.login.value();
     const password = this.refs.password.value();
-    console.log('login:', login);
-    console.log('password:', password);
 
     this.refs.errorLine.setProps({ error: undefined });
 
     if (login && password) {
-      new AuthController().signin(login, password).then(function() {
-        NavigateTo.chat();
-      }).catch(error => {
+      this.props.store.reducers.signin(login, password).catch(error => {
         this.refs.errorLine.setProps({ error: error?.reason || 'Неизвестная ошибка' });
       });
     }

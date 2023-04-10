@@ -3,11 +3,10 @@ import plus from '../../assets/plus_icon.svg';
 import cross from '../../assets/cross_icon.svg';
 import template from './chat-header.hbs?raw';
 import { Block } from '../../utils/Block';
-import { withStore, WithStoreProps } from '../../utils/Store';
-import { UserController } from '../../controllers/UserController';
-import { ChatController } from '../../controllers/ChatController';
+import { withStore, WithStoreProps } from '../../store/Store';
 
 type Props = WithStoreProps & {
+  dialogTitle?: string;
   menu?: { icon: string; text: string; }[] | undefined;
 };
 
@@ -25,37 +24,46 @@ export class ChatHeader extends Block<Props, Refs> {
     }
   };
 
+  private menu = [
+    {
+      icon: plus,
+      text: 'Добавить пользователя',
+      onClick: { onSubmit: this.onUserAdd.bind(this), dialogTitle: 'Добавить пользователя', text: 'Добавить' }
+    },
+    {
+      icon: cross,
+      text: 'Удалить пользователя',
+      onClick: { onSubmit: this.onUserRemove.bind(this), dialogTitle: 'Удалить пользователя', text: 'Удалить' }
+    },
+  ];
+
   protected override customProps() {
     return {
       ...super.customProps(),
-      onClickMenu: this.onClickMenu.bind(this),
-      onUserAdd: this.onUserAdd.bind(this),
+      onClickMenu: (id: number) => this.setProps({ menu: undefined, ...this.menu[id].onClick }),
       name: () => this.props.store.chats?.filter(chat => chat.id == this.props.store.currentChat)[0]?.name,
     };
   }
 
   private showMenu(e: Event) {
     e.stopPropagation();
-    this.setProps({
-      menu: [
-        { icon: plus, text: 'Добавить пользователя' },
-        { icon: cross, text: 'Удалить пользователя' },
-      ]
-    });
+    this.setProps({ menu: this.menu });
   }
 
-  private onClickMenu(id: number) {
-    void(id);
-    this.setProps({ menu: undefined, useradd: true });
+  private closeMenu() {
+    this.setProps({ menu: undefined, dialogTitle: undefined });
   }
 
   private onUserAdd({ value }: ({ value: string })) {
-    this.setProps({ menu: undefined, useradd: false });
-    new UserController().find(value).then((userId) => {
-      return new ChatController().addUser(this.props.store.currentChat, userId);
-    }).catch(e => {
+    this.props.store.reducers.addUser(value).catch(e => {
       console.error(e);
-    });
+    }).finally(() => this.closeMenu());
+  }
+
+  private onUserRemove({ value }: ({ value: string })) {
+    this.props.store.reducers.removeUser(value).catch(e => {
+      console.error(e);
+    }).finally(() => this.closeMenu());
   }
 
   protected override componentDidMount(): void {

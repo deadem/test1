@@ -2,10 +2,11 @@ import './profile-content.scss';
 import template from './profile-content.hbs?raw';
 import { Block } from '../../utils/Block';
 import { ProfileField } from '../index';
-import { withStore, WithStoreProps } from '../../utils/Store';
+import { withStore, WithStoreProps } from '../../store/Store';
 import { withValidation, WithValidationProps } from '../../utils/Validation';
 
 interface Props extends WithStoreProps, WithValidationProps {
+  upload?: boolean;
 }
 
 type Refs = {
@@ -47,17 +48,23 @@ export class ProfileContent extends Block<Props, Refs> {
     }
   };
 
-  constructor(props: Props) {
-    super({
-      ...props,
-      // свойства шаблона
-      onAddAvatar: () => { this.setProps({ upload: false }); },
+  protected override customProps() {
+    return {
+      ...super.customProps(),
+      onAddAvatar: this.updateAvatar.bind(this),
       validateNewPasswordCopy: (value: string) => {
         if (value != (this.refs.passwordNew.value() || '')) {
           return 'Пароли не совпадают';
         }
       }
-    });
+    };
+  }
+
+  private updateAvatar(file: File) {
+    return this.props.store.reducers.updateAvatar(file)
+      .then(() => {
+        this.setProps({ upload: false });
+      });
   }
 
   public passwordFields(): ProfileContentPassword {

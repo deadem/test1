@@ -1,12 +1,12 @@
 import './registration-page.scss';
 import template from './registration-page.hbs?raw';
 import { Block } from '../../utils/Block';
-import { NavigateTo, withNavigation, WithNavigationProps } from '../../utils/Navigation';
+import { withNavigation, WithNavigationProps } from '../../utils/Navigation';
 import { ErrorLine, InputField } from '../../components';
 import { isAllPropsDefined, withValidation, WithValidationProps } from '../../utils/Validation';
-import { AuthController } from '../../controllers/AuthController';
+import { withStore, WithStoreProps } from '../../store/Store';
 
-interface Props extends WithNavigationProps, WithValidationProps {
+interface Props extends WithNavigationProps, WithValidationProps, WithStoreProps {
   validatePasswordCopy: (value: string) => string | undefined;
 }
 
@@ -24,6 +24,7 @@ type Refs = {
 
 @withNavigation
 @withValidation
+@withStore
 export class RegistrationPage extends Block<Props, Refs> {
   static componentName = 'RegistrationPage';
   protected template = template;
@@ -58,15 +59,11 @@ export class RegistrationPage extends Block<Props, Refs> {
       password: this.refs.password.value(),
     };
 
-    console.log('form:', fields);
-
     if (!isAllPropsDefined(fields)) {
       return;
     }
 
-    new AuthController().signup(fields).then(() => {
-      NavigateTo.chat();
-    }).catch(error => {
+    this.props.store.reducers.signup(fields).catch(error => {
       this.refs.errorLine.setProps({ error: error?.reason || 'Неизвестная ошибка' });
     });
   }

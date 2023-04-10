@@ -1,10 +1,9 @@
 import './chat-footer.scss';
 import template from './chat-footer.hbs?raw';
 import { Block } from '../../utils/Block';
-import { MessagesController } from '../../controllers/MessagesController';
+import { withStore, WithStoreProps } from '../../store/Store';
 
-interface Props {
-  controller: MessagesController;
+interface Props extends WithStoreProps {
 }
 
 type Refs = {
@@ -12,6 +11,7 @@ type Refs = {
   input: HTMLInputElement;
 }
 
+@withStore
 export class ChatFooter extends Block<Props, Refs> {
   static componentName = 'ChatFooter';
   protected template = template;
@@ -25,7 +25,7 @@ export class ChatFooter extends Block<Props, Refs> {
     e.stopImmediatePropagation();
     e.preventDefault();
 
-    this.props.controller.addMessage(this.refs.input.value);
+    this.props.store.reducers.addMessage(this.refs.input.value);
     this.refs.input.value = '';
   }
 }
