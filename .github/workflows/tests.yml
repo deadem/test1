@@ -26,7 +26,7 @@ jobs:
     - name: Get testing lib
       run: set -eu && git clone https://github.com/deadem/tests-second-floor.git
     - name: Get bats testing lib
-      run: set -eu && git clone https://github.com/bats-core/bats-core.git && cd bats-core && ./install.sh /usr/local
+      run: set -eu && git clone https://github.com/bats-core/bats-core.git && cd bats-core && sudo ./install.sh /usr/local
     - name: Run tests
       run: bats tests-second-floor/tests/sprint_1.bats
     - name: Check dist and node_modules in .gitignore
