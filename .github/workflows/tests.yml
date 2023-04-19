@@ -29,16 +29,6 @@ jobs:
       run: set -eu && git clone https://github.com/bats-core/bats-core.git && cd bats-core && sudo ./install.sh /usr/local
     - name: Run tests
       run: bats tests-second-floor/tests/sprint_1.bats
-    - name: Check dist and node_modules in .gitignore
-      run: bash tests-second-floor/sprint_1/check_gitignore.sh
-    - name: Check npm run start existence
-      run: bash tests-second-floor/sprint_1/check_start.sh
-    - name: Check Parcel in start script
-      run: bash tests-second-floor/sprint_1/check_parcel.sh
-    - name: Check PORT 3000
-      run: bash tests-second-floor/sprint_1/check_port.sh
-    - name: Check routing
-      run: node tests-second-floor/sprint_1/check_routing.js
 
   sprint_2:
     if: ${{github.head_ref == 'sprint_2'}}
