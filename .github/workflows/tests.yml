@@ -23,10 +23,10 @@ jobs:
     - name: Сheck if the repository is private
       run: exit 1
       if: ${{github.event.repository.private}}
+    - name: Install testing libs
+      run: set -eu && sudo apt-get install bats jq
     - name: Get testing lib
       run: set -eu && git clone https://github.com/deadem/tests-second-floor.git /tmp/tests-second-floor
-    - name: Get bats testing lib
-      run: set -eu && git clone https://github.com/bats-core/bats-core.git /tmp/bats-core && cd /tmp/bats-core && sudo ./install.sh /usr/local
     - name: Run tests
       run: bats /tmp/tests-second-floor/tests/sprint_1.bats
 
