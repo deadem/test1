@@ -22,5 +22,5 @@
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "module": "ES2020"
-  },
+  }
 }
