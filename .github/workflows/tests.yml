@@ -8,6 +8,8 @@ on:
 jobs:
   test:
     if: ${{github.head_ref == 'sprint_1' || github.head_ref == 'sprint_2' || github.head_ref == 'sprint_3' || github.head_ref == 'sprint_4'}}
+    env:
+      SPRINT: ${{github.head_ref}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -28,35 +30,20 @@ jobs:
       run: set -eu && git clone https://github.com/deadem/tests-second-floor.git /tmp/tests-second-floor
 
     - name: Run tests (sprint_1)
-      if: ${{github.head_ref == 'sprint_1'}}
-      run: >
-        bats
-        /tmp/tests-second-floor/tests/sprint_1.bats
-        /tmp/tests-second-floor/tests/node_build.bats
+      if: ${{github.head_ref >= 'sprint_1'}}
+      run: bats /tmp/tests-second-floor/tests/sprint_1.bats
 
     - name: Run tests (sprint_2)
-      if: ${{github.head_ref == 'sprint_2'}}
-      run: >
-        bats
-        /tmp/tests-second-floor/tests/sprint_1.bats
-        /tmp/tests-second-floor/tests/sprint_2.bats
-        /tmp/tests-second-floor/tests/node_build.bats
+      if: ${{github.head_ref >= 'sprint_2'}}
+      run: bats /tmp/tests-second-floor/tests/sprint_2.bats
 
     - name: Run tests (sprint_3)
-      if: ${{github.head_ref == 'sprint_3'}}
-      run: >
-        bats
-        /tmp/tests-second-floor/tests/sprint_1.bats
-        /tmp/tests-second-floor/tests/sprint_2.bats
-        /tmp/tests-second-floor/tests/sprint_3.bats
-        /tmp/tests-second-floor/tests/node_build.bats
+      if: ${{github.head_ref >= 'sprint_3'}}
+      run: bats /tmp/tests-second-floor/tests/sprint_3.bats
 
     - name: Run tests (sprint_4)
-      if: ${{github.head_ref == 'sprint_4'}}
-      run: >
-        bats
-        /tmp/tests-second-floor/tests/sprint_1.bats
-        /tmp/tests-second-floor/tests/sprint_2.bats
-        /tmp/tests-second-floor/tests/sprint_3.bats
-        /tmp/tests-second-floor/tests/sprint_4.bats
-        /tmp/tests-second-floor/tests/node_build.bats
+      if: ${{github.head_ref >= 'sprint_4'}}
+      run: bats /tmp/tests-second-floor/tests/sprint_4.bats
+
+    - name: Run tests (server)
+      run: bats /tmp/tests-second-floor/tests/node_build.bats
