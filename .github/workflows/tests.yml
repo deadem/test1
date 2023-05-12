@@ -5,9 +5,6 @@ on:
     branches:
       - main
 
-env:
-  TERM: xterm-256color
-
 jobs:
   test:
     if: ${{github.head_ref == 'sprint_1' || github.head_ref == 'sprint_2' || github.head_ref == 'sprint_3' || github.head_ref == 'sprint_4'}}
@@ -28,7 +25,7 @@ jobs:
       if: ${{github.event.repository.private}}
       run: exit 1
     - name: Install testing libs
-      run: set -eu && sudo apt-get install bats jq
+      run: set -eu && git clone https://github.com/bats-core/bats-core.git && cd bats-core && ./install.sh /usr/local
     - name: Get testing lib
       run: set -eu && git clone https://github.com/deadem/tests-second-floor.git /tmp/tests-second-floor
 
