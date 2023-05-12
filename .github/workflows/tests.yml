@@ -25,7 +25,7 @@ jobs:
       if: ${{github.event.repository.private}}
       run: exit 1
     - name: Install testing libs
-      run: set -eu && git clone https://github.com/bats-core/bats-core.git && cd bats-core && ./install.sh /usr/local
+      run: set -eu && git clone https://github.com/bats-core/bats-core.git && cd bats-core && sudo ./install.sh /usr/local
     - name: Get testing lib
       run: set -eu && git clone https://github.com/deadem/tests-second-floor.git /tmp/tests-second-floor
 
