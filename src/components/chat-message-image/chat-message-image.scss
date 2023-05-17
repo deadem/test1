@@ -1,0 +1,23 @@
+@import '../../variables';
+
+.chat-message-image {
+  display: inline-block;
+  position: relative;
+  align-self: flex-start;
+
+  &__image {
+    border: 1px solid $divider-line-color;
+    border-radius: 12px;
+  }
+
+  &__time {
+    font: $font-nano;
+    padding: 2px 7px;
+    color: $chat-message-inverse-color;
+    background: $chat-message-inverse-bgcolor;
+    border-radius: 30px;
+    position: absolute;
+    right: 11px;
+    bottom: 11px;
+  }
+}
