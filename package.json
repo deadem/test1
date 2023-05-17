@@ -1,10 +1,32 @@
 {
-  "name": "Middle-Frontend chat",
+  "name": "middle-frontend-chat",
   "version": "1.0.0",
-  "description": "Chat",
+  "description": "Middle-Frontend Chat",
+  "license": "ISC",
   "engines": {
     "node": ">=12"
   },
+  "workspaces": [
+    "packages/*"
+  ],
+  "targets": {
+    "default": {
+      "includeNodeModules": true
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite --port 3000 --host",
+    "build": "rimraf ./dist/* && vite build",
+    "start": "npm run build && node ./server.js"
+  },
+  "devDependencies": {
+    "handlebars": "^4.7.7",
+    "rimraf": "^3.0.2",
+    "sass": "^1.57.1",
+    "vite": "^4.0.4"
+  },
   "dependencies": {
+    "express": "^4.18.2"
   }
 }

@@ -1,0 +1,18 @@
+@import '../../assets/variables';
+
+.error-page {
+  &__code {
+    font: $font-large;
+    text-align: center;
+  }
+
+  &__title {
+    margin: 20px 0 70px;
+    font: $font-big;
+    text-align: center;
+  }
+
+  &__link {
+    text-align: center;
+  }
+}
