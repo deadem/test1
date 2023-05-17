@@ -1,0 +1,31 @@
+@import '../../variables';
+
+.chat-message {
+  background: $chat-message-bgcolor;
+  max-width: 400px;
+  padding: 0 11px 11px;
+  border-radius: 0 12px 12px;
+  position: relative;
+  align-self: flex-start;
+  font: $chat-message-font;
+
+  &__text {
+    padding: 0;
+    margin: 10px 0 0;
+    color: $chat-message-color;
+  }
+
+  &__text-end {
+    // распорка для отодвигания времени сообщения от текста
+    display: inline-block;
+    width: 28px;
+  }
+
+  &__time {
+    font: $font-nano;
+    color: $text-light-color;
+    position: absolute;
+    right: 11px;
+    bottom: 11px;
+  }
+}

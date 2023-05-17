@@ -1,0 +1,19 @@
+<div class="profile-page">
+  <div class="profile-page__left">
+    <button class="profile-page__left-button" title="К чатам" ref="chatLink"></button>
+  </div>
+  <div class="profile-page__center">
+    <div class="profile-page__content">
+      {{{ ProfileContent edit=edit password=password ref="fields" }}}
+      <div class="profile-page__footer">
+        {{#if edit}}
+          {{{ Button text="Сохранить" page="profile" className="profile-page__button-save" ref="save" }}}
+        {{else}}
+          {{{ ProfileLink className="profile-page__field" name="Изменить данные" ref="edit" }}}
+          {{{ ProfileLink className="profile-page__field" name="Изменить пароль" ref="editPassword"}}}
+          {{{ ProfileLink className="profile-page__field" name="Выйти" color="red" ref="exit" }}}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>

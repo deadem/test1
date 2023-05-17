@@ -1,0 +1,31 @@
+@import '../../variables';
+
+.profile-field {
+  display: flex;
+  width: 100%;
+  height: 32px;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+
+  &__name {
+    color: $title-color;
+  }
+
+  &__input {
+    flex: 1;
+    margin-left: 8px;
+  }
+
+  &__value {
+    color: $text-light-color;
+  }
+
+  &__error {
+    margin-top: 32px;
+    position: absolute;
+    right: 0;
+    background: white;
+    z-index: 1;
+  }
+}

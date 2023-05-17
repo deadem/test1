@@ -1,0 +1,15 @@
+.registration-page {
+  width: 280px;
+  min-height: 555px;
+  display: flex;
+  flex-direction: column;
+
+  &__content {
+    flex: 1;
+    padding-bottom: 24px;
+  }
+
+  &__input {
+    margin-top: 16px;
+  }
+}

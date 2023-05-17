@@ -1,0 +1,40 @@
+@import '../../variables';
+
+.upload-file {
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    font: $dialog-modal-title;
+    color: $title-color;
+  }
+
+  &__link {
+    position: relative;
+    display: inline-block;
+    margin: 40px 0 45px;
+    overflow: hidden;
+  }
+
+  &__element {
+    cursor: pointer;
+    position: absolute;
+
+    // Подставим снизу плашки с текстом контрол выбора файла.
+    // Зададим заведомо бОльший размер, чтобы в область видимости не попал текст.
+    font-size: 100px;
+    direction: rtl;
+  }
+
+  &__link-text {
+    pointer-events: none;
+    display: inline-block;
+    background: $text-bgcolor;
+    position: relative;
+    text-decoration-line: underline;
+    color: $link-color;
+    font: $font-small;
+  }
+}
