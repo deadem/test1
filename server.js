@@ -4,6 +4,7 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.SERVER_PORT || 3000;
+const entryPoint = path.resolve(__dirname, 'dist', 'index.html');
 
 app.use(express.static(path.resolve(__dirname, 'dist')));
 
