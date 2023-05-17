@@ -1,0 +1,35 @@
+@import '../../variables';
+
+.menu {
+  background: $menu-bgcolor;
+  box-shadow: $menu-shadow;
+  border-radius: 12px;
+  padding: 15px;
+  z-index: 1;
+
+  &__item {
+    $this: &;
+
+    display: flex;
+    align-items: center;
+    font: $menu-font;
+    cursor: pointer;
+
+    & + #{$this} {
+      margin-top: 16px;
+    }
+  }
+
+  &__item-icon {
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin-right: 15px;
+  }
+
+  &__item-icon-image {
+    width: 22px;
+    height: 22px;
+    color: $button-bgcolor;
+  }
+}

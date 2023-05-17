@@ -1,0 +1,16 @@
+@import '../../variables';
+
+.search {
+  height: 30px;
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 0;
+  background: $gray-light-color;
+  border-radius: 5px;
+
+  &::placeholder {
+    text-align: center;
+  }
+}
